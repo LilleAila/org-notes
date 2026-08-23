@@ -35,8 +35,6 @@ def translate_display_math(match):
             .replace(r"\begin{align}", r"\begin{aligned}")
             .replace(r"\end{align}", r"\end{aligned}")
            )
-    # if (tex.startswith("\\begin")):
-    #     tex = f"\\[{tex}\\]"
     return f"\n{tex}\n"
 
 for file_path in source_path.rglob("*.org"):

@@ -6,4 +6,4 @@
 #+last_modified: [2026-08-23 Sun 12:48]
 #+filetags: :inf264:
 
-Introduction to Mathine Learning at UiB
+Introduction to Machine Learning at UiB

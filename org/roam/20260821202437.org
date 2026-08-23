@@ -13,7 +13,7 @@ Part of [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]
 Et induksjonsbevis inneholder en påstand $P\left(n\right)$ om heltall $n > n_0$. Påstanden $P\left(n\right)$ er sant for alle $n\geq n_0$ hvis
 
 1. $P\left(n_0\right)$ er sant
-2. For $k \geq n_0$ er $P\left(k\right) sant$=>P(k+1)$ er sant.
+2. For $k \geq n_0$ er $P\left(k\right)$ sant $\Rightarrow$ $P\left(k + 1\right)$ er sant.
 
 * Eksempel
 
