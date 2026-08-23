@@ -1,0 +1,129 @@
+# Based on https://github.com/ikoamu/publish-org-roam-ui/blob/main/action.yml
+# Added a conditional for upload to gh pages.
+#
+name: "Publish org-roam-ui"
+description: "Generate org-roam-ui static page and deploy to GitHub Pages"
+
+branding:
+  icon: 'zap'
+  color: 'gray-dark'
+
+inputs:
+  org-roam-db-filename:
+    description: "org-roam db filename"
+    required: true
+  org-roam-directory:
+    description: "org-roam directory"
+    required: false
+    default: "."
+  site-title:
+    description: "Site title"
+    required: false
+    default: "ORUI"
+  deploy-to-pages:
+    description: "Deploy to GitHub Pages"
+    required: false
+    default: "false"
+  default-section-open:
+    description: "Default section open"
+    required: false
+    default: "true"
+  ui-ref:
+    description: "Specify org-roam-ui branch"
+    required: false
+    default: "publish-org-roam-ui"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout this repo
+      uses: actions/checkout@v4
+      with:
+        repository: ikoamu/publish-org-roam-ui
+        path: action
+    - name: Checkout org file repo
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ github.repository }}
+        path: orgs
+    - name: Checkout org-roam-ui
+      uses: actions/checkout@v4
+      with:
+        repository: ikoamu/org-roam-ui
+        ref: ${{ inputs.ui-ref }}
+        path: ui
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+
+    # create graphdata.json and notes
+    - name: Install graphdata generator dependencies
+      working-directory: action
+      run: npm install
+      shell: bash
+    - name: Generate graphdata.json
+      working-directory: action
+      run: npm run generate:graphdata --script_params='../orgs/${{ inputs.org-roam-directory }}/${{ inputs.org-roam-db-filename }}'
+      shell: bash
+    - name: Create Notes
+      working-directory: action
+      run: ./create_notes.sh ../orgs/${{ inputs .org-roam-directory }}
+      shell: bash
+    - name: Create Search data
+      working-directory: action
+      run: npm run generate:search
+      shell: bash
+    - name: Copy seachdata.json to ../ui/components/Search
+      working-directory: action
+      run: cp --force	searchdata.json ../ui/components/Search/
+      shell: bash
+    - name: Create Search index
+      working-directory: action
+      run: node build-index.js
+      shell: bash
+    - name: Copy fuse-index.json to ../ui/components/Search
+      working-directory: action
+      run: cp --force	fuse-index.json ../ui/components/Search/
+      shell: bash
+    - name: Copy org/img to ui/public/
+      working-directory: action
+      run: |
+        if [ -d "../orgs/${{ inputs.org-roam-directory }}/img" ]; then
+          cp -r ../orgs/${{ inputs.org-roam-directory }}/img ../ui/public
+        fi
+      shell: bash
+
+    # build org-roam-ui
+    - name: Install org-roam-ui dependencies
+      working-directory: ui
+      run: yarn install
+      shell: bash
+    - name: Set NEXT_PUBLIC_TITLE to .env
+      working-directory: ui
+      shell: bash
+      run: echo "NEXT_PUBLIC_TITLE=${{ inputs.site-title }}" > .env
+    - name: Set NEXT_PUBLIC_DEFAULT_SECTION_OPEN to .env
+      working-directory: ui
+      shell: bash
+      run: echo "NEXT_PUBLIC_DEFAULT_SECTION_OPEN=${{ inputs.default-section-open }}" >> .env
+    - name: Build org-roam-ui
+      working-directory: ui/standalone
+      run: ./build-standalone-server.sh ../../action/
+      shell: bash
+    - name: Add nojekyll
+      working-directory: ui
+      run: touch ./standalone/out/.nojekyll
+      shell: bash
+
+    - name: Upload artifact
+      if: ${{ inputs.deploy-to-pages == 'true' }}
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: "./ui/standalone/out"
+
+    - name: Deploy to GitHub Pages
+      if: ${{ inputs.deploy-to-pages == 'true' }}
+      id: deployment
+      uses: actions/deploy-pages@v4
