@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       5DBB8E16-9374-41ED-A69C-A9B38EE00650
+:END:
+#+title: INF264
+#+created: [2026-08-23 Sun 12:48]
+#+last_modified: [2026-08-23 Sun 12:48]
+#+filetags: :inf264:
+
+Introduction to Mathine Learning at UiB

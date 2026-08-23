@@ -1,0 +1,26 @@
+:PROPERTIES:
+:ID:       661CB197-9968-4075-AE19-5083FB2944F7
+:END:
+#+title: Machine learning workflow
+#+created: [2026-08-21 Fri 08:17]
+#+last_modified: [2026-08-21 Fri 08:17]
+#+filetags: :inf264:
+
+Part of [[id:5DBB8E16-9374-41ED-A69C-A9B38EE00650][INF264]]
+
+-----
+
+Machine learning is about programs that improve their performance based on the data.
+
+Goal: learning a generalizing model. Creating a model that not only explains the data, but works for large datasets.
+
+1. Collecting and representing data
+    For example, if the input has two relevant variables, this can be represented ina  2-dimensional plane.
+2. Choose candidate models
+    One candidate model for a 2d plane is a linear model, which is just a straight line in the plane. Another option si non-linear models, which can be more complex curves.
+3. Learn a model
+    Find a *decision boundary* between the regions corresponding to different classes.
+4. Evaluate a model.
+   Use validation data that are not part of the training dataset. We need to collect new data to verify that the model works, because otherwise the model might overfit the data. This means that it describes exactly the training data but may also contain possible inaccuracies, outliers, errors etc. from the training data. Due to this, we need to use a separate validation dataset that the model has not seen before.
+
+   With the new dataset, we can see how many mistakes were made to evaluate the performance of the model. Often, an overfitted model will yield perfect results for the training dataset, but be significantly more inaccurate than another model when evaluated on a new dataset.

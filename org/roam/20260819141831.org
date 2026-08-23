@@ -1,0 +1,196 @@
+:PROPERTIES:
+:ID:       F83C5BBA-B63B-49DF-A20C-81A4754A8B6C
+:END:
+#+title: Stable Matching
+#+created: [2026-08-19 Wed 14:18]
+#+last_modified: [2026-08-19 Wed 14:18]
+#+filetags: :inf234:
+
+Part of [[id:7248FCAE-E47D-4C5D-BFCD-C54DECE24BA1][INF234]]
+
+* Definition
+
+Given two disjoint sets $S$ and $H$, a matching in $\left(S , H\right)$ is a collection of disjoint pairs $M \subseteq S \times H$.
+
+This models assignment of e.g. medical students to hospitals, pilots to planes, users to servers, etc. It is essentially an assignment from one set to the other. A matching is /perfect/ if it covers $H$ and $S$.
+
+** Preferences
+
+A preference on $H$ is an orvering of elements $H$. Assume that every student and every hospital has a list of preferences, e.g.
+
+\[\begin{align}
+\text{>} s_1 & : h_1 & > h_2 & > h_3 \\
+ \text{>} h_1 & : s_2 & > s_1 & > s_3
+\end{align}\]
+
+** Instability
+
+Given a matching $M$, $s \in S$, $h \in H$ is an /unstable pair/ if $\left\{s , h\right\} \notin M$, but $\left\{s , h'\right\}, \left\{s', h\right\} \in M$ and $h \text{>}_s h' \wedge s \text{>}_h s'$. That is to say, both $s$ and $h$ prefer each other over their current matches.
+
+A perfect matching $M$ is /stable/ if there is no unstable pair. The naive way to check this wouldbe to check for each matching if all the other options of $h$ for each $s$ are unstable. If none of these pairs are unstable, the matching itself is stable.
+
+** The Stable Matching problem
+
+Given sets $S$ and $H$ with their corresponding preference lists, find and return a stable matching $M$. The naive brute force solution would be
+
+#+begin_src typst :outfile ../assets/stable-matching-1.svg
+  #pseudocode-list[
+    + *input*: $S$, $H$, preference lists
+    #gap
+    + *for* every assignment $M$ between $S$ and $H$:
+      + *if* $M$ is stable:
+        + *return* $M$
+    #gap
+    + *return* None
+  ]
+#+end_src
+
+#+RESULTS:
+[[file:../assets/stable-matching-1.svg]]
+
+This algorithm is by definition correct, although it is very inefficient.
+
+Given that both $S$ and $H$ are of size $n$ (this is a prerequisite for a stable matching to exist), the time complexity would be $O\left(n^n\right)$, however because we ignore the already chosen $h$ (because one note can not be chosen multiple times) it becomes $O\left(n !\right)$. This has to be done for each $n$, so the final complexity is $O\left(n ! \cdot n\right), \quad n = | S | = | H |$.
+
+* Gale-Shapley algorithm
+
+    *Theorem.* (Gale, Shapley; 1962) There exists an $O\left(n^2\right)$-time algorithm for the Stable Matching problem. It always outputs a stable matching.
+
+    -----
+
+It wouldn't be feasible to solve this problem in less than $O\left(n^2\right)$ because the input with the preference lists is of size $n^2$, so anything faster would be unviable.
+
+The algorithm was originally used to match nedical students to hospitals in the US. The Gale-Shapley algorithm significantly improved the process.
+
+    -----
+
+  * Start with an empty matching and gradually improve it.
+  * A student $s$ may apply to hospital $h$.
+  * If $h$ is free, it will tentatively accept $s$
+  * If $h$ already accepted $s'$:
+    + $s \text{>}_h s'$: $h$ accepts $s$, rejects $s'$.
+    + $s' \text{>}_h s$: $h$ keeps $s'$, rejects $s$.
+  * Students apply in the order of preference, and never re-apply.
+  * When all student applications are processed, return the current matching.
+
+#+begin_src typst :outfile ../assets/gale-shapley1.svg
+  #pseudocode-list[
+    + *input*: $S$, $H$, preference lists
+    #gap
+    + initialize $M$ to an empty matching
+    #gap
+    + *while* $\exists$ unmatched student $s$ who didn't apply to every hospital:
+      + $h$ = first hospital on the list of $s$ where $s$ hasn't applied
+      + *if* $h$ is unmatched:
+        + add $\left(s , h\right)$ to $M$
+      + *else if* $h$ prefers $s$ to current match $s'$:
+        + replace $\left(s', h\right)$ with $\left(s , h\right)$ in $M$
+    #gap
+    + *return* $M$
+  ]
+#+end_src
+
+#+RESULTS:
+[[file:../assets/gale-shapley1.svg]]
+
+See boox notes for a visual example of the algorithm.
+
+** Proof
+
+*** Time complexity
+
+  *Claim.* The algorithm terminates after at most $n^2$ iterations of the `while` loop.
+
+  * Each iteration, a student applies to a new hospital.
+  * A student never applies to the same hospital twice, and always moves on to the lower preference.
+  * There are $n^2$ student-hospital pairs, and one is exhausted every iteration $\Rightarrow$ at most $n^2$ iterations.
+  * At most $O\left(n\right)$ time per iteration $\Rightarrow$ running time is at most $O\left(n^3\right)$. However, with optimizations, each iteration can be done in constant time, which will yield a total running time $O\left(n^2\right)$
+
+*** Correctness (part 1)
+
+  *Claim.* The algorithm outputs a perfect matching.
+
+  Note: all of this assumes that both sets are of equal size $n$.
+
+  * The algorithm outputs a matching:
+    * student $s$: only applies to a new hospital if unmatched $\Rightarrow$ $s$ is in $\leq 1$ pairs.
+    * hospital $h$: only accepts a new student by rejecting previous $\Rightarrow$ $h$ is in $\leq 1$ pairs.
+
+  Assume the matching is not perfect $\Rightarrow$ a student $s$ and a hospital $h$ are unmatched.
+
+  $s$ only stops applying after trying all hospitals $\Rightarrow$ $s$ must have applied to $h$ at some point. The only way for $s$ to end up without a match to $h$ is if $h$ found a better match. However, in that case it would be impossible for $h$ to end up with $0$ matches. Because each hospital only strictly improves its match, it will always have a paired student.
+
+  Because $h$ has been matched to a student, the algorithm cannot make a matched hospital unmatched. This is a contradiction. Thus, the matching must be perfect.
+
+*** Correctness (part 2)
+
+  *Claim.* The algorithm outputs a stable matching.
+
+  * $M$ is a perfect matching, as proved in part 1.
+  * Assume a student $s$ and a hospital $h$ form an unstable pair in $M$.
+  * Case 1: $s$ never applied to $h$
+    + $\Rightarrow$ $s$ applies by decreasing preference, hence $s$ prefers $h'$ (the existing match) to $h$.
+    + $\Rightarrow$ $\left(s , h\right)$ is stable
+  * Case 2: $s$ applied to $h$
+    + $\Rightarrow$ $h$ rejected $s$, so $h$ preferred $s'$ over $s$;
+    + $\Rightarrow$ $s'$ must be better than $s' \text{>}_h s$;
+    + $\Rightarrow$ $\left(s , h\right)$ is stable
+
+*** Conclusion
+
+  * *Claim.* The algorithm outputs a perfect matching.
+  * *Claim.* The algorithm outputs a stable matching.
+  * *Claim.* The algorithm terminates after at most $n^2$ iterations of the =while= loop.
+  * A single iteration can be implemented in constant time.
+
+These claims together prove:
+
+#+begin_theorem
+*Theorem.* (Gale, Shapley; 1962) There exists an $O\left(n^2\right)$-time algorithm for the Stable Matching problem. It always outputs a stable matching.
+#+end_theorem
+
+** Extensions
+
+*** Extension 1: Some agents declare others as unacceptable
+
+The algorithm will still guarantee a stable matching, however the result $M$ will not necessarily be a perfect matching. That is to stay, some nodes might be unmatched in the result.
+
+*** Extension 2: Some hospitals have more than one position
+
+This is trivial to implement, simply by duplicating the hospital so that there are multiple nodes in $H$ with equal preference lists. The lists in $S$ also have to be updated.
+
+*** Extension 3: Unequal number of positions and students.
+
+As in extension 1, the result is not necessarily a perfect matching.
+
+*** Definition of an unstable pair (with these extensions):
+
+  * $s$ and $h$ are acceptable to each other
+  * $s$ is unmatched, or prefers $h$ to its current hospital
+  * $h$ has a free position, or prefers $s$ to at least one current student.
+
+** Different stable matchings
+
+There may be several distinct stable matchings. Hospital $h$ is a valid option for a student $s$ if there exists a stable matching where $s$ and $h$ are matched.
+
+*** Individual optimality
+
+*Lemma.* Let $M$ be a matching returned by Gale-Shapley. A student $s$ is matched to their *best* valid option.
+
+  * Assume the contrary, let $s$ be the first student rejected by their valid hospital $h$.
+  * $h$ rejects $s$ in favor of $s'$ $\Rightarrow$ $s' \text{>}_h s$.
+  * Let $M'$ be a stable matching where $s$ is matched with $h$. In $M'$, let $h'$ be matched with $s'$.
+  * In G-S, $s'$ was accepted by $h$ and hadn't been rejected
+    + $\Rightarrow$ $s'$ applied to $h$ before $h'$
+    + $\Rightarrow$ $h \text{>}_{s'} h'$
+  * $\left(s', h\right)$ is an unstable pair for $M'$ - contradiction!
+
+In other words, the result is always stable, but the result is skewed towards the students. Students $s$ end up with their best valid $h$, while hospitals $h$ will end up with their words valid $s$. This can be reversed by swapping the sets in the input.
+
+* Stable roommates
+
+*Problem:* Stable Roommates
+Given set $V$, a preference list $\text{>}_v$ on $V \setminus \left\{v\right\}$ for each $v \in V$,
+Return a stable matching $M$.
+
+While there does not always exist a solution to the stable roommates problem, it is still possible to solve computationally.

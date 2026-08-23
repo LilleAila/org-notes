@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       7E583AF3-E610-472A-AF5B-80EDA45A794A
+:END:
+#+title: MAT111
+#+created: [2026-08-18 Tue 21:33]
+#+last_modified: [2026-08-18 Tue 21:33]
+#+filetags: :mat111:
+
+* Calculus 1
+
++ Book: /Calculus: A Complete Course 10/e/ - Robert Adams, Christopher Essex

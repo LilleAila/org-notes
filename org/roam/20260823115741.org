@@ -1,0 +1,106 @@
+:PROPERTIES:
+:ID:       440D7A31-7148-416D-BD75-4CD05ADDB8E0
+:END:
+#+title: Telling
+#+created: [2026-08-23 Sun 11:57]
+#+last_modified: [2026-08-23 Sun 11:57]
+#+filetags: :mat221:
+
+Del av [[id:4649E8BC-2102-46F7-8D9E-693AEA5A82F9][MAT221]]
+
+-----
+
+For å telle kombinasjoner, deles det vanligvis opp i fire grunnsituasjoner:
+
++ Rekkefølgen teller, uten repetisjon
++ Rekkefølgen teller, med repetisjon
++ Rekkefølgen teller ikke, uten repetisjon
++ Rekkefølgen teller ikke, med repetisjon
+
+** Multiplikasjonsprinsippet
+
+Anta at en aktivitet består av $k$ trinn $H_1 , H_2 , \ldots , H_k$. Hvis det etter hvert mulig valg i de foregående trinnene finnes nøyaktig $\alpha_i$ muligheter i trnn $H_i$, kan hele aktiviteten utføres på $\alpha_1 \alpha_2 \ldots \alpha_k$.
+
+*** Eksempel: Binære sekvenser
+
+For hvert av elementene i mengden $\left\{1 , 2 , \ldots , n\right\}$ har vi to valg: elementet er med i en delmengde, eller det er ikke med. Multiplikasjonsprinsippet gir da $2 \cdot 2 \cdot \ldots \cdot 2 = 2^n$. Vi kan kode en delmebgde med en binær sekvens $x_1 x_2\ldots x_n$ der $x_i = 1$ dersom $i$ er med i delmengden og $x_i = 0$ ellers. For eksempel svarer delmengden $\left\{1 , 3\right\} \subseteq \left\{1 , 2 , 3\right\}$ til sekvensen $101$:
+
+** Addisjonsprinsippet
+
+For helt adskilte tilfeller, bruker man addisjon. Anta at hvert mulig utfall ligger i nøyaktig ett av tilfellene $H_1 , H_2 , \ldots , H_k$, og at tilfellene har henholdsvis $\alpha_1 , \alpha_2 , \ldots , \alpha_k$ mulige utfall. Da finnes det totalt $\alpha_1 + \alpha_2 + \ldots + \alpha_k$ mulige utfall.
+
+*** Eksempel: Valg av emne
+
+En student skal velge *ett* valgemne. Hun kan velge mellom $5$ matematikkemner og $7$ informatikkemner, og ingen emner står på begge listene. Antall muligheter er da $5 + 7 = 12$ ved addisjonsprinsippet.
+
+
+** Fakultet
+
+Når flere objekter plasseres i rekkefølge, får man produktet $n \left(n - 1\right) \left(n - 2\right) \left(n - 3\right) \ldots \left(2\right) \left(1\right)$. Dette kalles også /fakultet/. For et positivt heltall $n \in \mathbb{N}$ definerer vi $n$-fakultet ved $n ! = n\left(n - 1\right)\left(n - 2\right)\ldots 2 \cdot 1$. Vi har også at $0 ! = 1$.
+
+*** Eksempel: Plassering av objekter
+
+$n$ objekter skal plasseres på $n$ markerte plasser. For den første finnes det $n$ muligheter, så $n - 1$, så $n - 2$ etc. Altså blir det totale antallet kombinasjoner $n !$.
+
+** Ordnede utvalg med repetisjon
+
+Formelen for dette blir ganske enkelt $n^r$ der $n$ er antall objekter og $r$ er hvor mange man skal velge. Her er det mulig å velge samme objekt flere ganger.
+
+** Ordnede utvalg uten repetisjon
+
+For ordnede utvalg uten repetisjon defineres antall kombinasjoner med $\frac{n !}{\left(n - r\right)!}$ der $n$ er antall objekter, og $r$ er antall objekter som skal velges. Altså må man ikke nødvendigvis telle med alle objektene. Her kan vi ikke velge samme objekt to ganger, og man skilles mellom forskjellige rekkefølger. Det vil si at utvalgene $\left(a , b , c\right)$ og $\left(b , a , c\right)$ regnes som forskjellige.
+
+*** Eksempel: Kortstokk
+
+På hvor mange måter kan vi trekke to forskjellige kort fra en vanlig kortstokk uten tilbakelegging når vi husker rekkefølgen kortene ble trukket i?
+
+En kortstokk har $52$ kort, og vi skal trekke $2$ kort. Altså er antall kombinasjoner $52 \cdot 51 = \frac{52 !}{50 !} = 2652$.
+
+** Uordnede utvalg
+
+Tilfeller der rekkefølgen ikke teller, må man fjerne alle like kombinasjoner. For eksempel kan man ha spørsmålene
+
++ Fire studenter skal få vervene leder, nestleder, sekretær og kasserer.
++ Fire studenter skal velges til en komité uten slike verv.
+
+  I det første tilfellet har rekkefølgen noe å si, så man vil bruke formelen $\frac{n !}{\left(n - r\right)!}$. I det andre tilfellet har derimot rekkefølgen ikke noe å si. Altså må vi fjerne de kombinasjonene som blir telt opp flere ganger.
+
+*** Eksempel
+
+  Vi skal velge $4$ av $20$ markerte plasser. Hvis vi først regner dette som et ordnet utvalg, får vi $20 \cdot 19 \cdot 18 \cdot 17 = \frac{20 !}{16 !}$. Av de $4$ plassene vi er interessert i, er det $4 !$ ulike rekkefølger som beskriver det samme utvalget. Altså får vi at
+
+\[\begin{align}
+A \cdot 4 ! & = \frac{20 !}{16 !} \\
+ A & = \frac{20 !}{4 ! 16 !} = \binom{20}{4}
+\end{align}\]
+
+Symbolet $\binom{n}{r}$ leses "n *velg* r", og betyr antallet måter å velge $r$ objekter blant $n$ ulike objekter når rekkefølgen ikke teller. Dette kalles /binomialkoeffisienten/.
+
+*** Bevis
+
+For $0 \leq r \leq n$ er binomialkoeffisienten definert ved
+
+\[
+\binom{n}{r} = \frac{n !}{r !\left(n - r\right)!}
+\]
+
+Hvis vi ser bort fra rekkefølgen, telles hvert uordnet utvalg nøyaktig $r !$ ganger. Derfor har vi
+
+\[\begin{align}
+r ! \binom{n}{r} & = \frac{n !}{\left(n - r\right)!} \\
+ \binom{n}{r} & = \frac{n !}{\left(n - r\right)!}
+\end{align}\]
+
+*** Identiteter
+
+1. For $0 \leq r \leq n$ gjelder $\binom{n}{r} = \binom{n}{n - 1}$
+2. For $1 \leq r \leq n$ gjelder $\binom{n + 1}{r} = \binom{n}{r} + \binom{n}{r - 1}$
+
+Den første identiteten er triviell: å velge de $r$ objektene som skal inkluderes, bestemmer også de $n - r$ objektene som ekskluderes, og omvendt.
+
+For den andre identiteten velger man ett objekt $x$ blant de $n + 1$ objektene. Et utvalg av $r$ objekter ligger i ett av to adskilte tildeller:
+
++ $x$ er med. Da må vi velge re desterende $r - 1$ objektene blant de andre $n$ objektene: $\binom{n}{r - 1}$ muligheter.
++ $x$ er ikke med. Da velger vi alle de $r$ objektene blant de andre $n$ objektene: $\binom{n}{r}$ muligheter.
+
+Addisjonsprinsippet gir da $\binom{n + 1}{r} = \binom{n}{r} + \binom{n}{r - 1}$. Denne identiteten kalles også *pascals identitet*. Den gjør det mulig å beregne binomialkoeffisientene mer effektivt, uten å bruke fakulteter.

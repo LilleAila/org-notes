@@ -1,0 +1,130 @@
+:PROPERTIES:
+:ID:       F701D30E-17F5-4AF6-A9D6-21CF8902B853
+:END:
+#+title: Supervised learning
+#+created: [2026-08-21 Fri 08:29]
+#+last_modified: [2026-08-21 Fri 08:29]
+#+filetags: :inf264:
+
+Part of [[id:5DBB8E16-9374-41ED-A69C-A9B38EE00650][INF264]]
+
+-----
+
+* Terminology
+
++ *Task*: what the end user wants to do
++ *Model*: is a (hopefully good) solution to the task
++ *Model family*: (or hypothesis space) is a set of models from which the model is chosen.
++ *Data*: (or experience) consists of observations in the domain the user is interested.
++ *Features*: machine-understandable representation of the data; the way you encode your data. You need to encode data into numbers before passing it to the machine.
++ *Performance*: a quantitative measure of how good a model is
+
+Defining machien learning:
+
+A *machien learning algorithm* is an algorithm that
+1. Processes the data in the form of features
+2. In order to find one model in the model family
+3. Which solves teh task at hand achieving the best performance
+
+* Supervised learning
+
+ Supervised learning is a specific type of task:
+ + *Task*: predict labels of new, unseen objects
+ + *Performance measure*: (typically) prediction acuracy or error
+ + *Data*: object-label pairs
+
+ We distinguish between two types:
+ + SL1: *Classification*: predict categorical labels
+ + SL2: *Regression*: predict real-valued labels (continuous numbers)
+
+** (SL1) Classification
+
+Labels are discrete and are called classes. The model that predicts the label is called a classifier. The labels are unordered. This means that any error in the prediction will have the same error.
+
+For example:
++ Given an image of a handwritten digit, classify it as one of the 10 digits
++ Given symptoms and test results of a patient, predict the most likely diagnosis
++ Given an email message, decide whether it is spam or not
+
+
+** (SL2) Regression
+
+Labels / output values are continuous. The models are called regressors. Unlike classifiers, the values are ordered and thus the result can have varying degrees of error depending on the difference between the predicted and actual value.
+
+For example:
++ Given historical data and economic indicators, predict the stock price in the future
++ Given past buying behaviour, predict future sales of a product
+
+* Generalization
+
+The end goal of machine learning it to make predictions about examples that you have not seen before. Generalization is fundamental for learning and survival: it allows us to apply existing knowledge to future scenarios. The same can apply to ML models.
+
+-----
+
+Example: pythagoras. The agent will be given the sides $a$ and $b$ of a right triangle, in addition to the length of the hypotenuse $c$. We are given the following training data: $\left(3 , 4 , 5\right)$, $\left(5 , 12 , 13\right)$, $\left(8 , 15 , 17\right)$. One hypothesis could be $c = b + 1$. However, this only works for some cases (e.g. $a = 5 , b = 12 , c = 13$). This does not work in all cases, and is called *underfitting*. Another option is to record all the examples as $\left(3 , 4 , 5\right)$, $\left(5 , 12 , 13\right)$, $\left(8 , 15 , 17\right)$. This works perfectly for the three examples, but there is no way to generalize it. In this case, the model is just *memorizing*, which is bad.
+
+Another hypothesis could be: $c = b + 1$ if $a \leq 5$ else $c = b + 2$. This also works perfectly with the training data. However, it fails on a new sample such as $\left(7 , 40 , 41\right)$. In this case, we are *overfitting*. The ideal solution would be to use the correct formula $c = \sqrt{a^2 + b^2}$. This succeeds on all examples and new samples, so we have successfully generalized.
+
+-----
+
+Generalizing is not trivial. Generalizing too little renders the model useless, while generalizing too much means the model will be wrong.
+
+Example:
+#+begin_quote
+An engineer, a physicist, and a mathematician are on a train in Scotland, and they see a black sheep. The engineer says "look: all sheep in Scotland are black." The physicist says "no, some sheep in Scotland are black." The mathematician is irritated with them and replies: "you have it all wrong: there is at least one sheep in Scotland, and it is black on at least one side."
+#+end_quote
+
+The mathematician's comclusion is correct, but the statement is not very useful or practical. Meanwhile, the engineer is overfitting to the data and jumps to a conclusion too quickly. From this example, the physicist hits the best balance between under-generalizing and over-generalizing.
+
+** Example
+
++ There is an unknown function $f\left(x\right)$
++ We have observed that $f\left(1\right) = 2$, $f\left(2\right) = 4$, $f\left(4\right) = 8$, and $f\left(5\right) = 10$
++ *Task*: Figure out what $f$ is. Using your estimate of $f$, determine the value of $f\left(x\right)$.
+
+Plotting these points in a coordinate system yields result that look visually like a straight line. An option is $f\left(x\right) = 2 x$. Another option is $f\left(x\right) = - 3.10187065 \sin(x) - 3.17684994 \cos(x) + 2.03141401 \sin(2 x) - 10.76407068 \cos(2 x)$. We can see that both of these functions fit the data perfectly. The most likely correct result here would be the first option $f\left(x\right)$. While the second function is technically correct, the first one would usually be better, and the second option is an example of overfitting to the training data.
+
+However, to choose the best model, we would also want information on the source of the data. While the first option is more reasonable to use, depending on what the data is based on, the second one could be closer to the truth. This would apply for example if we know that the data cannot be generated by a linear process and has to be sinusoidal.
+
+** Inductive bias
+
+The inductive bias of a learning algorithm is the set of assumptions that the learner uses to preduict outputs given inputs that it has not encountered. A model without inductive bias can memorize training data, but it cannot generalize. It has no basis for preferring one label over another for unseen data. The predictions depend heavily on your assumptions.
+
+
+Examples of inductive bias:
++ *Linearity*: $y$ varies linearly in $x$
++ *Simplicity*: Simple models are better than complex ones (*Ockham's razor*)
++ *Similarity*: Similar objects have similar labels
+
+Inductive biases take the form of priors (prior knowledge we have describing the data), contraints, hyperparameters (the technical way we will "tune" ML algorithms towards better results).
+
+** More terminology
+
++ *Generalization*: ability of extending results to unseen samples
++ *Inductive biases*: assumptions underlying the structure of the data and allowing generalization
+
+Now, a machine learning algorithm has the added 4th step:
+1. Processes the data in the form of features
+2. In order to find one model in the model family
+3. Which solves teh task at hand achieving the best performance and
+4. generalizing according to the provided inductive biases
+
+** Choosing models
+
+Different inductive biases will lead to different models.
+
+#+begin_quote
+If we have two models with different inductive biases that predict correctly all the training points, how can we figure out which one is better?
+#+end_quote
+
+1. Partition your data into two sets: *training* and *validation* sets, *before* looking at it.
+2. Use the training set to train the models
+3. Use the trained models to make predictions about examples in the validation set
+4. Compare predicted labels to true labels and compute your performance measure
+5. Choose the model with better performance on the validation set.
+6. Finally, we assess generalization on never before seen *testing* data.
+
+Practically, data has been divided into
++ *Training data*: data for learning a model
++ *Validation data*: Unseen data that is used to select a model
++ *Test data*: Unseen data that is used to evaluate performance of the selected model

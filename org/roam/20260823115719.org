@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       4649E8BC-2102-46F7-8D9E-693AEA5A82F9
+:END:
+#+title: MAT221
+#+created: [2026-08-23 Sun 11:57]
+#+last_modified: [2026-08-23 Sun 11:57]
+#+filetags: :mat221:
+
+Diskret Matematikk ved UiB

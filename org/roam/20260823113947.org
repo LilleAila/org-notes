@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       7248FCAE-E47D-4C5D-BFCD-C54DECE24BA1
+:END:
+#+title: INF234
+#+created: [2026-08-23 Sun 11:39]
+#+last_modified: [2026-08-23 Sun 11:39]
+#+filetags: :inf234:
+
+Algorithms at UiB
