@@ -1,6 +1,7 @@
 # Based on https://github.com/ikoamu/publish-org-roam-ui/blob/main/action.yml
 # Added a conditional for upload to gh pages.
-#
+# Also replace `img` with `assets` as the assets directory
+
 name: "Publish org-roam-ui"
 description: "Generate org-roam-ui static page and deploy to GitHub Pages"
 
@@ -87,11 +88,11 @@ runs:
       working-directory: action
       run: cp --force	fuse-index.json ../ui/components/Search/
       shell: bash
-    - name: Copy org/img to ui/public/
+    - name: Copy org/assets to ui/public/
       working-directory: action
       run: |
-        if [ -d "../orgs/${{ inputs.org-roam-directory }}/img" ]; then
-          cp -r ../orgs/${{ inputs.org-roam-directory }}/img ../ui/public
+        if [ -d "../orgs/${{ inputs.org-roam-directory }}/assets" ]; then
+          cp -r ../orgs/${{ inputs.org-roam-directory }}/assets ../ui/public
         fi
       shell: bash
 
