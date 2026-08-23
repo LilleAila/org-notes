@@ -14,6 +14,7 @@ filetags_pattern = re.compile(r"^#\+filetags:\s*(.*)$", re.IGNORECASE | re.MULTI
 inline_math_pattern = re.compile(r"\$[^\n]*?\$")
 display_math_pattern = re.compile(r"^\s*\$\s*$.*?^\s*\$\s*$", re.MULTILINE | re.DOTALL)
 file_link_pattern = re.compile(r"\[\[file:(.*?\/assets\/.*?)\]\]")
+typst_block_pattern = re.compile(r"^[ \t]*#\+begin_src\s+typst\s+[^\n]*?:outfile\s+.*?#\+end_src[\s\n]*#\+results:[\s\n]*(\[\[file:.*?\]\])", re.IGNORECASE | re.MULTILINE | re.DOTALL)
 
 def translate_math(typst):
     t2l_result = subprocess.run(
@@ -37,6 +38,9 @@ def translate_display_math(match):
             .replace(r"\end{align}", r"\end{aligned}")
            )
     return f"\n{tex}\n"
+
+def replace_typst_block(match):
+    return match.group(1)
 
 for file_path in source_path.rglob("*.org"):
     relative_path = file_path.relative_to(source_path)
@@ -71,6 +75,7 @@ for file_path in source_path.rglob("*.org"):
             shutil.copy2(asset_source_path, asset_dest_path)
         return f"[[file:./{asset_relative_path}]]"
 
+    content = typst_block_pattern.sub(replace_typst_block, content)
     content = file_link_pattern.sub(replace_file_link, content)
     content = inline_math_pattern.sub(translate_inline_math, content)
     content = display_math_pattern.sub(translate_display_math, content)

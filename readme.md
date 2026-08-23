@@ -1,7 +1,3 @@
-## TODO
-
-- embed results from tyspt blocks properly (hide the source)
-
 ## Inspiration and tools used:
 
 - https://github.com/qwinsi/tex2typst

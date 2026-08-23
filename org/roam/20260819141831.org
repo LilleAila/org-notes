@@ -33,19 +33,6 @@ A perfect matching $M$ is /stable/ if there is no unstable pair. The naive way t
 
 Given sets $S$ and $H$ with their corresponding preference lists, find and return a stable matching $M$. The naive brute force solution would be
 
-#+begin_src typst :outfile ../assets/stable-matching-1.svg
-  #pseudocode-list[
-    + *input*: $S$, $H$, preference lists
-    #gap
-    + *for* every assignment $M$ between $S$ and $H$:
-      + *if* $M$ is stable:
-        + *return* $M$
-    #gap
-    + *return* None
-  ]
-#+end_src
-
-#+RESULTS:
 [[file:./assets/stable-matching-1.svg]]
 
 This algorithm is by definition correct, although it is very inefficient.
@@ -73,24 +60,6 @@ The algorithm was originally used to match nedical students to hospitals in the 
   * Students apply in the order of preference, and never re-apply.
   * When all student applications are processed, return the current matching.
 
-#+begin_src typst :outfile ../assets/gale-shapley1.svg
-  #pseudocode-list[
-    + *input*: $S$, $H$, preference lists
-    #gap
-    + initialize $M$ to an empty matching
-    #gap
-    + *while* $\exists$ unmatched student $s$ who didn't apply to every hospital:
-      + $h$ = first hospital on the list of $s$ where $s$ hasn't applied
-      + *if* $h$ is unmatched:
-        + add $\left(s , h\right)$ to $M$
-      + *else if* $h$ prefers $s$ to current match $s'$:
-        + replace $\left(s', h\right)$ with $\left(s , h\right)$ in $M$
-    #gap
-    + *return* $M$
-  ]
-#+end_src
-
-#+RESULTS:
 [[file:./assets/gale-shapley1.svg]]
 
 See boox notes for a visual example of the algorithm.
