@@ -22,12 +22,12 @@ Vis at $8^n - 3^n$ er delelig på $5$ for alle $n \geq 1 , \quad n \in \mathbb{N
 1. $P\left(1\right)$ sier at $8^1 - 3^1 = 5$ er delelig på $5$. Dette er åpenbart sant.
 2. Vi antar at $P\left(k\right)$ er sant for $k > 1$. Vi vil nå vise at $P\left(k + 1\right)$ er sann.
 
-\[\begin{align}
+\begin{aligned}
 \left(*\right) \; & : 8^k - 3^k \text{delelig på 5} \\
  8^{k + 1} - 3^{k + 1} & = 8 \cdot 8^k - 3 \cdot 3^k \\
  & = 8 \cdot 8^k - 8 \cdot 3^k + 8 \cdot 3^k - 3 \cdot 3^k \\
  & = 8 \left(8^k - 3^k\right) + \left(8 - 3\right) 3^k \\
  & = 8 \underbrace{\left(8^k - 3^k\right)}{\text{Delelig på 5 ved *}} + \underbrace{5 \cdot 3^k}{\text{Delelig på 5}}
-\end{align}\]
+\end{aligned}
 
 Jeg har nå vist at påstanden $P\left(n\right)$ er sann for $P\left(1\right)$, og hvis påstanden er sann for en vilkårlig $P\left(k\right)$, er den også sann for $P\left(k + 1\right)$. Dermed er påstanden sann for alle $n \geq 1 , n \in \mathbb{N}$. Q.E.D.

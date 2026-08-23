@@ -30,8 +30,13 @@ def translate_inline_math(match):
 
 def translate_display_math(match):
     tex = translate_math(match.group(0).strip())
-    if (tex.startswith("\\begin")):
-        tex = f"\\[{tex}\\]"
+    tex = (
+            tex
+            .replace(r"\begin{align}", r"\begin{aligned}")
+            .replace(r"\end{align}", r"\end{aligned}")
+           )
+    # if (tex.startswith("\\begin")):
+    #     tex = f"\\[{tex}\\]"
     return f"\n{tex}\n"
 
 for file_path in source_path.rglob("*.org"):

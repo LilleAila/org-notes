@@ -69,10 +69,10 @@ Tilfeller der rekkefølgen ikke teller, må man fjerne alle like kombinasjoner. 
 
   Vi skal velge $4$ av $20$ markerte plasser. Hvis vi først regner dette som et ordnet utvalg, får vi $20 \cdot 19 \cdot 18 \cdot 17 = \frac{20 !}{16 !}$. Av de $4$ plassene vi er interessert i, er det $4 !$ ulike rekkefølger som beskriver det samme utvalget. Altså får vi at
 
-\[\begin{align}
+\begin{aligned}
 A \cdot 4 ! & = \frac{20 !}{16 !} \\
  A & = \frac{20 !}{4 ! 16 !} = \binom{20}{4}
-\end{align}\]
+\end{aligned}
 
 Symbolet $\binom{n}{r}$ leses "n *velg* r", og betyr antallet måter å velge $r$ objekter blant $n$ ulike objekter når rekkefølgen ikke teller. Dette kalles /binomialkoeffisienten/.
 
@@ -86,10 +86,10 @@ For $0 \leq r \leq n$ er binomialkoeffisienten definert ved
 
 Hvis vi ser bort fra rekkefølgen, telles hvert uordnet utvalg nøyaktig $r !$ ganger. Derfor har vi
 
-\[\begin{align}
+\begin{aligned}
 r ! \binom{n}{r} & = \frac{n !}{\left(n - r\right)!} \\
  \binom{n}{r} & = \frac{n !}{\left(n - r\right)!}
-\end{align}\]
+\end{aligned}
 
 *** Identiteter
 

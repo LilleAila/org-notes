@@ -12,13 +12,13 @@ Part of [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]
 
 Mengder er en samling med tall, for eksempel $\mathbb{N}$. Noen av de vanligste mengdene for tall er:
 
-\[\begin{align}
+\begin{aligned}
 &\mathbb{N} = \left\{1 , 2 , 3 , \ldots\right\} & \text{Naturlige tall} \\
  &\mathbb{Z} = \left\{\ldots , - 2 , - 1 , 0 , 1 , 2 , \ldots\right\} & \text{Heltall} \\
  &\mathbb{Q} = \left\{\frac{a}{b} | a , b \in \mathbb{Z} , b \neq 0\right\} & \text{Rasjonale tall} \\
  &\mathbb{R} & \text{Reelle tall} \\
  &\mathbb{Q} = \left\{a + b i | a , b \in \mathbb{R} \wedge i = \sqrt{- 1}\right\} & \text{Komplekse tall}
-\end{align}\]
+\end{aligned}
 
 Symbolet $\subset$ betyr "er delmebgde av":
 

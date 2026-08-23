@@ -20,11 +20,11 @@ Et komplekst tall er et uttrykk på formen $Z = a + i \cdot b , \quad a , b \in 
 
   Komplekse tall kan også skrives på /polarform/: $Z = | Z | \cdot \left(\cos \theta + i \cdot \sin \theta\right)$. Den første delen $| Z | = \sqrt{a^2 + b^2}$ er lengden på vektoren fra origo til punktet i det komplekse planet. Denne kalles /modulus/, og sjeldnere /norm/ eller /absoluttverdi/. Vinkelen $\theta$ er et /argument/ til $Z$. Grunnen til at det er "et argument" er fordi det finnes uendelig mange argumenter ved vinkelen $\theta + 2 \pi$. Dette skrives $\arg Z = \theta$. Fra dette har vi altså
 
-\[\begin{align}
+\begin{aligned}
 a & = | Z | \cdot \cos \theta \\
  b & = | Z | \cdot \sin \theta \\
  Z & = | Z | \left(\cos \theta + i \sin \theta\right)
-\end{align}\]
+\end{aligned}
 
 Komplekse tall på polarform skrives vanligvis forenklet som $Z = | Z | \cdot e^{i \theta}$. Ofte ønsker man å skrive om komplekse tall til polarform slik at det er enklere å jobbe med.
 
@@ -34,57 +34,57 @@ Regnereglene for komplekse tall er stort sett det samme som med reelle tall, så
 
 ** Addisjon
 
-\[\begin{align}
+\begin{aligned}
 Z & = a + i b \\
  W & = c + i d \\
  Z \pm W & = \left(a + i b\right) \pm \left(c + i d\right) \\
  & = \left(a \pm c\right) + i \left(b \pm d\right)
-\end{align}\]
+\end{aligned}
 
 ** Multiplikasjon
 
 Den distributive lov gjelder også for komplekse tall.
 
-\[\begin{align}
+\begin{aligned}
 Z \cdot W & = \left(a + i b\right) \cdot \left(c + i d\right) \\
  & = a c + i a d + i b c + i^2 b d \\
  & = \left(a c - b d\right) + i \left(a d + b c\right)
-\end{align}\]
+\end{aligned}
 
 En viktig identitet man får fra dette og konjugatsetningen er:
 
-\[\begin{align}
+\begin{aligned}
 Z \cdot \overline{Z} & = \left(a + i b\right) \left(a - i b\right) \\
  & = a^2 - i^2 b^2 \\
  & = a^2 + b^2 = | Z |^2
-\end{align}\]
+\end{aligned}
 
 Ved hjelp av denne identiteten kan vi også finne en regel for divisjon:
 
-\[\begin{align}
+\begin{aligned}
 \frac{W}{Z} & = \frac{W \cdot \overline{Z}}{Z \cdot \overline{Z}} \\
  & = \left(c + i d\right)\frac{a - i b}{a^2 + b^2} \\
  & = \frac{c a + i d a - i c b - i^2 d b}{a^2 + b^2} \\
  & = \frac{\left(c a + d b\right) + i \left(d a - c b\right)}{a^2 + b^2} \\
  & = \frac{c a + d b}{a^2 + b^2} + i \frac{d a - c b}{a^2 + b^2}
-\end{align}\]
+\end{aligned}
 
 *** Geometrisk tolkning av multiplikasjon
 
 Vi kan skrive på polarform:
 
-\[\begin{align}
+\begin{aligned}
 Z & = | Z | e^{i \theta} \\
  W & = | W | e^{i \varphi} \\
  Z \cdot W & = | Z\| W | e^{i \left(\theta + \varphi\right)}
-\end{align}\]
+\end{aligned}
 
 Altså har vi at:
 
-\[\begin{align}
+\begin{aligned}
 | Z \cdot W | & = | Z\| W | \\
  \arg \left(Z \cdot W\right) & = \arg Z + \arg W
-\end{align}\]
+\end{aligned}
 
 Dette er også et eksempel på hvordan notasjonen $e^{i \varphi}$ gjør det betydelig enklere å jobbe med.
 
@@ -94,15 +94,13 @@ Fra /De Moivres formel/ har vi også at $\left(e^{i \theta}\right)^n = e^{i n \t
 
 * Røtter til komplekse tall
 
-Gitt $Z \in \mathbb{C}$, løs likningen $W^n = Z$ for $W$. Dette kallse /n-te røtter/ til $Z$. Vi definerer $Z = | Z | \cdot e^{i \theta}$ og \begin{align}
-W & = | W | \cdot e^{i \varphi}
-\end{align}. Vi kan da løse likningen
+Gitt $Z \in \mathbb{C}$, løs likningen $W^n = Z$ for $W$. Dette kallse /n-te røtter/ til $Z$. Vi definerer $Z = | Z | \cdot e^{i \theta}$ og $W = | W | \cdot e^{i \varphi}$. Vi kan da løse likningen
 
-\[\begin{align}
+\begin{aligned}
 W^n & = Z \\
  | W |^n \cdot \left(e^{i \varphi}\right)^n & = | Z | e^{i \theta} \\
  | W |^n \cdot e^{i \varphi n} & = | Z | e^{i \theta}
-\end{align}\]
+\end{aligned}
 
 Fra dette har vi at modulus kan skrives som $| W | = \sqrt[n]{| Z |}$. Videre kan vi skrive vinkelen som $\varphi = \frac{\theta}{n} + k \frac{2 \pi}{n} , \quad k \in \mathbb{Z}$. Dette er fordi et komplekst tall kan ha flere røtter. Mer spesifikt har det $n$ $n$-te røtter. Dette er fordi $k = n$ gir $\varphi = \frac{\theta}{n} + 2 \pi$, som er lik et helt omløp. Altså vil resultatene gjentas.
 
@@ -124,10 +122,10 @@ Videre har vi /faktorteoremet/. Hvis $a$ er en rot til $P\left(x\right)$, deler 
 
 Vi har at $P\left(x\right)$ er et reelt polynom og $P\left(Z\right)= 0$ og $P\left(\overline{Z}\right)= 0$. $Z \notin \mathbb{R} \Leftrightarrow Z \neq \overline{Z}$. Altså er $\left(x - Z\right)$ og $\left(x - \overline{Z}\right)$ faktorer. Det vil si at $\left(x - Z\right)\left(x -\overline{Z}\right)$ deler $P\left(x\right)$. Vi kan videre finne et uttrykk med kun reelle koeffisienter ved
 
-\[\begin{align}
+\begin{aligned}
 \left(x - Z\right)\left(x -\overline{Z}\right) & = x^2 - \left(Z + \overline{Z}\right) x + Z \overline{Z} \\
  & = x^2 - 2 a x + a^2 + b^2
-\end{align}\]
+\end{aligned}
 
 $\Rightarrow$ Et reelt polynom $P\left(x\right)$ kan faktoriseres over $\mathbb{R}$ i lineære og kvadratiske faktorer, ved å kombinere to og to imaginære ledd.
 
@@ -137,13 +135,13 @@ Faktoriser $P\left(x\right) = x^4 + 2 x^3 + 4 x^2 + 2 x + 3$ over $\mathbb{C}$ o
 
 Vet at $P\left(Z\right) = 0 \Leftrightarrow P\left(\overline{Z}\right) = 0 \Rightarrow P\left(- i\right) = 0$. Dermed har vi at $\left(x - i\right)\left(x + i\right) = x^2 + 1$ deler $P\left(x\right)$. Da kan vi gjøre polynomdivisjon på uttrykket og få $P\left(x\right) = \left(x^2 + 1\right)\left(x^2 + 2 x + 3\right)$. Faktoriserer dette videre:
 
-\[\begin{align}
+\begin{aligned}
 x^2 + 2 x + 3 & = 0 \\
  x & = \frac{- 2 \pm \sqrt{- 8}}{2} \\
  & = \frac{- 2 \pm 2 i \sqrt{2}}{2} \\
  & = - 1 \pm \sqrt{2} i \\
  x^2 + 2 x + 3 & = \left(x - 1 - \sqrt{2} i\right)\left(x + 1 + \sqrt{2} i\right)
-\end{align}\]
+\end{aligned}
 
 Resultatet blir da at $P\left(x\right)$ faktorisert over $\mathbb{C}$ er $\left(x - 1\right)\left(x + 1\right)\left(x - 1 -\sqrt{2} i\right)\left(x + 1 +\sqrt{2} i\right)$, og $P\left(x\right)$ faktorisert over $\mathbb{R}$ er $\left(x^2 + 1\right)\left(x^2 + 2 x + 3\right)$.
 
@@ -155,7 +153,7 @@ Express each of the complex numbers $z = 3 + i \sqrt{3}$ and $w = - 1 + i \sqrt{
 
 Vi har to komplekse tall i algebraisk form. For å finne produktet og kvotienten må vi først skrive om til polarform:
 
-\[\begin{align}
+\begin{aligned}
 | Z | & = \sqrt{3^2 + \sqrt{3}^2} = \sqrt{12} = 2 \sqrt{3} \\
  \arg Z & = \tan^{- 1} \frac{\sqrt{3}}{3} = \frac{\pi}{6} \\
  Z & = 2 \sqrt{3} e^{i \frac{\pi}{6}} \\
@@ -163,30 +161,30 @@ Vi har to komplekse tall i algebraisk form. For å finne produktet og kvotienten
  \tan^{- 1} \frac{\sqrt{3}}{- 1} & = - \frac{\pi}{3} \\
  \arg W & = \pi - \frac{\pi}{3} = 2 \frac{\pi}{3} \\
  W & = 2 e^{i \frac{2 \pi}{3}}
-\end{align}\]
+\end{aligned}
 
 Videre beregner produktet:
 
-\[\begin{align}
+\begin{aligned}
 | Z \cdot W | & = | Z | \cdot | W | = 4 \sqrt{3} \\
  \arg Z \cdot W = \arg Z + \arg W = \frac{\pi}{6} + \frac{2 \pi}{3} = \frac{5 \pi}{6} \\
  Z \cdot W & = 4 \sqrt{3} e^{\frac{5\pi}{6} i}
-\end{align}\]
+\end{aligned}
 
 Og til slutt kvotienten:
 
-\[\begin{align}
+\begin{aligned}
 |\frac{Z}{W} | & = | Z\frac{|}{|} W | = \frac{2 \sqrt{3}}{2} = \sqrt{3} \\
  \arg \frac{Z}{W} & = \arg Z - \arg W \\
  & = \frac{\pi}{6} - \frac{2\pi}{3} = \frac{- 3\pi}{6} = -\frac{\pi}{2} \\
  \frac{Z}{W} & = \sqrt{3} e^{-\frac{\pi}{2} i}
-\end{align}\]
+\end{aligned}
 
 ** Appendix I, oppg 53
 
 Find the three cube roots of $- 1 + i$.
 
-\[\begin{align}
+\begin{aligned}
 w^3 & = - 1 + i \\
  w^3 & = \sqrt{2} e^{\frac{3 \pi}{4} i} \\
  | W_k | & = \sqrt[3]{\sqrt{2}} = \sqrt[6]{2} \\
@@ -194,7 +192,7 @@ w^3 & = - 1 + i \\
  W_0 & = \sqrt[6]{2} e^{i \frac{\pi}{4}} \\
  W_1 & = \sqrt[6]{2} e^{i \frac{11\pi}{12}} \\
  W_3 & = \sqrt[6]{2} e^{i \frac{19\pi}{12}} = \sqrt[6]{2} e^{-\frac{5\pi}{12}}
-\end{align}\]
+\end{aligned}
 
 ** P6 - 25
 
@@ -202,20 +200,20 @@ Vis at $P\left(Z\right) = 0 \Leftrightarrow P\left(\overline{Z}\right) = 0$.
 
 Vi har gitt at:
 
-\[\begin{align}
+\begin{aligned}
 \overline{Z} + \overline{W} & = \overline{Z + W} \\
  \overline{Z} + \overline{W} & = \overline{Z W} \\
  P\left(Z\right) & = 0 \\
  x & = \overline{x} \; \forall x \in \mathbb{R}
-\end{align}\]
+\end{aligned}
 
 Kan da sette opp:
 
-\[\begin{align}
+\begin{aligned}
 P\left(x\right) & = a_0 + a_1 x + a_2 x^2 + \ldots + a_n x^n \\
  P\left(\overline{Z}\right) & = a_0 + a_1 \overline{Z} + a_2 \overline{Z}^2 + \ldots + a_n \overline{Z}^n \\
  & = a_0 + a_1 \overline{Z} + a_2 \overline{Z^2} + \ldots ´ a_n \overline{Z^n} \\
  & = \overline{a_0} + \overline{a_1 Z} + \overline{a_2 Z^2} + \ldots + \overline{a_n Z^n} \\
  & = \overline{a_0 + a_1 Z + a_2^2 + \ldots + a_n Z^n} \\
  P\left(\overline{Z}\right) & = \overline{P\left(Z\right)} = \overline{0} = 0
-\end{align}\]
+\end{aligned}
