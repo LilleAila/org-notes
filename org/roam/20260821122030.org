@@ -12,11 +12,11 @@ Part of [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]
 Et komplekst tall er et uttrykk på formen $Z = a + i \cdot b , \quad a , b \in \mathbb{R} , i^2 = - 1$. [[id:2A2C24FA-47C2-43B2-B891-8AD0649E84BD][Mengden]] av slike er $\mathbb{C} = \left\{a + b i | a , b \in \mathbb{R} \wedge i^2 = - 1\right\}$.
 
 + $i$ kalles en /imaginær enhet/.
-+ $a = \text{Re} Z$: /reell del/
-+ $b = \text{Im} Z$: /imaginær del/
++ $a = \text{Re} \, Z$: /reell del/
++ $b = \text{Im} \, Z$: /imaginær del/
 + $\overline{Z} = a - i b$ /kompleks konjugert/, "Z-bar"
 
-  Relle tall er en delmengde av de komplekse tallene: $\mathbb{R} = \left\{Z \in \mathbb{C} | \text{Im} Z = 0\right\}$. Komplekse tall visualiseres vet hjelp av et plan, kalt /det komplekse planet/. Det har en /reell akse/ ($x$-aksen) og en /imaginær akse/ ($y$-aksen).
+  Relle tall er en delmengde av de komplekse tallene: $\mathbb{R} = \left\{Z \in \mathbb{C} | \text{Im} \, Z = 0\right\}$. Komplekse tall visualiseres vet hjelp av et plan, kalt /det komplekse planet/. Det har en /reell akse/ ($x$-aksen) og en /imaginær akse/ ($y$-aksen).
 
   Komplekse tall kan også skrives på /polarform/: $Z = | Z | \cdot \left(\cos \theta + i \cdot \sin \theta\right)$. Den første delen $| Z | = \sqrt{a^2 + b^2}$ er lengden på vektoren fra origo til punktet i det komplekse planet. Denne kalles /modulus/, og sjeldnere /norm/ eller /absoluttverdi/. Vinkelen $\theta$ er et /argument/ til $Z$. Grunnen til at det er "et argument" er fordi det finnes uendelig mange argumenter ved vinkelen $\theta + 2 \pi$. Dette skrives $\arg Z = \theta$. Fra dette har vi altså
 
