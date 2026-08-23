@@ -16,6 +16,15 @@ display_math_pattern = re.compile(r"^\s*\$\s*$.*?^\s*\$\s*$", re.MULTILINE | re.
 file_link_pattern = re.compile(r"\[\[file:(.*?\/assets\/.*?)\]\]")
 typst_block_pattern = re.compile(r"^[ \t]*#\+begin_src\s+typst\s+[^\n]*?:outfile\s+.*?#\+end_src[\s\n]*#\+results:[\s\n]*(\[\[file:.*?\]\])", re.IGNORECASE | re.MULTILINE | re.DOTALL)
 
+abs_pattern = re.compile(r"(?<!\\left)(?<!\\right)(?<!\\)\|([^\|]+?)(?<!\\left)(?<!\\right)(?<!\\)\|")
+double_abs_pattern = re.compile(r"(?<!\\left)(?<!\\right)\\\|([^\|]+?)\\\|")
+set_builder_pattern = re.compile(r"(\{.*?)\|\s*(.*?)\}")
+def fix_math_pipes(tex: str) -> str:
+    tex = abs_pattern.sub(r"\\left|\1\\right|", tex)
+    tex = double_abs_pattern.sub(r"\\left\\|\1\\right\\|", tex)
+    tex = set_builder_pattern.sub(r"\1\\mid \2", tex)
+    return tex
+
 def translate_math(typst):
     t2l_result = subprocess.run(
         ["t2l", "-d", "t2l", "--strict"],
@@ -25,6 +34,7 @@ def translate_math(typst):
         check=True,
     )
     tex = t2l_result.stdout.strip()
+    tex = fix_math_pipes(tex)
     return tex
 
 def translate_inline_math(match):

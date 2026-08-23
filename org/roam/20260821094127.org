@@ -59,8 +59,8 @@ In this example, we have used euclidean distance as a measure of similarify. How
 
 Common distance measures include
 + Euclidean distance: $d\left(x , z\right) = \sqrt{\sum_i \left(x_i - z_i\right)^2}$
-+ Manhattan distance: $d\left(x , z\right) = \sum_i | x_i - z_i |$
-+ $L_p - \text{norm}$: $\| x - z\|_p = \left(\sum_i | x_i - z_i |^p\right)^{\frac{1}{p}}$
++ Manhattan distance: $d\left(x , z\right) = \sum_i \left| x_i - z_i \right|$
++ $L_p - \text{norm}$: $\left\| x - z\right\|_p = \left(\sum_i \left| x_i - z_i \right|^p\right)^{\frac{1}{p}}$
 
 It may be better to use domain-specific distance measures, and different distance measures will yield different results.
 

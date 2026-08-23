@@ -37,7 +37,7 @@ Given sets $S$ and $H$ with their corresponding preference lists, find and retur
 
 This algorithm is by definition correct, although it is very inefficient.
 
-Given that both $S$ and $H$ are of size $n$ (this is a prerequisite for a stable matching to exist), the time complexity would be $O\left(n^n\right)$, however because we ignore the already chosen $h$ (because one note can not be chosen multiple times) it becomes $O\left(n !\right)$. This has to be done for each $n$, so the final complexity is $O\left(n ! \cdot n\right), \quad n = | S | = | H |$.
+Given that both $S$ and $H$ are of size $n$ (this is a prerequisite for a stable matching to exist), the time complexity would be $O\left(n^n\right)$, however because we ignore the already chosen $h$ (because one note can not be chosen multiple times) it becomes $O\left(n !\right)$. This has to be done for each $n$, so the final complexity is $O\left(n ! \cdot n\right), \quad n = \left| S \right| = \left| H \right|$.
 
 * Gale-Shapley algorithm
 

@@ -10,6 +10,6 @@ Part of [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]
 
 -----
 
-En funksjon $f$ fra en [[id:2A2C24FA-47C2-43B2-B891-8AD0649E84BD][mengde]] $M$ til en mengde $N$ er en regel som tilordner enhver $x \in M$ et entydig element i $M$. Notasjonen er $f : M \rightarrow N$. $M$ kaller vi /definisjonsmengden/ eller /domenet/ $D_f$ til $f$, mens $N$ er /kodomenet/. Verdimengden er definert som $V_f = \left\{f\left(x\right) | x \in M\right\}$.
+En funksjon $f$ fra en [[id:2A2C24FA-47C2-43B2-B891-8AD0649E84BD][mengde]] $M$ til en mengde $N$ er en regel som tilordner enhver $x \in M$ et entydig element i $M$. Notasjonen er $f : M \rightarrow N$. $M$ kaller vi /definisjonsmengden/ eller /domenet/ $D_f$ til $f$, mens $N$ er /kodomenet/. Verdimengden er definert som $V_f = \left\{f\left(x\right) \mid x \in M\right\$.
 
-Grafen til en funksjon er $\left\{\left(x , f\left(x\right)\right) | x \in D_f\right\} \subset \mathbb{R}^2\text{-planet}$
+Grafen til en funksjon er $\left\{\left(x , f\left(x\right)\right) \mid x \in D_f\right\ \subset \mathbb{R}^2\text{-planet}$
