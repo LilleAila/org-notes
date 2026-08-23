@@ -14,6 +14,9 @@
               set -euo pipefail
               ${lib.getExe pkgs'.org-publish}
               ${lib.getExe pkgs'.sync-db} 'org' 'org/org-roam.db'
+              git add -A
+              git commit -m "Sync $(date -Iminutes)"
+              git push origin main
             ''
           );
         };
