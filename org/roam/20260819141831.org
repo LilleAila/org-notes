@@ -46,7 +46,7 @@ Given sets $S$ and $H$ with their corresponding preference lists, find and retur
 #+end_src
 
 #+RESULTS:
-[[file:../assets/stable-matching-1.svg]]
+[[file:./assets/stable-matching-1.svg]]
 
 This algorithm is by definition correct, although it is very inefficient.
 
@@ -91,7 +91,7 @@ The algorithm was originally used to match nedical students to hospitals in the 
 #+end_src
 
 #+RESULTS:
-[[file:../assets/gale-shapley1.svg]]
+[[file:./assets/gale-shapley1.svg]]
 
 See boox notes for a visual example of the algorithm.
 

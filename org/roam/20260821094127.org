@@ -12,7 +12,7 @@ Example:
 
 #+DOWNLOADED: screenshot @ 2026-08-21 09:46:10
 #+ATTR_ORG: :width 400
-[[file:../assets/20260821094610_screenshot.png]]
+[[file:./assets/20260821094610_screenshot.png]]
 
 Data points have 2 features (coordinates) and two possible labels (either red rectangle or blue cross). Predict the labels of $A \left(0 , 0\right)$ and $B \left(2 , - 2\right)$.
 
@@ -31,25 +31,25 @@ Note that we usually want to choose odd numbers of $k$ when there are two differ
 
 #+DOWNLOADED: screenshot @ 2026-08-21 09:53:18
 #+ATTR_ORG: :width 400
-[[file:../assets/20260821095318_screenshot.png]]
+[[file:./assets/20260821095318_screenshot.png]]
 
  As we check more neighbours, the decision boundaries change. This is the decision boundaries with $k = 3$:
 
 #+DOWNLOADED: screenshot @ 2026-08-21 09:54:45
 #+ATTR_ORG: :width 400
-[[file:../assets/20260821095445_screenshot.png]]
+[[file:./assets/20260821095445_screenshot.png]]
 
 As we increase $k$, the result in this case goes towards red, because there exist more red points. Note that in this example, similarity is defined as the closest points by euclidean distance. As we can see, larger values of $k$ reduce the effect of noise, while a smaller $k$ increases flexibility. As mentioned, an odd value of $k$ avoids ties for binary classification.
 
 #+DOWNLOADED: screenshot @ 2026-08-21 09:56:26
 #+ATTR_ORG: :width 400
-[[file:../assets/20260821095626_screenshot.png]]
+[[file:./assets/20260821095626_screenshot.png]]
 
 As we can see, a value of $k$ that is too small will lead to overfitting, while a $k$ too large will be biased towards the dominant value. The solution would be to use the *validation vata* to determine the best value of $k$. While the training accuracy will actually decrease as we increase $k$, the validation accuracy will /increase/.
 
 #+DOWNLOADED: screenshot @ 2026-08-21 09:59:10
 #+ATTR_ORG: :width 400
-[[file:../assets/20260821095910_screenshot.png]]
+[[file:./assets/20260821095910_screenshot.png]]
 
 Because points with $k = 1$ determine their own class, this is essentially useless because the training data memorizes itself, rather than generalizing. In this case, we would choose $k = 7$ as it yields the highest validation accuracy on the validation data.
 

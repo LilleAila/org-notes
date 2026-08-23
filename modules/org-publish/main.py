@@ -13,7 +13,7 @@ target_path.mkdir(parents=True, exist_ok=True)
 filetags_pattern = re.compile(r"^#\+filetags:\s*(.*)$", re.IGNORECASE | re.MULTILINE)
 inline_math_pattern = re.compile(r"\$[^\n]*?\$")
 display_math_pattern = re.compile(r"^\s*\$\s*$.*?^\s*\$\s*$", re.MULTILINE | re.DOTALL)
-file_link_pattern = re.compile(r"\[\[file:(.*?)\]\]")
+file_link_pattern = re.compile(r"\[\[file:(.*?\/assets\/.*?)\]\]")
 
 def translate_math(typst):
     t2l_result = subprocess.run(
@@ -61,14 +61,17 @@ for file_path in source_path.rglob("*.org"):
     if tags.intersection(private_tags):
         continue
 
-    for link_match in file_link_pattern.finditer(content):
-        asset_relative_str = link_match.group(1).strip()
+    def replace_file_link(match, file_path=file_path, relative_path=relative_path):
+        asset_relative_str = match.group(1).strip()
         asset_source_path = (file_path.parent / asset_relative_str).resolve()
+        asset_relative_path = asset_source_path.relative_to(source_path)
         if asset_source_path.is_file():
             asset_dest_path = (target_path / relative_path.parent / asset_relative_str).resolve()
             asset_dest_path.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(asset_source_path, asset_dest_path)
+        return f"[[file:./{asset_relative_path}]]"
 
+    content = file_link_pattern.sub(replace_file_link, content)
     content = inline_math_pattern.sub(translate_inline_math, content)
     content = display_math_pattern.sub(translate_display_math, content)
 
