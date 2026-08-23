@@ -15,9 +15,9 @@ Mengder er en samling med tall, for eksempel $\mathbb{N}$. Noen av de vanligste 
 \begin{aligned}
 &\mathbb{N} = \left\{1 , 2 , 3 , \ldots\right\} & \text{Naturlige tall} \\
  &\mathbb{Z} = \left\{\ldots , - 2 , - 1 , 0 , 1 , 2 , \ldots\right\} & \text{Heltall} \\
- &\mathbb{Q} = \left\{\frac{a}{b} \left\mid a , b \in \mathbb{Z , b \neq 0\right\} & \text{Rasjonale tall} \\
+ &\mathbb{Q} = \left\{\frac{a}{b} \left| a , b \in \mathbb{Z} , b \neq 0\right\} & \text{Rasjonale tall} \\
  &\mathbb{R} & \text{Reelle tall} \\
- &\mathbb{Q} = \left\{a + b i \right\mid a , b \in \mathbb{R \wedge i = \sqrt{- 1}\right\} & \text{Komplekse tall}
+ &\mathbb{Q} = \left\{a + b i \right| a , b \in \mathbb{R} \wedge i = \sqrt{- 1}\right\} & \text{Komplekse tall}
 \end{aligned}
 
 Symbolet $\subset$ betyr "er delmebgde av":

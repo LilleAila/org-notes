@@ -18,11 +18,13 @@ typst_block_pattern = re.compile(r"^[ \t]*#\+begin_src\s+typst\s+[^\n]*?:outfile
 
 abs_pattern = re.compile(r"(?<!\\left)(?<!\\right)(?<!\\)\|([^\|]+?)(?<!\\left)(?<!\\right)(?<!\\)\|")
 double_abs_pattern = re.compile(r"(?<!\\left)(?<!\\right)\\\|([^\|]+?)\\\|")
-set_builder_pattern = re.compile(r"(\{.*?)\|\s*(.*?)\}")
+# set_builder_pattern = re.compile(r"(\{.*?)\|\s*(.*?\})")
+pipe_pattern = re.compile(r"(?<!\\left)(?<!\\right)\|\s*")
 def fix_math_pipes(tex: str) -> str:
     tex = abs_pattern.sub(r"\\left|\1\\right|", tex)
     tex = double_abs_pattern.sub(r"\\left\\|\1\\right\\|", tex)
-    tex = set_builder_pattern.sub(r"\1\\mid \2", tex)
+    # tex = set_builder_pattern.sub(r"\1\\mid \2", tex)
+    tex = pipe_pattern.sub(r"\\mid ", tex)
     return tex
 
 def translate_math(typst):
