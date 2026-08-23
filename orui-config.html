@@ -45,7 +45,23 @@
 <style>
   @media screen and (max-width: 768px) {
     .chakra-collapse > div {
-      width: 75vw !important;
+      width: 90vw !important;
+      max-width: 90vw !important;
+    }
+
+    div:has(> button[aria-label="Settings"]) {
+      bottom: 0 !important;
+    }
+
+    .headerBar > div > div {
+      flex-direction: column !important;
+      gap: 1em !important;
+      margin-top: 2em !important;
+
+      & > button {
+        padding-top: 0.5em !important;
+        padding-bottom: 0.5em !important;
+      }
     }
   }
 </style>
