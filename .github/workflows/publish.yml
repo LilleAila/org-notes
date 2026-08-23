@@ -20,4 +20,4 @@ jobs:
           org-roam-directory: org
           org-roam-db-filename: org-roam.db
           site-title: "Org notes"
-          deploy-to-pages: true
+          deploy-to-pages: false
