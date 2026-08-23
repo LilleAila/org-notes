@@ -1,7 +1,6 @@
 ## TODO
 
-- include referenced assets
-- embed results from tyspt blocks
+- embed results from tyspt blocks properly (hide the source)
 
 ## Inspiration and tools used:
 
