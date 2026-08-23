@@ -13,7 +13,7 @@
             pkgs.writeShellScript "publish" ''
               set -euo pipefail
               ${lib.getExe pkgs'.org-publish}
-              ${lib.getExe pkgs'.sync-db} 'org' 'org-roam.db'
+              ${lib.getExe pkgs'.sync-db} 'org' 'org/org-roam.db'
             ''
           );
         };
