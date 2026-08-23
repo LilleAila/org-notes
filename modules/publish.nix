@@ -11,6 +11,7 @@
           type = "app";
           program = toString (
             pkgs.writeShellScript "publish" ''
+              set -euo pipefail
               ${lib.getExe pkgs'.org-publish}
               ${lib.getExe pkgs'.sync-db} 'org' 'org-roam.db'
             ''

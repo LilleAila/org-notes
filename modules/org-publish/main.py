@@ -8,7 +8,7 @@ target_path = Path("./org")
 private_tags = {"private"}
 private_dirs = {"agenda"}
 
-shutil.rmtree(target_path)
+shutil.rmtree(target_path, ignore_errors=True)
 target_path.mkdir(parents=True, exist_ok=True)
 filetags_pattern = re.compile(r"^#\+filetags:\s*(.*)$", re.IGNORECASE | re.MULTILINE)
 inline_math_pattern = re.compile(r"\$[^\n]*?\$")
