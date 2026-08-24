@@ -36,7 +36,7 @@ def translate_math(typst):
         check=True,
     )
     tex = t2l_result.stdout.strip()
-    tex = fix_math_pipes(tex)
+    # tex = fix_math_pipes(tex) # Temporarily disabled due to #5
     return tex
 
 def translate_inline_math(match):
