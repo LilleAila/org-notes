@@ -1,0 +1,127 @@
+:PROPERTIES:
+:ID:       5A6637E3-F457-41B4-83E3-66E3F6A311B4
+:END:
+#+title: Computational Tractability
+#+created: [2026-08-24 Mon 14:15]
+#+last_modified: [2026-08-24 Mon 14:15]
+#+filetags: :inf234:
+
+Part of [[id:7248FCAE-E47D-4C5D-BFCD-C54DECE24BA1][INF234]]
+
+* Measuring efficiency
+
+An algorithm is efficient if, when implemented, it runs quickly on real input instances. The naive way of comparing algorithms is just implementing it and measuring the runtime based on different input sets.
+
+Running time depends on many things, e.g. CPU frequency. Seconds / wall clock time is generally a bad unit for measuring runnign time, as this can vary by computer and language. Usually, we measure based on the number of assembly instructions / CPU cycles. While this still depends on the architecture, it is a much better and more general measure.
+
+*Word RAM model*: Each memory cell stores a $w$-bit integer (assuming $w > \log_2 ( n$). A single step may do operations such as arithetic / logic operations on two cells, array indexing, conditional branch, goto, etc. With this model, the *running time* is the number of steps, and the *memory* is the number of memory cells used. Running time is usually the most important constraint.
+
+Efficiency is about how well the running time scales with the input size. We measure the number of primitive operations depending on the complexity of the input. The most natural and universal measure of input efficiency is input size, which in Word RAM is how many machine words are needed to store the input.
+
+** Example: Bubble sort
+
+[[file:./assets/bubble-sort.svg]]
+
++ *Claim.* Bubble sort finishes after at most $2 n^2 + n + 1$ stept.
++ *Claim.* There exists a constant $c$ such that Bubble sort finishes after at most $c \cdot n^2$ steps
+
+The second option is better, because only that part is really relevant. We don't need to know exactly how many CPU cycles are used.
+
+** Complexity
+
+*** Worst-case complexity
+
+*Definition.* Let $f : \mathbb{N} \rightarrow \mathbb{R}$. The algorithm $A$ *runs in time* $f\left(n\right)$, if on every input represented by $n$ words, $A$ concludes after executing at most $f\left(n\right)$ primitive operations.
+
+The worst-case complexity if important to account for real inputs.
+
+*** Average-case complexity
+
+*Definition.* $A$ has *expected running ting* $f\left(n\right)$ if it finishes on a randomly chosen input of size $n$ in at most $f\left(n\right)$ steps, in expectation.
+
++ /Example/: QuickSort (without randomness) runs in time $c_1 \cdot n^2$, but in $c_2 \cdot n \log(n)$ in expectation, for some constraints $c_1$ and $c_2$.
+
+*** Asymptotic order of growth
+
+Constant fators depend on the exact list of allowed primitive operations. The claims presented above assume each line is done in $1$ operation.
+
+*Definition.* Let $f : \mathbb{N} \rightarrow \mathbb{R}$. The algorithm $A$ *runs in time* $O\left(f\left(n\right)\right)$, if on every input represented by $n \geq n_0$ words, $A$ concludes after executing at most $c \cdot f\left(n\right)$ primitive operations, for some constraints $c , n_0$.
+
+The asymptotic order of growth describes what the running time approaches as $n \rightarrow \infty$. WIth this, we can rewrite the claim for bubble sort as:
+
+*Claim.* Bubble sort runs in time $O\left(n^2\right)$.
+
+** Efficiency
+
+*Definition.* An efficient algorithm $\Leftrightarrow$ runs in polynomial time. That is to say, the asymptotic time complexity is $O\left(n^d\right)$ for some constant $d$.
+
+Examples include $100 \cdot n$, $200 \cdot n^2$, $10 \cdot n \cdot \log(n)$ (while it includes a logarithm, it is asymptotically a polynomial function as $\log(n)$ is never $> n$), $1000 \cdot n^{120}$. Meanwhile, $2 \cdot 2^n$ is an example of an exponential-time algorithm, which is not efficient. Here are some arguments as to why polynomial time algorithms are efficient::
+
+1. Search space is typically exponential, so polynomial time improves upon brute force. Example: [[id:F83C5BBA-B63B-49DF-A20C-81A4754A8B6C][Stable Matching]] has $n ! \geq 2^{n - 1}$ perfect matchings, while G-S algorithm runs in $O\left(n^2\right)$ time..
+2. Scaling: input size doubles $\Rightarrow$ running time is multiplied by a constant. $n : T\left(n\right) = c \cdot n^d$, $2 n : T\left(2 n\right) = c \cdot \left(2 n^d\right) = 2^d \cdot T\left(n\right)$.
+3.  Virtually any choice of model of computation is the same. A problem poly-time solvable in Word RAM/C/Python is solvable on any turing machine.
+4. A lot of polynomial-time algorithms are efficient in practice, with a small constant and exponent.
+5. It is possible to prove there's no polynomial-time algorithm (under $P \neq N P$).
+
+*** Summary
+
+The important properties of tractability:
+
+1. We measure the number of primitive operations executed on any given instance.
+2. We bound the number of operations by some function of the instance size $n : f\left(n\right)$.
+3. This bound must hold on all instances of size $n$.
+4. We omit the constant factor in the dependence: $O\left(f\left(n\right)\right)$.
+5. We have polynomial time as the main goal
+
+*Definition*: The algorithm $A$ runs in polynomial time, if on every input of size $n$, $A$ concludes after executing at most $c \cdot n^d$ primitive operations, for some constants $c$, $d$. Equivalently, it runs in time $O\left(n^d\right)$.
+
+
+** Big O notation
+
+*Definition*. Let $f , g : \mathbb{N} \rightarrow \mathbb{R}$. We say that $f\left(x\right)$ is $O\left(g\left(n\right)\right)$ if there exists $c , n_0$ such that for any $n \geq n_0$, $0 \leq f\left(n\right) \leq c \cdot g\left(n\right)$.
+
+Example: $f\left(n\right) = 14 n^2 + 21 n + 13 \Rightarrow f\left(n\right)\text{is} O\left(n^2\right)$.
+Explanation: $f\left(n\right) \leq \left(14 + 21 + 13\right) \cdot n^2 = 48 n^2$, hence $f$ is $O\left(n^2\right)$.
+Is $f\left(n\right)$ $O\left(n\right)$? No: Assume $c , n_0$ are such that $f\left(n\right) \leq c \cdot n$ for any $n \geq n_0$; takae $n = \max\left\{c , n_0 , 1\right\}, f\left(n\right) > 14 n^2 > cn$, contradiction!
+
+
+*** Abuses of big O notation:
+
+People often write $f\left(n\right) = O\left(g\left(n\right)\right)$ for "$f\left(n\right)$ is $O\left(g\left(n\right)\right)$". However, if this is true, we could have written $f_1\left(n\right) = 5 n^3 = O\left(n^3\right)$, $f_2\left(n\right) = 3 n^3 = O\left(n^3\right)$ $\Rightarrow f_1\left(n\right) = f_2\left(n\right)$. It might be more meaningful to write $F\left(n\right) \in O\left(g\left(n\right)\right)$, but the former is the norm.
+
+In calculus, "$f\left(x\right)$ is $O\left(g\left(x\right)\right)$" is stated for real functions $f , g : \mathbb{R}_{\geq 0} \rightarrow \mathbb{R}$. Our functions act on $\mathbb{N}$, as input size is an integer. Functions act to $\mathbb{R}$ to avoid rounding notation (e.g. $f\left(n\right) = O\left(\sqrt{n}\right))$). The number of operations executed is always non-negative.
+
+*** Properties
+
+*Reflexivity*: $f$ is $O\left(f\right)$
++ $\forall n \quad f\left(n\right) \leq 1 \cdot f\left(n\right) \Rightarrow f = O\left(f\right)$.
+
+*Stretch.* If $f$ is $O\left(g\right)$, then $c \cdot f$ is $O\left(g\right)$ for any $c > 0$.
++ $\exists \, c', n_0 \quad \forall n \geq n_0 \quad f\left(n\right) \leq c' g\left(n\right)$
++ $\forall \, n \geq n_0 \quad c \cdot f\left(n\right) \leq c \cdot c' \cdot g\left(n\right) \Rightarrow c \cdot f = O\left(g\right)$.
+
+*Sums*. If $f$ is $O\left(g\right)$ and $h$ is $O\left(g\right)$, then $f + h$ is $O\left(g\right)$.
++ $f + n \leq 2 f \leq 2 c g \leq 2 h \leq 2 c' g$.
+
+*Products.* If $f_1$ is $O\left(g_1\right)$ and $f_2$ is $O\left(g_2\right)$, then $f_1 \cdot f_2$ is $O\left(g_1 \cdot g_2\right)$.
+
+** Big Omega
+
+Big $O$ concerns upper bounds. We can define an equivalent for lower bounds:
+
+*Definition.* Let $f , g : \mathbb{N} \rightarrow \mathbb{R}$. We say that $f\left(n\right)$ is $\Omega(g\left(n\right))$, if there exists $c , n_0$ such that for any $n \geq n_0$, $f\left(n\right) \geq c \cdot g\left(n\right) \geq 0$.
+
+Example: $f\left(n\right) = 14 n^2 + 21 n + 13$, $f\left(n\right)$ is $\Omega(n^2)$.
+Explanation: $f\left(n\right) \geq 13 \cdot n^2$, hence $f$ is $\Omega(n^2)$. Like with big O-notation, there are multiple valid functions. For this example, it is also $\Omega(n)$. However, we usually want the smallest $O\left(n\right)$ and the largest $\Omega(n)$.
+
+*Example statement*: Any comparison-based sorting algorithm requires time $\Omega(n \log n)$. (note: we can not say "at least time $O\left(n \log n\right)$" as that wouldn't make sense, thus we use big Omega in these cases).
+
+** Big Theta
+
+Sometimes we have a matching lower and upper bound, where $f$ is "sandwiched" between $c_1 \cdot g\left(n\right)$ and $c_2 \cdot g\left(n\right)$.
+
+*Definition.* Let $f , g : \mathbb{N} \rightarrow \mathbb{R}$. We say that $f\left(n\right)$ is $\Theta(g\left(n\right))$, if there exists $c_1 , c_2 , n_0$, such that for any $n \geq n_0$, $0 \leq c_1 \cdot g\left(n\right) \leq f\left(n\right) \leq c_2 \cdot g\left(n\right)$.
+
+Example: $f\left(n\right) = 14 n^2 + 21 n + 13$. We have $14 \cdot n^2 \leq f\left(n\right) \leq 48 \cdot n^2$, hence $f$ is $\Theta(n^2)$.
+
+*Example statement*: Bubble sort works in time $\Theta(n^2)$.

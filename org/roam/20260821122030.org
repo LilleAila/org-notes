@@ -174,7 +174,7 @@ Videre beregner produktet:
 Og til slutt kvotienten:
 
 \begin{aligned}
-|\frac{Z}{W} | & = | Z\frac{|}{|} W | = \frac{2 \sqrt{3}}{2} = \sqrt{3} \\
+|\frac{Z}{W} | & = \frac{| Z |}{| W |} = \frac{2 \sqrt{3}}{2} = \sqrt{3} \\
  \arg \frac{Z}{W} & = \arg Z - \arg W \\
  & = \frac{\pi}{6} - \frac{2\pi}{3} = \frac{- 3\pi}{6} = -\frac{\pi}{2} \\
  \frac{Z}{W} & = \sqrt{3} e^{-\frac{\pi}{2} i}
