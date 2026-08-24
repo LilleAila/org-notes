@@ -76,13 +76,13 @@ Vi kan skrive på polarform:
 \begin{aligned}
 Z & = \left| Z \right| e^{i \theta} \\
  W & = \left| W \right| e^{i \varphi} \\
- Z \cdot W & = \mid Z\\mid W \mid e^{i \left(\theta + \varphi\right)}
+ Z \cdot W & = \mid Z\| W \mid e^{i \left(\theta + \varphi\right)}
 \end{aligned}
 
 Altså har vi at:
 
 \begin{aligned}
-\left| Z \cdot W \right| & = \mid Z\\mid W \mid \\
+\left| Z \cdot W \right| & = \mid Z\| W \mid \\
  \arg \left(Z \cdot W\right) & = \arg Z + \arg W
 \end{aligned}
 
