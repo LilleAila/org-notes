@@ -5,7 +5,7 @@
 #+title: Grenseverdier
 #+created: [2026-08-25 Tue 19:12]
 #+last_modified: [2026-08-25 Tue 19:12]
-#+filetags:
+#+filetags: :mat111:
 
 Part of [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]
 
