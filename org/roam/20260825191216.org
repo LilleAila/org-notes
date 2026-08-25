@@ -1,0 +1,150 @@
+:PROPERTIES:
+:ID:       B24FBAEE-9924-418D-9144-FC196C71714C
+:ROAM_ALIASES: Grenser
+:END:
+#+title: Grenseverdier
+#+created: [2026-08-25 Tue 19:12]
+#+last_modified: [2026-08-25 Tue 19:12]
+#+filetags:
+
+Part of [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]
+
+-----
+
+Grenseverdier, kalles også grenser.
+
+* Formell definisjon
+
+Eksempel: Vi har en funksjon definert ved $f\left(x\right) = 5 x + 2 , f : \mathbb{R} \setminus \left\{1\right\} \rightarrow \mathbb{R}$. Ønsker å finne
+
+\[
+\lim_{x \rightarrow 1} f\left(x\right)
+\]
+
+Vi ser trivielt at verdien til grensen er lik $f\left(1\right) = 5 \cdot 1 + 2 = 7$, men for å bruke den formelle definisjonen, antar vi at funksjonen $f$ ikke er definert for $1$. Mer tydelig: Grensen til $f$ når $x$ gåt mot $1$ er $7$. Det vil si at vi kan få $f\left(x\right)$ så nær vi vil $7$, så lenge $x \neq 1$ er nær nok $1$. Mer formelt, kan vi få at $| f\left(x\right) - 7 |$ bli så liten vi vil, så lenge $0 < | x - 1 |$ er liten nok.
+
+Eksempel:  vi ønsker å finne verdien innenfor $\frac{1}{2}$. $f\left(x\right) \in \left(7 - \frac{1}{2} , 7 + \frac{1}{2}\right)$.
+
+\begin{aligned}
+x \neq 1 , \quad & | f\left(x\right) - 7 | & < \frac{1}{2} \\
+ x \neq 1 , \quad & | 5 x + 2 - 7 | & < \frac{1}{2} \\
+ x \neq 1 , \quad & 5 | x - 1 | & < \frac{1}{2} \\
+ & 0 < | x - 1 | & < \frac{1}{10}
+\end{aligned}
+
+Altså har vi $x \in \left(1 - \frac{1}{10} , 1 + \frac{1}{10}\right) \setminus \left\{1\right\}$. Vi kan gjøre det samme for $\frac{1}{4}$, så får vi $x \in \left(1 - \frac{1}{20} , 1 + \frac{1}{20}\right)$. Igjen, hvis vi gjør dette for $\frac{1}{1000}$, så får vi $x \in \left(1 - \frac{1}{5000} , 1 + \frac{1}{5000}\right)$. Altså ser vi at det ikke har noe å si hvilket tall vi skriver inn, da det alltid er mulig å finne en løsning på ulikheten, og resultatet blir alltid nærmere og nærmere grensen. Vi bruker derfor et tall epsilon $\varepsilon$ som er et vilkårlig lite tall. Vi får da $x \in \left(1 - \frac{\varepsilon}{5} , 1 + \frac{\varepsilon}{5}\right) \setminus \left\{1\right\}$. Vi har altså et punktert [[id:7977BEC8-8BBA-46F2-BA6E-1595B57B91F5][omegn]]. Dette er ekvivalent til å skrive det som $\left(1 - \delta , 1 + \delta\right) \setminus \left\{1\right\}, \; \delta = \frac{\varepsilon}{5}$.
+
+Vi har altså generelt $x \in \left(a - \delta , a + \delta\right) \setminus \left\{a\right\}, \; L \in \left(L - \varepsilon , L + \varepsilon\right) \setminus \left\{L\right\} \forall a \in D_f , L \in V_f$, som visualisert i bildet:
+
+#+DOWNLOADED: screenshot @ 2026-08-25 19:45:03
+#+attr_org: :width 400px
+[[file:./assets/20260825194503_screenshot.png]]
+
+Vi kan altså formelt definere grenseverdien som $\displaystyle \lim_{x \rightarrow a} = c$ dersom det for enhver $\varepsilon > 0$ finnes $\delta > 0$ slik at $| f\left(x\right) - L | < \varepsilon$ når $0 < | x - a | < \delta$. Vi kan også skrive:
+
+\[
+\lim_{x \rightarrow a} f\left(x\right) = L \Leftrightarrow \forall \varepsilon > 0 , \exists \delta > 0\text{slik at} 0 < | x - a | < \delta \Rightarrow | f\left(x\right) - L | < \varepsilon
+\]
+
+Dette kravet kan skrives som at $f\left(x\right) \in \left(L -\varepsilon , L +\varepsilon\right)$ når $x \in \left(a - \delta , a + \delta\right) \setminus \left\{a\right\}$. Dette kalles *tosidige* grenser.
+
+For ensidige grenser, har vi $\displaystyle \lim_{x \rightarrow a^{+}} = L$. Vi erstatter $0 < | x - a | < \delta$ i definisjonen med $x \in \left(a , a + \delta\right)$, og omvendt for $\displaystyle \lim_{x \rightarrow a^{-}} = L$. Fra teorem 1.2 i læreboken har vi $\displaystyle \lim_{x \rightarrow a} f\left(x\right) = L \Leftrightarrow \lim_{x \rightarrow a^{+}} f\left(x\right) = \lim_{x \rightarrow a^{-}} f\left(x\right) = L$, som kan være nyttig for noen grenseverdier.
+-----
+
+$\varepsilon$-$\delta$ definisjonen brukes vanligvis til å bevise grensesetningene og skviseteoremet, ikke hver eneste gang man skal løse en grenseverdi.
+
+* Eksempler
+
+** Eksempel 1
+
+Vis at $\displaystyle \lim_{x \rightarrow 1} 5 x + 2 = 7$.
+
+Gitt $\varepsilon > 0$ vil vi finne $\delta > 0$ slik at $| 5 x + 2 - 7 | < \varepsilon$ når $0 < | x - 1 | < \delta$. Lar $\delta = \frac{\varepsilon}{5}$. Da, hvis $| x - 1 | < \delta = \frac{\varepsilon}{5}$ er $| 5 x + 2 - 7 | = 5 | x - 1 | < 5 \cdot \frac{\varepsilon}{5} = \varepsilon$.
+
+Altså har vi generelt for alle grense-problemer: "gitt $\varepsilon > 0$, finn $\delta$".
+
+** Enkle grenser (TODO bevise)
+
+Vi har også noen enkle grenser:
+
+\begin{aligned}
+\lim_{x \rightarrow a} x & = a \\
+ \lim_{x \rightarrow a} c & = c , \; c\text{er konstant}
+\end{aligned}
+
+** Eksempel 2: grensen finnes ikke
+
+Gitt funksjonen $f\left(x\right) = \sin(\frac{1}{2}), f : \mathbb{R} \setminus \left\{0\right\} \rightarrow \left[- 1 , 1\right]$. Vis at $\displaystyle \lim_{x \rightarrow 0} f\left(x\right)$ ikke finnes.
+
+Anta at $\displaystyle \lim_{x \rightarrow 0} \sin(\frac{1}{x}) = L$. Uansett $\delta > 0$ vil det finnes $x \in \left(- \delta , \delta\right)$ slik at både $f\left(x_1\right) = 1$ og $f\left(x_2\right) = - 1$. Derfor er det ikke mulig å finne $L$ slik at $| f\left(x\right) - L | < \varepsilon$.
+
+** Eksempel 3
+
+Vis at $\displaystyle \lim_{x \rightarrow 2} x^2 + x = 2$.
+
+Gitt $\varepsilon > 0$, vil finne $\delta > 0$ slik at $| x^2 + x - 1 | < \varepsilon$ når $0 < | x - \left(- 2\right)| = | x + 2 | < \delta$.
+
+\begin{aligned}
+| x^2 + x - 2 | & = \overbrace{| x + 2 |}{\text{Avstand mellom x og -2}} \cdot \overbrace{| x - 1 |}{\text{Avstand mellom x og 1}}
+\end{aligned}
+
+Anta at $| x + 2 | < 1$: Anta at avstanden mellom  $x$ og $- 2$ er $< 1$. Da har vi at avstanden mellom $x$ og $1$ er $< 5$, altså at $| x - 1 | < 4$. For å finne dette, kan vi også skrive:
+
+\begin{aligned}
+| x + 2 | & < 1 \\
+ - 1 < x + 2 & < 1 \\
+ - 4 < x - 1 & < - 2 \\
+ | x - 1 | & < 4
+\end{aligned}
+
+Når vi kjenner en øvre grense for en av leddene, kan vi skrive produktet slik at vi kun har en variabel som må begrenses:
+
+\begin{aligned}
+| x^2 + x - 2 | = | x + 2 | | x - 1 | < | x + 2 | \cdot 4 & < \varepsilon \\
+ | x + 2 | & < \frac{\varepsilon}{4}
+\end{aligned}
+
+Har da funnet $| x^2 + x - 2 | < \varepsilon$ hvis $| x + 2 | < 1$ og $| x + 2 | < \frac{\varepsilon}{3}$. Begge disse kravene er oppfylt om $| x + 2 | < \min \left\{1 , \frac{\varepsilon}{4}\right\}$. Vi har altså $\delta = \min \left\{1 , \frac{\varepsilon}{4}\right\}$.
+
+-----
+
+Oppsummering:
+
+Gitt $\varepsilon > 0$. La $\delta = \min \left\{1 , \frac{\varepsilon}{4}\right\}$. Da, hvis $0 < | x + 2 | < \delta |$, er $\underbrace{| x + 2 | < 1}{\Rightarrow | x - 1 | < 4 \left(*\right)}$ og $| x + 2 | < \frac{\varepsilon}{4} \left(* *\right)$. Det vil si at $| x^2 + x - 2 | = \underbrace{| x + 2 |}{<\frac{\varepsilon}{4}\text{ved}\left(* *\right)} \underbrace{| x - 1 |}{< 4\text{ved}\left(*\right)} < \frac{\varepsilon}{4} \cdot 4 = \varepsilon$.
+
+Merk at her har vi valgt å anta $| x + 2 | < 1$, men vi kunne valgt hvilken som helst verdi i stedet for $1$.
+
+** Bevis på grensesetning for differanse
+
+\[
+\lim_{x \rightarrow a} f\left(x\right) = L \wedge \lim_{x \rightarrow a} g\left(x\right) = m \Rightarrow \lim_{x \rightarrow a} \left(f\left(x\right) - g\left(x\right)\right) = L - M
+\]
+
+Bevis:
+
+Gitt $\varepsilon > 0$, vil finne $\delta > 0$ slik at $| f\left(x\right) - g\left(x\right) - \left(L - M\right) < \varepsilon$ når $0 < | x - a | < \delta$.
+
+-----
+
+Vet at vi kan begrense $| f\left(x\right) - L |$ og $| g\left(x\right) - M |$. Vi vil altså få ut disse uttrykene. Trekant-ulikheten sier at hvis vi tar to reelle tall $x , y \in \mathbb{R}$, er $| x \pm y | \leq | x | + | y |$. Bruker denne også.
+
+\begin{aligned}
+| f\left(x\right) - g\left(x\right) - \left(L - M\right)| & = | f\left(x\right) - L - \left(g\left(x\right) - M\right)| \leq | f\left(x\right) - L | + | g\left(x\right) - M | < \varepsilon
+\end{aligned}
+
+Altså er det godt nok hvis vi kan få hvert av de to leddene $< \frac{\varepsilon}{2}$.
+
+-----
+
+\begin{aligned}
+\lim_{x \rightarrow a} f\left(x\right) & = L \Rightarrow \exists \delta_1 > 0\text{slik at} | f\left(x\right) - L | < \frac{\varepsilon}{2}\text{når} 0 < | x - a | < \delta_1 \\
+ \lim_{x \rightarrow a} g\left(x\right) & = M \Rightarrow \exists \delta_2 > 0\text{slik at} | f\left(x\right) - L | < \frac{\varepsilon}{2}\text{når} 0 < | x - a | < \delta_2
+\end{aligned}
+
+Lar $\delta = \min\left\{\delta_1 , \delta_2\right\}$. Da, hvis $0 < | x - a | < \delta$, er $0 < | x - a | < d_1$ og $0 < | x - a | < \delta_2$
+
+\[
+\Rightarrow | f\left(x\right) - g\left(x\right) - \left(L - M\right)| = | f\left(x\right) - L - \left(g\left(x\right) - M\right)| \leq | f\left(x\right) - L ] + | g\left(x\right) - M | < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+\]
+
+Q.E.D.

@@ -16,3 +16,24 @@ Part of [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]
 \left(a , b\right) & = \left\{x \in \mathbb{R} | a < x < b\right\} \\
  \left(a , \infty\right) & = \left\{x \in \mathbb{R} | a < x\right\}
 \end{aligned}
+
+Merk at her bruker vi $\left(a , b\right)$ for å betegne et åpent intervall. Dette er ekvivalent til å skrive $\langle a , b \rangle$, slik som vi gjorde i R2.
+
+-----
+
+Hvis vi studerer en [[id:4C45B5CA-737B-40D1-9B74-301589CE17FD][funksjon]] $f$ nær $a \in D_f$, har vi mer formelt:
+
+\begin{aligned}
+\left(a - \delta , a + \delta\right) & = \left\{x \in \mathbb{R} | a - b < x < a + b\right\}} \\
+ & = \left\{x \in \mathbb{R} | | x - 1 | < \delta\right\}}
+\end{aligned}
+
+Dette kalles et /delta-omegn/ om $a$. Ofte er vi ikke interessert i $a$, så vi skriver:
+
+\begin{aligned}
+\left(a - \delta , a + \delta\right) \setminus \left\{a\right\} & = \left\{x \in \mathbb{R} | | x - a | < \delta , \quad x \neq a\right\} \\
+ & = \left\{x \in \mathbb{R} | 0 < | x - a | < \delta\right\} \\
+ & = \left(a - \delta , a\right) \cup \left(a , a + \delta\right)
+\end{aligned}
+
+Når vi ikke inkluderer $a$ i intervallet, kaller vi det et /punktert delta-omegn/ om $a$.
