@@ -23,7 +23,7 @@ Eksempel: Vi har en funksjon definert ved $f\left(x\right) = 5 x + 2 , f : \math
 
 Vi ser trivielt at verdien til grensen er lik $f\left(1\right) = 5 \cdot 1 + 2 = 7$, men for å bruke den formelle definisjonen, antar vi at funksjonen $f$ ikke er definert for $1$. Mer tydelig: Grensen til $f$ når $x$ gåt mot $1$ er $7$. Det vil si at vi kan få $f\left(x\right)$ så nær vi vil $7$, så lenge $x \neq 1$ er nær nok $1$. Mer formelt, kan vi få at $| f\left(x\right) - 7 |$ bli så liten vi vil, så lenge $0 < | x - 1 |$ er liten nok.
 
-Eksempel:  vi ønsker å finne verdien innenfor $\frac{1}{2}$. $f\left(x\right) \in \left(7 - \frac{1}{2} , 7 + \frac{1}{2}\right)$.
+Eksempel: vi ønsker å finne verdien innenfor $\frac{1}{2}$. $f\left(x\right) \in \left(7 - \frac{1}{2} , 7 + \frac{1}{2}\right)$.
 
 \begin{aligned}
 x \neq 1 , \quad & | f\left(x\right) - 7 | & < \frac{1}{2} \\
@@ -69,7 +69,7 @@ Vi har også noen enkle grenser:
 
 \begin{aligned}
 \lim_{x \rightarrow a} x & = a \\
- \lim_{x \rightarrow a} c & = c , \; c\text{er konstant}
+ \lim_{x \rightarrow a} c & = c , \; c \; \text{er konstant}
 \end{aligned}
 
 ** Eksempel 2: grensen finnes ikke
@@ -110,7 +110,7 @@ Har da funnet $| x^2 + x - 2 | < \varepsilon$ hvis $| x + 2 | < 1$ og $| x + 2 |
 
 Oppsummering:
 
-Gitt $\varepsilon > 0$. La $\delta = \min \left\{1 , \frac{\varepsilon}{4}\right\}$. Da, hvis $0 < | x + 2 | < \delta |$, er $\underbrace{| x + 2 | < 1}{\Rightarrow | x - 1 | < 4 \left(*\right)}$ og $| x + 2 | < \frac{\varepsilon}{4} \left(* *\right)$. Det vil si at $| x^2 + x - 2 | = \underbrace{| x + 2 |}{<\frac{\varepsilon}{4}\text{ved}\left(* *\right)} \underbrace{| x - 1 |}{< 4\text{ved}\left(*\right)} < \frac{\varepsilon}{4} \cdot 4 = \varepsilon$.
+Gitt $\varepsilon > 0$. La $\delta = \min \left\{1 , \frac{\varepsilon}{4}\right\}$. Da, hvis $0 < | x + 2 | < \delta |$, er $\underbrace{| x + 2 | < 1}{\Rightarrow | x - 1 | < 4 \left(*\right)}$ og $| x + 2 | < \frac{\varepsilon}{4} \left(* *\right)$. Det vil si at $| x^2 + x - 2 | = \underbrace{| x + 2 |}{<\frac{\varepsilon}{4} \; \text{ved} \; \left(* *\right)} \underbrace{| x - 1 |}{< 4 \; \text{ved} \; \left(*\right)} < \frac{\varepsilon}{4} \cdot 4 = \varepsilon$.
 
 Merk at her har vi valgt å anta $| x + 2 | < 1$, men vi kunne valgt hvilken som helst verdi i stedet for $1$.
 
@@ -137,8 +137,8 @@ Altså er det godt nok hvis vi kan få hvert av de to leddene $< \frac{\varepsil
 -----
 
 \begin{aligned}
-\lim_{x \rightarrow a} f\left(x\right) & = L \Rightarrow \exists \delta_1 > 0\text{slik at} | f\left(x\right) - L | < \frac{\varepsilon}{2}\text{når} 0 < | x - a | < \delta_1 \\
- \lim_{x \rightarrow a} g\left(x\right) & = M \Rightarrow \exists \delta_2 > 0\text{slik at} | f\left(x\right) - L | < \frac{\varepsilon}{2}\text{når} 0 < | x - a | < \delta_2
+\lim_{x \rightarrow a} f\left(x\right) & = L \Rightarrow \exists \delta_1 > 0 \; \text{slik at} \; | f\left(x\right) - L | < \frac{\varepsilon}{2} \; \text{når} \; 0 < | x - a | < \delta_1 \\
+ \lim_{x \rightarrow a} g\left(x\right) & = M \Rightarrow \exists \delta_2 > 0 \; \text{slik at} | f\left(x\right) - L | < \frac{\varepsilon}{2} \; \text{når} \; 0 < | x - a | < \delta_2
 \end{aligned}
 
 Lar $\delta = \min\left\{\delta_1 , \delta_2\right\}$. Da, hvis $0 < | x - a | < \delta$, er $0 < | x - a | < d_1$ og $0 < | x - a | < \delta_2$
