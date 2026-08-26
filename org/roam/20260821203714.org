@@ -24,8 +24,8 @@ Merk at her bruker vi $\left(a , b\right)$ for å betegne et åpent intervall. D
 Hvis vi studerer en [[id:4C45B5CA-737B-40D1-9B74-301589CE17FD][funksjon]] $f$ nær $a \in D_f$, har vi mer formelt:
 
 \begin{aligned}
-\left(a - \delta , a + \delta\right) & = \left\{x \in \mathbb{R} | a - b < x < a + b\right\}} \\
- & = \left\{x \in \mathbb{R} | | x - 1 | < \delta\right\}}
+\left(a - \delta , a + \delta\right) & = \left\{x \in \mathbb{R} | a - b < x < a + b\right\} \\
+ & = \left\{x \in \mathbb{R} | | x - 1 | < \delta\right\}
 \end{aligned}
 
 Dette kalles et /delta-omegn/ om $a$. Ofte er vi ikke interessert i $a$, så vi skriver:
