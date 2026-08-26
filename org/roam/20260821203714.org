@@ -6,10 +6,6 @@
 #+last_modified: [2026-08-21 Fri 20:37]
 #+filetags: :mat111:
 
-Part of [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]
-
------
-
 Åpne intervaller kan defineres som [[id:2A2C24FA-47C2-43B2-B891-8AD0649E84BD][mengder]] ved
 
 \begin{aligned}

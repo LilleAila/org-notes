@@ -6,10 +6,6 @@
 #+last_modified: [2026-08-21 Fri 18:52]
 #+filetags: :mat111:
 
-Part of [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]
-
------
-
 Mengder er en samling med tall, for eksempel $\mathbb{N}$. Noen av de vanligste mengdene for tall er:
 
 \begin{aligned}
