@@ -1,0 +1,50 @@
+:PROPERTIES:
+:ID:       B38BCC64-A258-4841-AF02-77A98410B403
+:END:
+#+title: Skviseteoremet
+#+created: [2026-08-26 Wed 20:04]
+#+last_modified: [2026-08-26 Wed 20:04]
+#+filetags: :mat111:
+
+* Definisjon
+
+Skviseteoremet er en metode for å løse [[id:B24FBAEE-9924-418D-9144-FC196C71714C][Grenser]]. Anta at $f\left(x\right) \leq g\left(x\right) \leq h\left(x\right)$ for alle $x$ i et punktert omegn om $a$, og $\displaystyle \lim_{x \rightarrow a} f\left(x\right) = \displaystyle \lim_{x \Rightarrow a} h\left(x\right) = L \Rightarrow \displaystyle \lim_{x \rightarrow a} g\left(x\right) = L$. Altså:
+
+\[
+f\left(x\right) \leq g\left(x\right) \leq h\left(x\right) \forall x \in \left(a -\delta , a +\delta\right) \setminus a , \lim_{x \rightarrow a} f\left(x\right) = \lim_{x_{>} a} h\left(x\right) = L \Rightarrow \lim_{x \rightarrow a} g\left(x\right) = L
+\]
+
+Som visualisert her:
+
+#+DOWNLOADED: screenshot @ 2026-08-26 20:07:51
+#+attr_org: :width 400px
+[[file:./assets/20260826200751_screenshot.png]]
+
+Merk at skviseteoremet gjelder likeledes for ensidige grenser og grenser i det uendelige, akkurat som grensesetningene.
+
+* Eksempel
+
+** Eksempel 1
+
+\[
+\lim_{x \rightarrow 0} x^2 \sin \frac{1}{x} = \lim_{x \rightarrow 0} x^2 \cdot \lim_{x \rightarrow 0} \sin \frac{1}{x}
+\]
+
+Her ser vi tydelig at $\displaystyle \lim_{x \rightarrow 0} x^2 = 0$. Likevel kan vi ikke bare skrive $0 \cdot \displaystyle \lim_{x \rightarrow 0} \frac{1}{x} = 0$, da [[id:0D751A05-5F39-4A3C-B7BB-7C261D7AE946][grensesetningene]] forutsetter at begge grensene eksisterer. Funksjonen $\sin \frac{1}{x}$ vil få økende frekvens der $x \rightarrow 0 \Rightarrow \frac{1}{x} \rightarrow \pm \infty$, men verdien vil alltid være i $\left[- 1 , 1\right]$. Hvis vi prøver å bruke $\varepsilon -\delta$-definisjonen av grenser får vi da at $f\left(x\right)$ vil alltid holde seg i intervallet $\left[- 1 , 1\right]$, uansett hvor liten vi gjør $\delta$. Dermed er det ikke mulig å bruke grensesetningene direkte. Vi bruker da heller:
+
+\begin{aligned}
+& 1 &\leq & \sin \frac{1}{x} &\leq & 1 \; \forall x \neq 0 \\
+ & - x^2 &\leq & x^2 \sin \frac{1}{x} &\leq & x^2
+\end{aligned}
+
+Når $x \rightarrow 0$, får vi da:
+
+\[
+0 \leq x^2 \sin \frac{1}{x} \leq 0
+\]
+
+Dette er det samme som det opprinnelige uttrykket vi hadde, og dermed får vi
+
+\[
+\lim_{x \rightarrow 0} x^2 \sin \frac{1}{x} = 0
+\]

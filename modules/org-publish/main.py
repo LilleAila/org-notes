@@ -28,13 +28,26 @@ def fix_math_pipes(tex: str) -> str:
     return tex
 
 def translate_math(typst):
-    t2l_result = subprocess.run(
-        ["t2l", "-d", "t2l", "--strict"],
-        input=typst,
-        text=True,
-        capture_output=True,
-        check=True,
-    )
+    try:
+        t2l_result = subprocess.run(
+            ["t2l", "-d", "t2l", "--strict"],
+            input=typst,
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+    except subprocess.CalledProcessError as e:
+        print(f"""
+Typst to LaTeX conversion failed for typst code
+
+```
+{typst}
+```
+
+Stderr:
+{e.stderr}
+""")
+        raise
     tex = t2l_result.stdout.strip()
     # tex = fix_math_pipes(tex) # Temporarily disabled due to #5
     return tex

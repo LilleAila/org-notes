@@ -104,3 +104,27 @@ For den andre identiteten velger man ett objekt $x$ blant de $n + 1$ objektene. 
 + $x$ er ikke med. Da velger vi alle de $r$ objektene blant de andre $n$ objektene: $\binom{n}{r}$ muligheter.
 
 Addisjonsprinsippet gir da $\binom{n + 1}{r} = \binom{n}{r} + \binom{n}{r - 1}$. Denne identiteten kalles også *pascals identitet*. Den gjør det mulig å beregne binomialkoeffisientene mer effektivt, uten å bruke fakulteter.
+
+** Sammenheng med Pascals trekant
+
+TODO.
+
+#+begin_src typst
+#let choose(n, k) = {
+  if k == 0 or k == n { 1 }
+  else { choose(n - 1, k - 1) + choose(n - 1, k) }
+}
+
+#align(center)[
+  #stack(
+    spacing: 10pt,
+    ..range(7).map(n => {
+      let row = range(n + 1).map(k => $# $$)
+      row.join("     ")
+    })
+  )
+]
+#+end_src
+
+#+RESULTS:
+[[file:/var/folders/84/x1tlmq412hlg_x13jz0dc4f00000gn/T/babel-NE8eA8/org-babel-typstZVF2dP.svg]]

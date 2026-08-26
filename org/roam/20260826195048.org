@@ -1,0 +1,72 @@
+:PROPERTIES:
+:ID:       0D751A05-5F39-4A3C-B7BB-7C261D7AE946
+:END:
+#+title: Grensesetningene
+#+created: [2026-08-26 Wed 19:50]
+#+last_modified: [2026-08-26 Wed 19:50]
+#+filetags: :mat111:
+
+Grensesetningene er grunnleggende regler for [[id:B24FBAEE-9924-418D-9144-FC196C71714C][Grenseverdier]].
+
+-----
+
+* Definisjon av grensesetningene
+
+Anta at grensene $\displaystyle \lim_{x \rightarrow a} f\left(x\right)$ og $\displaystyle \lim_{x \rightarrow a} g\left(x\right)$ eksisterer og $k \in \mathbb{R}$. Da gjelder:
+
+\begin{aligned}
+\lim_{x \rightarrow a} \left(f\left(x\right) \pm g\left(x\right)\right) & = \lim_{x \rightarrow a} f\left(x\right) \pm \lim_{x \rightarrow a} g\left(x\right) \\
+ \lim_{x \rightarrow a} f\left(x\right) g\left(x\right) & = \left(\lim_{x \rightarrow a} f\left(x\right)\right) \left(\lim_{x \rightarrow a} g\left(x\right)\right) \\
+ \lim_{x \rightarrow a} \frac{f\left(x\right)}{g\left(x\right)} & = \frac{\displaystyle \lim_{x \rightarrow a} f\left(x\right)}{\displaystyle \lim_{x \rightarrow a} g\left(x\right)} \; \text{dersom} \; \lim_{x \rightarrow a} g\left(x\right) \neq 0 \\
+ \lim_{x \rightarrow a} k f\left(x\right) & = k \lim_{x \rightarrow a} f\left(x\right)
+\end{aligned}
+
++ Vi har også $\displaystyle \lim_{x \rightarrow a} \left(f\left(x\right)^{\frac{m}{n}}\right) = \left(\lim_{x \rightarrow a} f\left(x\right)\right)^{\frac{m}{n}}$, der vi antar at $\displaystyle \lim_{x \rightarrow a} f\left(x\right) > 0$ hvis $n$ er partall og $\displaystyle \lim_{x \rightarrow a} f\left(x\right) \neq 0$ hvis $m < 0$.
++ Dersom $f\left(x\right) \leq g\left(x\right)$ for alle $x$ i et punktert [[id:7977BEC8-8BBA-46F2-BA6E-1595B57B91F5][omegn]] om $a$, er $\lim_{x \rightarrow a} f\left(x\right) \leq \lim_{x \rightarrow a} g\left(x\right)$.
+
+Grensesetningene gjelder likeledes for ensidige grenser og for grenser i det uendelige, derman da erstatter $x \rightarrow a$ med henholdsvis $x \rightarrow a^{-}$, $x \rightarrow a^{+}$, $x \rightarrow -\infty$ og $x \rightarrow \infty$, og erstatter intervallet med et intervall av typen $\left(a - \delta , a\right)$, $\left(a , a + \delta\right)$, $\left(c , \infty\right)$, $\left(-\infty , c\right)$.
+
+Merk at dette forutsetter at begge grensene eksisterer. Hvis ikke, kunne vi for eksempel bare ha skrevet $\displaystyle 1 = \lim_{x \rightarrow 0} x \cdot \frac{1}{x} = 0$ og fått at $1 = 0$.
+-----
+
+For alle grenser har vi også disse grunnleggende reglene som alltid gjelder:
+
+\begin{aligned}
+\lim_{x \rightarrow a} x & = a \\
+ \lim_{x \rightarrow a} c & = c , \; c \; \text{er konstant}
+\end{aligned}
+
+** Bevis på grensesetning for differanse
+
+\[
+\lim_{x \rightarrow a} f\left(x\right) = L \wedge \lim_{x \rightarrow a} g\left(x\right) = m \Rightarrow \lim_{x \rightarrow a} \left(f\left(x\right) - g\left(x\right)\right) = L - M
+\]
+
+Bevis:
+
+Gitt $\varepsilon > 0$, vil finne $\delta > 0$ slik at $| f\left(x\right) - g\left(x\right) - \left(L - M\right) < \varepsilon$ når $0 < | x - a | < \delta$.
+
+-----
+
+Vet at vi kan begrense $| f\left(x\right) - L |$ og $| g\left(x\right) - M |$. Vi vil altså få ut disse uttrykene. Trekant-ulikheten sier at hvis vi tar to reelle tall $x , y \in \mathbb{R}$, er $| x \pm y | \leq | x | + | y |$. Bruker denne også.
+
+\begin{aligned}
+| f\left(x\right) - g\left(x\right) - \left(L - M\right)| & = | f\left(x\right) - L - \left(g\left(x\right) - M\right)| \leq | f\left(x\right) - L | + | g\left(x\right) - M | < \varepsilon
+\end{aligned}
+
+Altså er det godt nok hvis vi kan få hvert av de to leddene $< \frac{\varepsilon}{2}$.
+
+-----
+
+\begin{aligned}
+\lim_{x \rightarrow a} f\left(x\right) & = L \Rightarrow \exists \delta_1 > 0 \; \text{slik at} \; | f\left(x\right) - L | < \frac{\varepsilon}{2} \; \text{når} \; 0 < | x - a | < \delta_1 \\
+ \lim_{x \rightarrow a} g\left(x\right) & = M \Rightarrow \exists \delta_2 > 0 \; \text{slik at} | f\left(x\right) - L | < \frac{\varepsilon}{2} \; \text{når} \; 0 < | x - a | < \delta_2
+\end{aligned}
+
+Lar $\delta = \min\left\{\delta_1 , \delta_2\right\}$. Da, hvis $0 < | x - a | < \delta$, er $0 < | x - a | < d_1$ og $0 < | x - a | < \delta_2$
+
+\[
+\Rightarrow | f\left(x\right) - g\left(x\right) - \left(L - M\right)| = | f\left(x\right) - L - \left(g\left(x\right) - M\right)| \leq | f\left(x\right) - L ] + | g\left(x\right) - M | < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+\]
+
+Q.E.D.

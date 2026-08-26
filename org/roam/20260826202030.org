@@ -1,0 +1,83 @@
+:PROPERTIES:
+:ID:       D36C72F2-44E8-4475-B094-A794B3A17866
+:END:
+#+title: Grenser i det uendelige
+#+created: [2026-08-26 Wed 20:20]
+#+last_modified: [2026-08-26 Wed 20:20]
+#+filetags: :mat111:
+
+* Definisjon
+
+Grenseverdier i det uendelige fungerer stort sett på samme måte som vanlige [[id:B24FBAEE-9924-418D-9144-FC196C71714C][grenser]], men i stedet for å skrive $x \in \left(a - \delta , a + \delta\right) \setminus \left\{a\right\}$, skriver vi at $x > R$. ALtså:
+
+$\displaystyle \lim_{x \rightarrow \infty} f\left(x\right) = L$ dersom det for hver $\varepsilon > 0$ finnes $R > 0$ slik at $| f\left(x\right) - L | < \varepsilon$ når $x > R$.
+
+Uformelt: "$f\left(x\right)$ kommer så nær vi vil $L$, så lenge $x$ er stor nok".
+
+** Eksempel 1:
+
+Vis at $\displaystyle \lim_{x \rightarrow \infty} \frac{1}{\sqrt{x}} = 0$.
+
+Gitt $\varepsilon > 0$, vil finne $R$ slik at $|\frac{1}{\sqrt{x}} - 0 | < \varepsilon$ når $x > R$.
+
+Har $|\frac{1}{\sqrt{x}} - 0 | = \frac{1}{\sqrt{x}} < \varepsilon \Leftrightarrow \frac{1}{\varepsilon} < \sqrt{x} \Leftrightarrow \frac{1}{\varepsilon^2} < x$. Kan da sette $R = \frac{1}{\varepsilon^2}$. Dermed eksisterer grenseverdien. Q.E.D.
+
+** Eksempel 2:
+
+\begin{aligned}
+\lim_{x \rightarrow \infty} \frac{x^3 + 4 x - 1}{\sqrt{36} x^6 + x^2} & = \frac{x^3 - 4 x - 1}{\sqrt{x^6} \sqrt{36 + \frac{1}{x^4}}} \\
+ & = \lim_{x \rightarrow \infty} \frac{x^2 + 4 x - 1}{| x^3 | \sqrt{36 + \frac{1}{x^4}}} \\
+ x > 0 arrow.double.r \quad & = \lim_{x \rightarrow \infty} \frac{x^3 + 4 x - 1}{x^3 \sqrt{36 + \frac{1}{x^4}}} \\
+ & = \frac{1 + 4 x^{- 2} - x^{- 3}}{\sqrt{36 + x^4}} \\
+ & = \frac{1 + 0 + 0}{\sqrt{36} + 0} \\
+ & = \frac{1}{6}
+\end{aligned}
+
+For $-\infty$ vil svaret bli $- \frac{1}{6}$ på grunn av absoluttverdien der vi tar $\sqrt{x^6} = \sqrt{\left(x^3\right)^2}$.
+
+** Eksempel 3:
+
+\[
+\lim_{x \rightarrow \infty} \frac{\sin x}{x}
+\]
+
+Her kan vi bruke [[id:B38BCC64-A258-4841-AF02-77A98410B403][skviseteoremet]]:
+
+\begin{aligned}
+& - 1 &\leq & \sin x & \leq 1 \\
+ & - \frac{1}{x} & \leq & \frac{\sin x}{x} & \leq \frac{1}{x} \\
+ x \rightarrow \infty : \quad & 0 &\leq & \frac{\sin x}{x} &\leq 0
+\end{aligned}
+
+\[
+\lim_{x \rightarrow \infty} \frac{\sin x}{x} = 0 \; \text{ved skviseteorem}
+\]
+
+** Eksempel 4: Rasjonale funksjoner
+
+Generelt vil man dele på den høyeste potensen i nevner når man har rasjonale funksjoner.
+
+*** Høyest potens i nevner
+
+\begin{aligned}
+\lim_{x \rightarrow \infty} \frac{x^3 + 2 x + 1}{x^4 - 3} & = \lim_{x \rightarrow \infty} \frac{\frac{1}{x} + \frac{2}{x^2} + \frac{1}{x^4}}{x - \frac{3}{x^4}} \\
+ & = \lim_{x \rightarrow \infty} \frac{0 + 0 + 0}{1 + 0} = \frac{0}{1} = 0
+\end{aligned}
+
+*** Like potenser i teller og nevner
+
+\begin{aligned}
+\lim_{x \rightarrow \infty} \frac{x^3 + 2 x + 1}{3 x^3 - 4} & = \lim_{x \rightarrow \infty} \frac{1 + 2 x^{- 2} + x^{- 3}}{3 - 4 x^{- 3}} \\
+ & = \frac{1 + 0 + 0}{3 + 0} = \frac{1}{3}
+\end{aligned}
+
+*** Høyest potens i teller
+
+\begin{aligned}
+\lim_{x \rightarrow \infty} \frac{x^3 + 2 x + 1}{3 x^2 - 5} & = \lim_{x \rightarrow \infty} \frac{x + 2 x^{- 1} + x^{- 2}}{3 - 5 x^{- 2}} \\
+ & = \lim_{x \rightarrow \infty} \frac{x}{3} = \infty
+\end{aligned}
+
+Dette er det eneste av tilfellene der vi trenger å tenke over fortegn. Hvis vi skulle funnet grensen i motsatt retning, ville vi fått \begin{align}
+\displaystyle \lim_{x \rightarrow -\infty} \frac{x}{3} = \lim_{x \rightarrow -\infty} & = -\infty
+\end{align}, da $x$ er negativ.

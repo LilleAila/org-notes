@@ -63,15 +63,6 @@ Gitt $\varepsilon > 0$ vil vi finne $\delta > 0$ slik at $| 5 x + 2 - 7 | < \var
 
 Altså har vi generelt for alle grense-problemer: "gitt $\varepsilon > 0$, finn $\delta$".
 
-** Enkle grenser (TODO bevise)
-
-Vi har også noen enkle grenser:
-
-\begin{aligned}
-\lim_{x \rightarrow a} x & = a \\
- \lim_{x \rightarrow a} c & = c , \; c \; \text{er konstant}
-\end{aligned}
-
 ** Eksempel 2: grensen finnes ikke
 
 Gitt funksjonen $f\left(x\right) = \sin(\frac{1}{2}), f : \mathbb{R} \setminus \left\{0\right\} \rightarrow \left[- 1 , 1\right]$. Vis at $\displaystyle \lim_{x \rightarrow 0} f\left(x\right)$ ikke finnes.
@@ -113,38 +104,3 @@ Oppsummering:
 Gitt $\varepsilon > 0$. La $\delta = \min \left\{1 , \frac{\varepsilon}{4}\right\}$. Da, hvis $0 < | x + 2 | < \delta |$, er $\underbrace{| x + 2 | < 1}{\Rightarrow | x - 1 | < 4 \left(*\right)}$ og $| x + 2 | < \frac{\varepsilon}{4} \left(* *\right)$. Det vil si at $| x^2 + x - 2 | = \underbrace{| x + 2 |}{<\frac{\varepsilon}{4} \; \text{ved} \; \left(* *\right)} \underbrace{| x - 1 |}{< 4 \; \text{ved} \; \left(*\right)} < \frac{\varepsilon}{4} \cdot 4 = \varepsilon$.
 
 Merk at her har vi valgt å anta $| x + 2 | < 1$, men vi kunne valgt hvilken som helst verdi i stedet for $1$.
-
-** Bevis på grensesetning for differanse
-
-\[
-\lim_{x \rightarrow a} f\left(x\right) = L \wedge \lim_{x \rightarrow a} g\left(x\right) = m \Rightarrow \lim_{x \rightarrow a} \left(f\left(x\right) - g\left(x\right)\right) = L - M
-\]
-
-Bevis:
-
-Gitt $\varepsilon > 0$, vil finne $\delta > 0$ slik at $| f\left(x\right) - g\left(x\right) - \left(L - M\right) < \varepsilon$ når $0 < | x - a | < \delta$.
-
------
-
-Vet at vi kan begrense $| f\left(x\right) - L |$ og $| g\left(x\right) - M |$. Vi vil altså få ut disse uttrykene. Trekant-ulikheten sier at hvis vi tar to reelle tall $x , y \in \mathbb{R}$, er $| x \pm y | \leq | x | + | y |$. Bruker denne også.
-
-\begin{aligned}
-| f\left(x\right) - g\left(x\right) - \left(L - M\right)| & = | f\left(x\right) - L - \left(g\left(x\right) - M\right)| \leq | f\left(x\right) - L | + | g\left(x\right) - M | < \varepsilon
-\end{aligned}
-
-Altså er det godt nok hvis vi kan få hvert av de to leddene $< \frac{\varepsilon}{2}$.
-
------
-
-\begin{aligned}
-\lim_{x \rightarrow a} f\left(x\right) & = L \Rightarrow \exists \delta_1 > 0 \; \text{slik at} \; | f\left(x\right) - L | < \frac{\varepsilon}{2} \; \text{når} \; 0 < | x - a | < \delta_1 \\
- \lim_{x \rightarrow a} g\left(x\right) & = M \Rightarrow \exists \delta_2 > 0 \; \text{slik at} | f\left(x\right) - L | < \frac{\varepsilon}{2} \; \text{når} \; 0 < | x - a | < \delta_2
-\end{aligned}
-
-Lar $\delta = \min\left\{\delta_1 , \delta_2\right\}$. Da, hvis $0 < | x - a | < \delta$, er $0 < | x - a | < d_1$ og $0 < | x - a | < \delta_2$
-
-\[
-\Rightarrow | f\left(x\right) - g\left(x\right) - \left(L - M\right)| = | f\left(x\right) - L - \left(g\left(x\right) - M\right)| \leq | f\left(x\right) - L ] + | g\left(x\right) - M | < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
-\]
-
-Q.E.D.

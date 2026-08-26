@@ -1,0 +1,37 @@
+:PROPERTIES:
+:ID:       A70EC626-8ABF-4DAF-BF29-B0482D952478
+:END:
+#+title: Uendelige grenser
+#+created: [2026-08-26 Wed 20:35]
+#+last_modified: [2026-08-26 Wed 20:35]
+#+filetags: :mat111:
+
+* Definisjon
+
+Uendelige grenser er grenser der $\displaystyle \lim_{x \rightarrow a} = \pm \infty$. Dette må ikke forvirres med [[id:D36C72F2-44E8-4475-B094-A794B3A17866][grenser i det uendelige]], som er grenser der $x \rightarrow \pm \infty$. Definisjonen er nesten den samme, men i stedet for å begrense $x$-verdien til å være over en verdi $R \in \mathbb{R}$, begrenser vi $y$-verdien til å være over en verdi $B \in \mathbb{R}$.
+
+Definisjon: $\displaystyle \lim_{x \rightarrow a} f\left(x\right) = \infty$ dersom det for enhver $B > 0$ finnes $\delta > 0$ slik at $f\left(x\right) > B$ når $0 < | x - a | < b$.
+
+For grenser der $\displaystyle \lim_{x \rightarrow a} = - \infty$ fungerer det på nøyaktig samme måte, men vi må nå finne $B < 0$ slik at $f\left(x\right) < B$.
+
+** Eksempel
+
+Vis at $\displaystyle \lim_{x \rightarrow a} \frac{1}{\left(x - a\right)^2} = \infty$.
+
+Gitt $B > 0$, vil finne $\delta > 0$ slik at $\frac{1}{\left(x - a\right)^2} > B$ når $0 < | x - a | < \delta$.
+
+\[
+\frac{1}{\left(x - a\right)^2} > B \Leftrightarrow \frac{1}{\sqrt{B}} > | x - a |
+\]
+
+Lar $\delta = \frac{1}{\sqrt{B}}$. Da, hvis $0 < | x - a | < \delta = \frac{1}{\sqrt{3}}$, er $\frac{1}{\left(x - a\right)^2} > B$.
+
+* Utregning av grenser
+
+** Eksempel 1: Trivielt
+
+$\displaystyle \lim_{x \rightarrow 2^{+}} \frac{x - 1}{x^2 - 4} = \infty$ fordi telleren $x - 1 \rightarrow 1$ er positiv, og nevneren $x^2 - 4 \rightarrow 0^{+}$ og $x^2 - 4 > 0$.
+
+Likeledes har vi $\displaystyle \lim_{x \rightarrow 2^{-}} \frac{x - 1}{x^2 - 4} = - \infty$ fordi telleren igjen er positiv, og $x^2 - 4 \rightarrow 0^{-} < 0$, altså er resultatet negativt.
+
+De to ensidige grenseverdiene er ulike, så den tosidige grensen eksisterer ikke.
