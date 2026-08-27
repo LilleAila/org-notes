@@ -6,6 +6,8 @@
 #+last_modified: [2026-08-21 Fri 09:41]
 #+filetags: :inf264:
 
+* Introduction
+
 K-Nearest Neighbours is a *classification algorithm* used for [[id:F701D30E-17F5-4AF6-A9D6-21CF8902B853][Supervised learning]].
 
 Example:
@@ -66,4 +68,27 @@ It may be better to use domain-specific distance measures, and different distanc
 
 ** Pros and cons of K-nearest neighbors
 
-TODO
++ Pros
+    - We make no assumptions about the data
+    - Simple
+    - Often yields a good accuraccy
+    - Versatile (can be used both in classification and regression)
+    - Can approximate any decision boundary with enough training points
++ Cons
+    - High memory requirement
+    - Prediction stage can be slow
+    - Sensitive to irrelevant features and the scale of data
+    - Hard to expand into more dimensions
+
+* Extensions
+
++ Scalability
+  - Classifying a point can require computing $n$ distances between $d$-dimensional objects
+  - This can be limiting for large values of $n$ or $d$
+  - Thus, we sometimes use specialized data structures such as kd-trees
+
++ Variants
+  - Majority vote
+  - Distance-weighted vote, for example inverse of distance or inverse of squared distance
+
++ Nearest neighbor regression is a method where instead of voting for the class of the test point, the continuous predictions from the neighbors are combined using combination methods such as averaging or local linear regression.
