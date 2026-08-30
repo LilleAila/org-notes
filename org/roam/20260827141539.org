@@ -1,0 +1,133 @@
+:PROPERTIES:
+:ID:       71FA1C7C-C5A9-4272-8B01-9300CD5EF306
+:END:
+#+title: Linear models
+#+created: [2026-08-27 Thu 14:15]
+#+last_modified: [2026-08-27 Thu 14:15]
+#+filetags: :inf264:
+
+Part of [[id:5DBB8E16-9374-41ED-A69C-A9B38EE00650][INF264]]
+
+* Supervised learning
+
+Given collections of experience / data in the form $\left(\text{input} , \text{output}\right)$, we want to learn some $\text{output} = \text{model}\left(\text{input}\right)$, which mathematically is $Y = f\left(X\right)$ or $f : X \rightarrow Y$.
+
+
+We distinguish SL by the type of inputs-outputs:
+
++ *Univariate* (single-input) *single-output*
++ *Multivariate* (many-input) *single-output*
++ *Univariate* (single-input) *multiple-output*
++ *Multivariate* (many-input) *single-output*
+
+** Univariate Linear Regression
+
+This uses simple and widely studied models, and is often computationally convenient.
+
+#+DOWNLOADED: screenshot @ 2026-08-27 14:27:08
+#+attr_org: :width 400px
+[[file:./assets/Supervised_learning/20260827142708_screenshot.png]]
+
+Univariate linear regression maps one feature to one outcome ($y = f\left(x\right)$). We often express this as a map: $f : \mathbb{R} \rightarrow \mathbb{R}$. It imposes a specific form onto this generic definition. The function $f\left(x\right)$ will be described by two parameters:
+
++ *Slope* $w$ specifying the angle of the line
++ *Intercept* $b$ specifying the displacement of the line
+
+In addition, we have a term $\epsilon$ accounting for the *error* (or *residual*) of the observation
+
+\[
+y = w \cdot x + b + \epsilon
+\]
+
+Visual example:
+
+#+DOWNLOADED: screenshot @ 2026-08-27 14:34:31
+#+attr_org: :width 400px
+[[file:./assets/Supervised_learning/20260827143431_screenshot.png]]
+
+*** Risk minimization
+
+Choosing $w$ and $b$. *Empirical risk minimization* (ERM) minimizes a /loss/ on training data. A loss function $L\left(y , f\left(x\right)\right)$ is a measure of the "cost" of predicting $f\left(x\right)$ when the true label is $y$.
+
++ $L\left(y , f\left(x\right)\right) = 0$ only if $y = f\left(x\right)$
++ The loss increases when $y$ and $f\left(x\right)$ are far apart
+
+In regression, a common loss function is the minimization of the sum of squared errors on the training set:
+
+\begin{aligned}
+L\left(x , f\left(y\right)\right) & = \sum_{i = 1}^n \left(y_i - f\left(x_i\right)\right)^2 \\
+ & = \sum_{i = 0}^n \left(y_i - \left(w x_i + b\right)\right)^2 \\
+ & = \sum_{i = 0}^n \epsilon_i^2 \\
+ & = E\left(w , b\right)
+\end{aligned}
+
+Estimates for the parameters can be found by solving
+
+\[
+\left(\widehat{w} , \widehat{b}\right) = \arg \min_{w , b} E\left(w , b\right)
+\]
+
+Minimizing the sum of squared errors is now equivalent to minimizing the mean squared error:
+
+\[
+L\left(y , f\left(x\right)\right)) = \frac{1}{n} \sum_{i = 1}^n \left(y_i - \left(w x_i + b\right)\right)^2
+\]
+
+*** Solving the optimization problem
+
+We want to minimize $E\left(w , b\right)$ by choosing values for parameters $w$ and $b$. In general, there are two ways to approach this problem:
+
++ *Analytical approach*: find mathematically an exact close solution
++ *Numericall / Approximate approach*: rely on algorithms / heuristics leading to a good solution
+
+Linear regression is solvable analytically:
+
+1. Compute partial derivatives (gradient)
+
+\begin{aligned}
+\frac{\partial E\left(w , b\right)}{\partial b} & = \frac{\partial \sum_{i = 1}^n \left(y_i - \left(w x_i + b\right)\right)^2}{\partial b} \\
+ & = \sum_{i = 1}^n 2\left(y_i - w x_i - b\right) \cdot \left(- 1\right) \\
+ & = - 2 \sum_{i = 1}^n 2\left(y_i - w x_i - b\right) \\
+ \frac{\partial E\left(w , b\right)}{\partial w} & = \frac{\partial \sum_{i = 1}^n \left(y_i - \left(w x_i + b\right)\right)^2}{\partial w} \\
+ & = \sum_{i = 1}^n 2\left(y_i - w x_i - b\right) \cdot \left(- x_i\right) \\
+ & = - 2 \sum_{i = 1}^n x_{i\left(y_i - w x_i - b\right)}
+\end{aligned}
+
+2. Set partial derivatives to zero
+
+\begin{aligned}
+\frac{\partial E\left(w , b\right)}{\partial b} & = - 2 \sum_{i = 1}^n \left(y_i - w x_i - b\right) = 0 \\
+ \frac{\partial E\left(w , b\right)}{\partial w} & = - 2 \sum_{i = 1}^n x_i \left(y_i - w x_i - b\right) = 0
+\end{aligned}
+
+3. Solve for $\widehat{b}$:
+
+\begin{aligned}
+\frac{\partial E\left(w , b\right)}{\partial b} & = - 2 \sum_{i = 1}^n \left(y_i - w x_i - b\right) = 0 \\
+ \widehat{b} & = \overline{y} - w \overline{x}
+\end{aligned}
+
+4. Solve for $\widehat{w}$:
+
+\begin{aligned}
+\frac{\partial E\left(w , b\right)}{\partial w} = - 2 \sum_{i = 1}^n x_i \left(y_i - w x_i - b\right) & = 0 \\
+ \sum_{i = 1}^n x_i \left(y_i - w x_i - b\right) & = 0 \\
+ \sum_{i = 1}^n x_i \left(y_i - w x_i - \overline{y} + w \overline{x}\right) & = 0 \\
+ \sum_{i = 1}^n x_i \left(y_i - \overline{y}\right) - w \sum_{i = 1}^n x_i \left(x_i - \overline{x}\right) & = 0 \\
+ \sum_{i = 1}^n x_i \left(y_i - \overline{y}\right) & = w \sum_{i = 1}^n x_i \left(x_i - \overline{x}\right) \\
+ \widehat{w} & = \frac{\sum_{i = 1}^n x_i \left(y_i - \overline{y}\right)}{(\sum_{i = 1}^n x_i \left(x_i - \overline{x}\right)}
+\end{aligned}
+
+Now, we can use an algebraic identity which says that the sum of deviations from the mean $\sum \left(x_i - \overline{x}\right)) = 0$. Due to this, we can subtract it from the first term without changing the value, transforming $x_i$ info $\left(x_i - \overline{x}\right)$.
+
+\begin{aligned}
+\widehat{w} & = \frac{\sum_{i = 1}^n \left(x_i - \overline{x}\right)\left(y_i - \overline{y}\right)}{\sum_{i = 1}^n \left(x_i - \overline{x}\right)^2}
+\end{aligned}
+
+Now, notice that the numerator is the sample covariance of $x$ and $y$, while the denominator is the sample variance of $x$:
+
+\begin{aligned}
+\sigma_{p q} & = \frac{1}{n - 1} \sum_{i = 1}^n \left(p_i - \overline{p}\right) \left(q_i - \overline{q}\right)
+\end{aligned}
+
+Thus, $\widehat{w} = \frac{\sigma_{x y}}{\sigma_{x x}}$

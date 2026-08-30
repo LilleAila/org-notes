@@ -125,3 +125,79 @@ Sometimes we have a matching lower and upper bound, where $f$ is "sandwiched" be
 Example: $f\left(n\right) = 14 n^2 + 21 n + 13$. We have $14 \cdot n^2 \leq f\left(n\right) \leq 48 \cdot n^2$, hence $f$ is $\Theta(n^2)$.
 
 *Example statement*: Bubble sort works in time $\Theta(n^2)$.
+
+* Running times
+
++ Asymptotic comparison of functions is useful for analyzing runtimes.
+  * $f = O\left(g\right) \Rightarrow f\left(n\right)$ is at most $g\left(n\right)$
+    if $\displaystyle \lim_{n \rightarrow \infty} \frac{f\left(n\right)}{g\left(n\right)} = 0$ for some $0 < c < \infty$, then $f$ is $O\left(g\right)$ but not $\Omega(g)$
+  * $f = \Omega(g) \Rightarrow f\left(n\right)$ is at least $g\left(n\right)$
+    if $\displaystyle \lim_{n \rightarrow \infty} \frac{f\left(n\right)}{g\left(n\right)} = \infty$ for some $0 < c < \infty$, then $f$ is $\Omega(g)$ but not $O\left(g\right)$
+  * $f = \Theta(g) \Rightarrow f\left(n\right)$ is equal to $g\left(n\right)$ (specifically $c_1 \cdot g\left(n\right) < f\left(n\right) < c_2 \cdot g\left(n\right)$)
+    if $\displaystyle \lim_{n \rightarrow \infty} \frac{f\left(n\right)}{g\left(n\right)} = c$ for some $0 < c < \infty$, then $f$ is $\Theta(g)$
+
+#+begin_quote
+
+\[
+\forall \varepsilon > 0 \; \exists n_o , \left|c \cdot \frac{f\left(n\right)}{g\left(n\right)}\right| < \varepsilon = \frac{c}{2} \; \forall n \geq n_0 arrow.double.r \frac{c}{2} \leq \frac{f\left(n\right)}{g\left(n\right)} \leq \frac{3 c}{2}
+\]
+
+#+end_quote
+
+** Common functions
+
++ Polynomials: $f\left(n\right) = a_d n^d + a_{d - 1} n^{d - 1} + \ldots + a_1 n + a_0 , a_d > 0 \Rightarrow f \; \text{is} \; O\left(n^d\right)$
+  $\displaystyle \lim_{n \rightarrow \infty} \frac{f\left(n\right)}{n^d} = c , \; 0 < c < \infty$
++ Logarithms: $\log_a \left(n\right) = \Theta(\log_b \left(n\right)) \forall a , b > 1$
+  We can use a different log base because $\log_a n = \frac{\log_b n}{\log_b a}$
++ Logarithms and polynomials: $\log_a \left(n\right) = O\left(n^d\right) \forall a > 1 , d > 0$
++ Exponents and polynomials: $n^d = O\left(r^n\right) \forall d > 0 , r > 1$
++ Factorials: $n ! = 2^{\Theta(n \log n)}$
+  Stirling's formula: $n ! ~ \sqrt{2 \pi n} \left(\frac{n}{e}\right)^n$
+  This means that $n !$ is worse than $2^n$, but better than $2^{n^2}$
+
+** Common running times
+
+*** Constant time: Running time is $O\left(1\right)$
++ Problems can usually not be solved in $O\left(1\right)$, because reading the input takes time $\Omega(n)$.
++ Individual operations are done in constant time.
+
+*** Linear time: Running time is $O\left(n\right)$
++ Algorithms that take a single pass over the input sequence, such as
+  * Finding the smallest element in a sequence
+  * Checking if a sequence is sorted
++ Many smarter techniques result in linear time, namely two pointers
+  * Merging sorted lists
+  * Target sum: Find a pair in a sorted array that sums to $T$
+
+*** Logarithmic time: Running time is $O\left(\log n\right)$
++ Binary search
++ Many data structures, e.g. segment trees
+
+*** Linearithmic time: Running time is $O\left(n \log n\right)$
++ Sorting: given an array $A$ of $n$ integers, rearrange tiem in ascending order.
+  - Merge sort
+
+*** Quadratic time: Running time is $O\left(n^2\right)$
++ Closest pair of points: Given a list of $n$ points in $x_1 , y_1 ) , \ldots , \left(x_n , y_n\right)$, find the pair with the smallest distance.
+
+*** Cubic time: Running time is $O\left(n^3\right)$
++ 3-sum: Given an array $A = \left(a_1 , a_2 , \ldots , a_n\right)$, find three elements of $A$ that sum exactly to $0$.
+  - Naively solved in $O\left(n^3\right)$ by trying all triples
+  - Reduce to target sum: $O\left(n^2\right)$ by fixing one of the three elements
+  - Conjecture: For any $\varepsilon > 0$, there is no $O\left(n^{2 - \varepsilon}\right)$-time algorithm for 3-Sum.
+
+*** Exponential time: Running time is $O\left(2^{n^k}\right)$ for some constant $k > 0$
++ *Single-exponential time*: Running time is $O\left(c^n\right)$ for some $c > 1$.
++ Independent set: Given a graph $G$, find the largest pairwise non-adjacent set of vertices.
+  - $O\left(2^n \cdot n^2\right)$: try all subsets
++ Traveling salesman problem: Given a weighted graph $G$, find a tour of minimum length that visits each vertex once.
+  - $O\left(n ! \cdot n\right)$ algorithm: try all tours
+  - $O\left(2^n \cdot n^2\right)$ algorithm: improve using dynamic programming
+
+*** Summary
+
+#+DOWNLOADED: screenshot @ 2026-08-30 20:31:34
+#+attr_org: :width 400px
+[[file:./assets/Running_times/20260830203134_screenshot.png]]
+
