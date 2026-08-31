@@ -1,0 +1,44 @@
+:PROPERTIES:
+:ID:       0037E5AB-35E0-432F-9341-CFB9ED46FF0C
+:END:
+#+title: Grafer
+#+created: [2026-08-31 Mon 10:45]
+#+last_modified: [2026-08-31 Mon 10:45]
+#+filetags: :mat221:
+
+Part of [[id:4649E8BC-2102-46F7-8D9E-693AEA5A82F9][MAT221]]
+
+* Introduksjon
+
+En enkel graf er et par $G = \left(V , E\right)$ der $V$ er en mengde av *hjørner* og $E$ er en mengde *kanter* $E \subseteq \left\{\left\{u , v\right\} | u , v \in V , u \neq v\right\}$. En graf kan se slik ut:
+
+#+DOWNLOADED: screenshot @ 2026-08-31 10:49:57
+#+attr_org: :width 400px
+[[file:./assets/20260831104957_screenshot.png]]
+
+At en graf er *endelig* (engelsk: finite) vil si at den består av et endelig antall mengder, altså er mengden noder og mengden kanter endelige. Siden $\left\{u , v\right\} = \left\{v , u\right\}$ har kantene ingen retning. Hvis to hjørner er endepunktene til samme kant, kaller vi dem *naboer*. Graden $\deg \left(v\right)$ til et hjørne $v$ er antallet kanter som har $v$ som endepunkt.
+
+** Ganger, stier og sykler
+
+En *gang* (engelsk: path) fra $v_0$ til $v_k$ er en følge $v_0 , e_1 , v_1 , e_2 , \ldots , e_k , v_k$ der $e_i = \left\{v_{i - 1} , v_i\right\}$ for hvert $i$. En *sti* er en gang uten gjentatte hjørner. En *sykel* er en lukket gang med minst tre kanter som, bortsett fra at første og siste hjørne er det samme, ikke gjentar hjørner.
+
+#+DOWNLOADED: screenshot @ 2026-08-31 10:58:51
+#+attr_org: :width 400px
+[[file:./assets/20260831105851_screenshot.png]]
+
+** Sammenheng
+
+En graf er *sammenhengende* (engelsk: connected) dersom det finnes en sti mellom ethvert par av hjørner. Hjørnene i en graf deles inn i *sammenhengskomponenter* (engelsk: connected components). EN *bro* er en kant som, når den fjernes, øker antallet sammenhengskomponenter.
+
+** Delgrafer
+
+La $G = \left(V , E\right)$ være en graf. En graf $H = \left(W , F\right)$ er en *delgraf* av $G$ dersom $W \subseteq V , F \subseteq E$ og begge enfepunktene til hver kant i $F$ ligger i $W$.
+
+** Vektede grafer
+
+En *vektet graf* er en graf $G = \left(V , E\right)$ sammen med en funksjon $w : E \rightarrow \mathbb{R}$. Tallet $w\left(e\right)$ kalles *vekten* til kanten $e$. Vekten kan for eksempel representere avstand, kostnad eller tid.
+
+* Kilder
+
++ MAT221 forelesningsnotat =2026-08-31-grafer-1-sammenheng.html=
++ MAT221 forelesningsnotat =2026-08-31-grafer-2-spenntraer.html=

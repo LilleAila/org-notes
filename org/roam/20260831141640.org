@@ -1,0 +1,202 @@
+:PROPERTIES:
+:ID:       B5F5D7D1-C376-473B-B89F-0E05AE6F5492
+:END:
+#+title: Graphs
+#+created: [2026-08-31 Mon 14:16]
+#+last_modified: [2026-08-31 Mon 14:16]
+#+filetags: :inf234:
+
+Part of [[id:7248FCAE-E47D-4C5D-BFCD-C54DECE24BA1][INF234]] (lecture 5), introduced in [[id:0037E5AB-35E0-432F-9341-CFB9ED46FF0C][Grafer (MAT221)]]. This covers implementation of graphs and relevant algorithms.
+
+* Introduction
+
+Graphs capture pairwise relationships between objects. A graph is a pair $\left(V , E\right)$, where
++ $V$ is a vertex set
++ $E$ is the edge set: a set of pairs of vertices, $E \subseteq \binom{V}{2}$
+  - $u , v \in V : \left\{u , v\right\} \in E$
+  - Edges may also be denoted as simply $u v \in E$
+
+  We often denote $n = | V |$, $m = | E |$
+
+  -----
+
+  Example of a graph:
+
+#+DOWNLOADED: screenshot @ 2026-08-31 14:20:34
+#+attr_org: :width 400px
+[[file:./assets/Introduction/20260831142034_screenshot.png]]
+
+This is a graph with
++ $V = \left\{1 , 2 , 3 , 4 , 5\right\}$
++ $E = \left\{12 , 14 , 23 , 24 , 34 , 35 , 45\right\}$
++ $n = 5 , m = 7$
+
+Graphs may be used for transportation networks, assignments, social networks, molecules, etc.
+
+* Representation
+
+** Edge list
+
+Keep $E$ as a list of pairs.
++ Space $O\left(m\right)$
++ Iterate over edges: $O\left(m\right)$ time, $O\left(1\right)$ per edge
++ Check if $u , v \in V$ are adjacent: $O\left(m\right)$ time
++ Iterate over neigjbors of $u \in V$: $O\left(m\right)$ time
+
+** Adjacency matrix
+
+Store graph as an $n \times n$ matrix $A$, $A_{u v} = 1 \Leftrightarrow u v \in E$.
++ Space: $O\left(n^2\right)$
++ Iterate over edges: $O\left(n^2\right)$ time
++ Check if $u , v \in V$ are adjacent: $O\left(1\right)$ time
++ Iterate over neighbors of $u \in V$: $O\left(n\right)$ time
+
+- Works well on dense graphs $m = \Theta \left(n^2\right)$
+- Not so good on sparse graphs $m = \Theta(n)$
+
+  Here is an adjacentry matrix for the example graph above:
+
+#+DOWNLOADED: screenshot @ 2026-08-31 14:38:44
+#+attr_org: :width 400px
+[[file:./assets/Representation/20260831143844_screenshot.png]]
+
+** Adjacency lists
+
+For each vertex, store the list of the neighbors.
++ Space: $O\left(m + n\right)$
++ Iterate over all edges: $O\left(m + n\right)$ time
++ Check if $u , v \in V$ are adjacent: $O\left(\deg u\right)$ time (or log / constant time depending on implementation, such as an ordered set or a hash set)
++ Iterate over neighbors of $u \in V$: $O\left(\deg u\right)$ time, $O\left(1\right)$ per neighbors.
+
+#+DOWNLOADED: screenshot @ 2026-08-31 14:47:23
+#+attr_org: :width 400px
+[[file:./assets/Representation/20260831144723_screenshot.png]]
+
+** Paths and connectivity
+
+Definition: A *path* in $G$ is a sequence of vertices $v_1 , v_2 , \ldots , v_k$ where each consecutive pair $v_{i - 1} v_i$ is jouned by a different edge $E$. A path is *simple* if all its verticaes are distinct. A graph is *connected* if for every pair of vertices $u , v \in V$ there is a path between $u$ and $v$.
+
+** Cycles
+
+Definition: A *cycle* in $G$ is a path $v_1 , v_2 , \ldots , v_k$ where $v_1 = v_k$ and $k \geq 2$. A cycle is *simple* if all of its nodes are distinct (except $v_1$ and $v_k$). A graph is *acyclic* if it has no cycles.
+
+#+DOWNLOADED: screenshot @ 2026-08-31 15:16:56
+#+attr_org: :width 400px
+[[file:./assets/Representation/20260831151656_screenshot.png]]
+
+** Trees
+
+Definition: A graph $G$ is a *tree* if it is connected and acyclic.
+
+Lemma: Let $G$ be a graph on $n$ vertices. Any two of the following statements imply the third:
++ $G$ is connected
++ $G$ does not contain a cycle
++ $G$ has $n - 1$ edges
+
+Example:
+
+#+DOWNLOADED: screenshot @ 2026-08-31 15:18:31
+#+attr_org: :width 400px
+[[file:./assets/Representation/20260831151831_screenshot.png]]
+
+*** Proof
+
+Given:
++ $G$ is connected
++ $G$ has no cycles
+    $| E | = n - 1$
+
+Base: For a graph with $n = 1$, there will only be one node, so there are no edges.
+$n \rightarrow n + 1$: we add $1$ edge to connect the new vertex
+Given a forest of multiple trees: $1 + n_1 + \ldots + n_k = 1 + n$, by induction hypothesis: $k + \left(n - 1\right) + \left(n_2 - 1\right) + \ldots + \left(n_k - 1\right) = n$
+
+#+begin_quote
+this proof is incomplete
+#+end_quote
+
+*** Rooted trees
+
+Definition: A *rooted tree* is a tree $T$ and a vertex $r$.
+
+Rooting gives an ordering of the tree, and models hierarchical structures. The tree above rooted at $2$ will look like:
+
+#+DOWNLOADED: screenshot @ 2026-08-31 15:31:28
+#+attr_org: :width 400px
+[[file:./assets/Representation/20260831153128_screenshot.png]]
+
+Leaf nodes are nodes with no children. We can make the observation that any tree must have at least one leaf. It can also be proved that a tree has at least two leaves. It can be proved that a tree with at least $2$ vertices will have at least $2$ leaves (vertices with degree $1$).
+
+** Practical applications of trees
+
+*** Phylogenetic trees
+
+#+DOWNLOADED: screenshot @ 2026-08-31 15:45:14
+#+attr_org: :width 400px
+[[file:./assets/Representation/20260831154514_screenshot.png]]
+
+*** Interface elements
+
+#+DOWNLOADED: screenshot @ 2026-08-31 15:45:38
+#+attr_org: :width 400px
+[[file:./assets/Representation/20260831154538_screenshot.png]]
+
+** Common problems
+
++ $s$-$t$ *connectivity problem*: Given two vertices $s$ and $t$ in $G$, is there a path between $s$ and $t$?
+  Can be precomputed in $O\left(m \alpha(n)\right)$ and queried in $O\left(q \cdot \alpha(n)\right)$ where $q$ is the number of queries and $n$ is the number of nodes using DSU.
++ $s$-$t$ *shortest path problem*: Given two vertices $s$ and $t$ in $G$, what is the length of a shortest path between $s$ and $t$?
+  Can be precomputed in $O\left(m + n\right)$ (DFS from root) and queried in $O\left(\log n\right)$ (LCM).
+
+Applications:
++ Physically reach $A$ from $B$
++ Compute Erdös number
++ Send a packet over network
++ Fill area with the same color
+
+* Algorithms
+
+** Breadth-first search
+
+Intuition: explore outwards from $s$ in all directions simultaneously. The algorithm computes a sequence of layers:
+
+\begin{aligned}
+L_0 & = \left\{s\right\} \\
+ L_1 & = \text{all neighbors of} \; s \\
+ L_2 & = \text{all neighbors of} \; L_1 \; \text{that are nto already in} \; L_0 \; \text{or} \; L_1 \\
+ L_{i + 1} & = \text{all vertices having a neighbor in} \; L_i \; \text{that are not already in} \; L_0 , \ldots , L_i
+\end{aligned}
+
+#+DOWNLOADED: screenshot @ 2026-08-31 15:50:23
+#+attr_org: :width 400px
+[[file:./assets/Algorithms/20260831155023_screenshot.png]]
+
+Observation: $L_i$ consists of vertices exactly at distance $i$ from $s$. There is a path from $s$ to $t$ if $t$ appears in some layer.
+
+#+begin_quote
+Claim: Let $uv$ be an edge of $G$. The layers of $u$ anv $v$ differ by at most one.
++ Assume $u \in L_i$ and $v \in L_j$, where $j \geq i + 2$
++ By definition of $L_j$, $v$ is not in $L_i$ or lower
++ Hence, $v$ must be in $L_i + 1$ - contradiction!
+#+end_quote
+
+*** Implementation
+
+#+begin_src cpp
+  queue<int> q;
+  vector<bool> visited(n);
+  q.push(s);
+  visited[s] = true;
+  while (!q.empty()) {
+    int u = q.front();
+    q.pop();
+
+    for (int v : adj[u]) {
+      if (!visited[v]) {
+        visited[v] = true;
+        q.push(v);
+      }
+    }
+  }
+#+end_src
+
+If we want to keep track of the layers, we may also increment a variable $i$ and keep track of layers as individual lists. Equivalently, we can maintain a =vector<int> dist= instead of =vector<bool> visited=. The BFS algorithm runs in time $O\left(m + n\right)$.

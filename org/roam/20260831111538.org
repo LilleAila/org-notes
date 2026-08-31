@@ -1,0 +1,51 @@
+:PROPERTIES:
+:ID:       082E2461-2520-426C-AC25-9F73A86C12A5
+:END:
+#+title: Trær
+#+created: [2026-08-31 Mon 11:15]
+#+last_modified: [2026-08-31 Mon 11:15]
+#+filetags: :mat221:
+
+* Introduksjon
+
+Et *tre* er en sammenhengende [[id:0037E5AB-35E0-432F-9341-CFB9ED46FF0C][graf]] uten sykler. Altså har grafen $n - 1$ kanter der $n$ er antall noder. En *skog* er en graf uten sykler. Hvert sammenhengskomponent i en skog er altså et tre.
+
+#+DOWNLOADED: screenshot @ 2026-08-31 11:17:23
+#+attr_org: :width 400px
+[[file:./assets/Introduksjon/20260831111723_screenshot.png]]
+
+La $T$ være en endelig enkel graf med $n \geq 1$. Alle de følgende utsagnene er ekvivalente:
+
++ $T$ er et tre
++ Mellom hvert par av hjørner finnes det nøyaktig én sti
++ $T$ er sammenhengende og har $n - 1$ kanter
++ $T$ har ingen sykler og har $n - 1$ kanter
+
+* Spenntrær
+
+La $G = \left(V , E\right)$ være en sammenhengende enkel graf. Et *spenntre* i $G$ er en delgraf $T = \left(V , F\right)$ som er et tre. Et spenntre inneholder alle hjørnene i $G$. Enhver endelig sammenhengende graf har minst ett spenntre.
+
+** Minimum spenntrær
+
+La $g = \left(V , E\right)$ være en endelig, sammenhengende vektet enkel graf, og la $T = \left(V , F\right)$ være et spenntre i $G$. Den totale vekten til $T$ er den endelige summen $w\left(T\right) = \displaystyle \sum_{e \in F} w\left(e\right)$. Et minimum spenntre (MST) er et spenntre med minst mulig total vekt. Et minimum spenntre finnes, fordi en endelig graf har endelig mange spenntre.
+
+*** Kruskals algoritme
+
+Sorter kantene etter stigende vekt. Gå gjennom dem i denne rekkefølen, og legg til en kant dersom den ikke danner en sykel med kantene som allerede er valgt. En vanlig metode for å implementere dette er ved hjelp av /union-find/, noe som kan finne MST i $O\left(| E | \cdot \alpha(| V |)\right)$. Dette antar at kantene er sortert. Hvis ikke vil sorterings-steget føre til at det blir totalt $O\left(| E | \log | E |\right)$, og dette blir den mest kostbare delen av algoritmen.
+
+#+DOWNLOADED: screenshot @ 2026-08-31 11:30:11
+#+attr_org: :width 400px
+[[file:./assets/Spenntrær/20260831113011_screenshot.png]]
+
+*** Prims algoritme
+
+Start i et hjørne. Legg til en kant med minst mulig vekt som forbinder treet som hittil er bygget med et nytt hjørne. Gjenta til delgrafen er sammenhengende. Med en binær heap får man typisk $O\left(| E | \log | V |\right)$.
+
+#+DOWNLOADED: screenshot @ 2026-08-31 11:30:23
+#+attr_org: :width 400px
+[[file:./assets/Spenntrær/20260831113023_screenshot.png]]
+
+* Kilder
+
++ MAT221 forelesningsnotat =2026-08-31-grafer-1-sammenheng.html=
++ MAT221 forelesningsnotat =2026-08-31-grafer-2-spenntraer.html=
