@@ -1,0 +1,77 @@
+:PROPERTIES:
+:ID:       1A44E9C2-4744-4E25-9E5B-171F2808F7DF
+:END:
+#+title: Kontinuitet
+#+created: [2026-09-02 Wed 12:02]
+#+last_modified: [2026-09-02 Wed 12:02]
+#+filetags: :mat111:
+
+Del av [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]
+
+* Introduksjon
+
+Vi har en funksjon $f : D\left(f\right) \rightarrow \mathbb{R}$, $a \in D\left(f\right)$. $f$ er kontinuerlig i $a$ hvis $\displaystyle \lim_{x \rightarrow a} f\left(x\right) = f\left(a\right)$. Vi kan altså finne en omegn om $a$ slik at alle funksjonsverdiene går mot $f\left(a\right)$ i intervallet. Vi bruker ensidige grenser der funksjonen kun er definert på en site.
++ Vi sier at $f$ er kontinuerlig hvis $f$ er kontinuerlig i alle $a \in D\left(f\right)$.
+
+-----
+
+Eksempel på en ikke-kontinuerlig (/diskontinuerlig/) funksjon:
+
+$f\left(x\right) = x , \begin{cases}
+ x & \text{,} x \neq 0 \\
+ 1 & \text{,} x = 0
+\end{cases} , f : \mathbb{R} \rightarrow \mathbb{R}$
+
+Diskontinuerlig i $0$, fordi $\displaystyle \lim_{x \rightarrow 0} f\left(x\right) = \lim_{x \rightarrow 0} x = 0$ og $f\left(x\right) = 1$. $0 \neq 0 \Rightarrow f\left(x\right)$ er diskontinuerlig i $0$.
+
+Et eksempel på en funksjon som er diskontinuerlig i hele sin definisjonsmengde er: $f\left(x\right) = \begin{cases}
+ 1 & \text{,} x \in \mathbb{Q} \\
+ 0 & \text{,} x \notin \mathbb{Q}
+\end{cases} , f : \mathbb{R} \rightarrow \mathbb{R}$. Alle åpne intervaller inneholder både rasjonale og irrasjonale tall. Det vil si at for ethvert $\delta$-omegn om $a$ vil det alltid finnes både $x \in \mathbb{Q}$ og $x \notin \mathbb{Q}$. Da har vi også at $\displaystyle \lim_{x \rightarrow a} f\left(x\right)$ ikke eksisterer for noen $a$, og dermed er funksjonen diskontinuerlig for alle $a \in \mathbb{R}$.
+
+-----
+
+Eksempel på kontinuerlige funksjoner:
+
++ Polynom $f\left(x\right) = P\left(x\right)$
++ Brøk av polynom $f\left(x\right) = \frac{P\left(x\right)}{Q\left(x\right)}$ (er kontinuerlig selv om $Q\left(x\right)$ kan være 0, da dette ikke vil eksistere i definisjonsmengden)
++ Absoluttverdi $f\left(x\right) = \left|x\right| = \begin{cases}
+ x &\text{,} x \geq 0 \\
+ - x & \text{,} x < 0
+\end{cases}$
+  * $\displaystyle a \geq 0 \Rightarrow \lim_{x \rightarrow a} f\left(x\right) = \lim_{x \rightarrow a} x = a = f\left(a\right)$
+  * $\displaystyle a < 0 \Rightarrow \lim_{x \rightarrow a} f\left(x\right) = \lim_{x \rightarrow a} - x = - a = f\left(a\right)$
+  * $\displaystyle a = 0 \Rightarrow \lim_{x \rightarrow a^{-}} f\left(x\right) = \lim_{x \rightarrow a^{+}} f\left(x\right) = f\left(a\right) = 0$
++ Trigonometriske funksjoner (og inverse trig funksjoner)
++ Eksponentialfunksjoner
++ Logaritmefunksjoner
+
+#+begin_quote
+Hvis $f$ og $g$ er kontinuerlig i $a$, er også
+$f \pm g$
++ $f \cdot g$
++ $k \cdot f + k \in \mathbb{R}$
++ $\frac{f}{g} + g\left(a\right) \neq 0$
++ $\sqrt[n]{f} + f\left(a\right) > 0 , n \in \mathbb{R}$
+kontinuerlig i $a$.
+
+Dette kommer fra grensesetningene:
+
+\[
+\lim_{x \rightarrow a} f\left(x\right) g\left(x\right) = \lim_{x \rightarrow a} f\left(x\right) \cdot \lim_{x \rightarrow x} g\left(x\right) = f\left(a\right) g\left(a\right)
+\]
+
+#+end_quote
+
+#+begin_quote
+Hvis $\displaystyle \lim_{x \rightarrow a} g\left(x\right) = L$ og $f$ er kontinuerlig i $L$, har vi $\displaystyle \lim_{x \rightarrow a} f\left(g\left(x\right)\right) = f\left(L\right)$. Altrå kan vi "trekke inn" grensen i sammensatte funksjoner. Fra dette får vi også $f$ og $g$ er kontinuerlig $\Rightarrow f compose g$ er kontinuerlig.
+
+TODO: oppgave 1.5.37 i boken: $\varepsilon$-$\delta$-bevis av dette
+
+Hvis begge funksjonene er kontinuerlig, kan vi altså gjøre:
+
+\[
+\lim_{x \rightarrow a} f\left(g\left(x\right)\right) = f\left(\lim_{x \rightarrow a} g\left(x\right)\right) = f\left(g\left(a\right)\right)
+\]
+
+#+end_quote

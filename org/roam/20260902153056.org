@@ -1,0 +1,127 @@
+:PROPERTIES:
+:ID:       FAF35E9F-4F72-43F9-8EB6-8A18DCE03944
+:END:
+#+title: Directed graphs
+#+created: [2026-09-02 Wed 15:30]
+#+last_modified: [2026-09-02 Wed 15:30]
+#+filetags: :inf234:
+
+* Introduction
+
+Directed [[id:B5F5D7D1-C376-473B-B89F-0E05AE6F5492][graphs]] are used when the pairwise relation is not symmetric. Some use cases include
++ Web graph: Site $A$ has a link to site $B$
++ Dependency graph: Task $A$ must be done before task $B$
+
+ *Definition*: A *directed graph* is a pair $\left(V , A\right)$  where
++ $V$ is a vertex set
++ $A$ is the *arc* set: a se of *ordered pairs* of vertices, $A \subseteq V \times V$
+
+  Example:
+
+#+DOWNLOADED: screenshot @ 2026-09-02 15:33:53
+#+attr_org: :width 200px
+[[file:./assets/20260902153353_screenshot.png]]
+
+Here, we have
++ $V = \left\{1 , 2 , 3 , 4 , 5\right\}$
++ $A = \left\{\overrightarrow{12}, \overrightarrow{23}, \overrightarrow{25}, \overrightarrow{35}, \overrightarrow{41}, \overrightarrow{54}\right\}$
++ $n = 5$, $m = 6$
+
+#+begin_quote
+  We say that the in-degree $\deg^{-} v$ is the number of edges going towards $v$, and the out-degree $\deg^{+} v$ is the number of edges going out from $v$.
+#+end_quote
+
+** Representation
+
+We use mostly the same methods for representing directed graphs as with undirected graphs.
+
+*** Adjacenty matrix
+
+Stored as an $n$-by-$n$ matrix $A$, $A_{u v} = i \Leftrightarrow \overrightarrow{u v} \in A$.
+
++ Space: $O\left(n^2\right)$
++ Single pair: $O\left(1\right)$
++ All out-neighbors: $O\left(n\right)$
+
+*** Adjacency list
+
+Stored as a list of lists. This is again in practice the same as with undirected graphs. The only difference compared to undirected graphs is that we store each edge only once. In fact, undirected graphs are usually stored as adjacency lists of a directed graph where each edge is duplicated and reversed.
+
++ Space: $O\left(m + n\right)$
++ All out-neighbors: $O\left(\deg^{+} v\right)$
+
+** Paths and cycles
+
+A *directed path* in $G$ is a sequence of vertices $v_1 , v_2 , \ldots , v_k$ where each consecutive pair $\overrightarrow{v_{i - 1} v_i}$ is joined by a different arc in $E$.
+A *directed cycle* in $G$ is a directed path $v_1 , v_2 , \ldots , v_k$ where $v_1 = v_k$ and $k \geq 2$
+
+*** Finding paths
+
+A directed path from $s$ to $t$ can be found in time $O\left(m + n\right)$. Both DFS and BFS work for this, but only BFS is guaranteed to find the shortest path.
+
+*** Connectivity
+
+A pair of vertices $u , v \in V$ is /mutually reachable/ if there is a directed path from $u$ to $v$ and from $v$ to $u$. A graph is *strongly connected* if every pair of vertices $u , v \in V$ is mutually reachable. For example, a directed cycle is strongly connected. Here is an example of a strongly connected component in a directed graph:
+
+#+DOWNLOADED: screenshot @ 2026-09-02 15:47:54
+#+attr_org: :width 200px
+[[file:./assets/20260902154754_screenshot.png]]
+
+-----
+
+Let $s$ be any vertex. $G$ is strongly connected iff every vertex is mutually reachable with $s$. This is true by definition. For any $u , v \in V$, the path $u \rightarrow s \rightarrow v$ and $v \rightarrow s \rightarrow u$ exists. In other words, we can start from any starting point and only run a single pass in linear time.
+
+1. Pick arbitrary $s \in V$.
+2. Run BFS from $s$ to find the set $S$ of nodes reachable from $s$
+3. Run BFS from $s$ in $G^{\text{rev}}$ to find the set $T$ of nodes that have a path to $s$, where $G^{\text{rev}}$ contains the same arcs as $G$ but reversed
+4. If $S = T = V$, the graph is strongly connected
+
+*** Strongly connected components
+
+The *strongly connected component* of a vertex $s$ is the set of all vertices mutually reachable with $s$
+
+#+DOWNLOADED: screenshot @ 2026-09-02 15:54:35
+#+attr_org: :width 400px
+[[file:./assets/20260902155435_screenshot.png]]
+
+** Directed acyclic graphs
+
+A directed graph $G$ is a *DAG* if it contains no directed cycles. A DAG may still however contain undirected cycles.
+
+#+DOWNLOADED: screenshot @ 2026-09-02 15:55:32
+#+attr_org: :width 400px
+[[file:./assets/20260902155532_screenshot.png]]
+
+** Topological orders
+
+A *topological order* of a directed graph $G$ is an ordering of vertices $v_i , \ldots , v_n$ such that every arc $\overrightarrow{v_i v_j} \in A$ has $i < j$. This has the prerequisite that the graph must be a DAG. A directed cycle admits no topological ordering. Some vertex must be last in the order, which is impossible if there exists a directed cycle.
+
+Every DAG has a source - a vertex with no incoming edges. Algorithm:
+
+1. Find a source in $G$
+2. Put $s$ in the first position of the order
+3. Complete with the topological order of $G - \left\{s\right\}$
+
+*Lemma*: Every DAG has a topological order
+
+*** Implementation
+
+TODO
+
+    #+begin_src
+q = empty queue
+for u in nodes where in_degree[u] = 0:
+  q.push(u)
+order = empty list
+while not q.empty:
+  u = q.pop()
+  order.push(u)
+  for v in adj[u]:
+    --in_degree[u]
+    if in_degree[v] == 0:
+      q.push(v)
+#+end_src
+
+   #+begin_quote
+Alternatively, this could also be done with two DFS-passes - one over the reverse graph to find a source node, then another pass to find the topological order.
+   #+end_quote

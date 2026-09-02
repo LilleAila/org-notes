@@ -1,0 +1,55 @@
+:PROPERTIES:
+:ID:       31F81F20-A0F0-4575-8D26-45E75772CAAD
+:END:
+#+title: Bipartite graphs
+#+created: [2026-09-02 Wed 14:50]
+#+last_modified: [2026-09-02 Wed 14:50]
+#+filetags: :inf234:
+
+* Introduction
+
+A [[id:B5F5D7D1-C376-473B-B89F-0E05AE6F5492][graph]] $G$ is bipartite if its vertex set $V$ can be partitioned into $R$ and $B$ such that each edge has one endpoint in $R$ and $B$. Here is an example of a bipartite graph:
+
+#+DOWNLOADED: screenshot @ 2026-09-02 14:51:42
+#+attr_org: :width 200px
+[[file:./assets/Introduction/20260902145142_screenshot.png]]
+
+Meanwhile, the following graph may not be bipartite, because we have an odd-length cycle:
+
+#+DOWNLOADED: screenshot @ 2026-09-02 14:53:04
+#+attr_org: :width 200px
+[[file:./assets/Introduction/20260902145304_screenshot.png]]
+
+Example use cases of bipartite graphs include
++ Assignment problems: students to hospitals, machines to jobs
++ Pixel / chessboard adjacency
+
+** Testing bipartiteness
+
+*Problem*: Given a graph $G$, decide whether $G$ is bipartite.
+
+To solve this, we can fix one color, then run DFS and alternate colors for each recursion.
+
+#+DOWNLOADED: screenshot @ 2026-09-02 15:12:48
+#+attr_org: :width 200px
+[[file:./assets/Introduction/20260902151248_screenshot.png]]
+
+*** Implementation from lecture
+
+[[file:./assets/testing-bipartiteness-algorithm.svg]]
+*** My own (better) implementation
+
+[[file:./assets/testing-bipartiteness-algorithm-2.svg]]
+*** Obstructions to bipartiteness
+
+Based on the above code, we can make the observation that the layers of BFS must have different colors. That is to say, a connected graph is bipartite iff there are no edges in the same BFS layer.
+
+*Theorem*: A graph is bipartite if and only if it has no odd cycles.
+
++ Assume $G$ is bipartite and has an odd cycle $C$
+  - $2$-coloring of $G$ is also a valid $2$-coloring of $C$.
+  - $C$ cannot be $2$-colored!
++ Assume $G$ has no odd cycles and consider the BFS layers
+  - If no edges are in the same layer, $G$ is bipartite
+  - Otherwise we will find an odd cycle. This is a contradiction.
+

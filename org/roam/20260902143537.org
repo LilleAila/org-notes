@@ -1,0 +1,30 @@
+:PROPERTIES:
+:ID:       ADBAB9E6-61B5-4E5B-ABCC-232A25B9FD47
+:END:
+#+title: Depth-first search
+#+created: [2026-09-02 Wed 14:35]
+#+last_modified: [2026-09-02 Wed 14:35]
+#+filetags: :inf234:
+
+* Introduction
+
+Depth-first search is an algorithm used to traverse a [[id:B5F5D7D1-C376-473B-B89F-0E05AE6F5492][graph]]. It explores $s$ one step at a time, backtrack when there are no more nodes to explore.
+
+#+begin_src cpp
+  void dfs(u) {
+    visited[u] = true;
+    for (int v : adj[u]) {
+      if (!visited[v]) dfs(v);
+    }
+  }
+#+end_src
+
+#+begin_quote
+One benefit of DFS is that it is very easy to implement using recursion. It is especially useful on trees, to detect cycles, etc.
+#+end_quote
+
+If DFS is run from $s$, it wil visit exactly the connected component of $s$. Started from any vertex $s$, DFS runs in time $O\left(n + m\right)$. The main difference from BFS is that DFS explores one full branch before moving on to the next, whiel BFS explores one layer at a time. An iterative implementation could be implemented using the same code as BFS, but replacing the queue with a stack.
+
+#+begin_quote
+Let DFS visit a vertex $u$, and let $u v$ be an edge. $v$ is either a descendant or an ancestor of $u$ in the DFS tree.
+#+end_quote

@@ -72,6 +72,8 @@ For each vertex, store the list of the neighbors.
 #+attr_org: :width 400px
 [[file:./assets/Representation/20260831144723_screenshot.png]]
 
+* Paths, cycles, etc
+
 ** Paths and connectivity
 
 Definition: A *path* in $G$ is a sequence of vertices $v_1 , v_2 , \ldots , v_k$ where each consecutive pair $v_{i - 1} v_i$ is jouned by a different edge $E$. A path is *simple* if all its verticaes are distinct. A graph is *connected* if for every pair of vertices $u , v \in V$ there is a path between $u$ and $v$.
@@ -84,7 +86,24 @@ Definition: A *cycle* in $G$ is a path $v_1 , v_2 , \ldots , v_k$ where $v_1 = v
 #+attr_org: :width 400px
 [[file:./assets/Representation/20260831151656_screenshot.png]]
 
-** Trees
+* Connected components
+
+A connected component of a vertex $s$ is the set of all vertices reachable from $s$. Starting from any vertex in the connected component gives the same set. Distinct connected components partition the vertex set $V$ of $G$. From this, we can find that the set of vertices visited by the BFS is exactly the connected component of $s$.
+
+#+DOWNLOADED: screenshot @ 2026-09-02 14:27:51
+#+attr_org: :width 400px
+[[file:./assets/20260902142751_screenshot.png]]
+
+In this example, the connected component of $1$ is $\left\{1 , 2 , 3 , 4 , 5\right\}$.
+
+** Implementation
+
+*Problem*: Given a graph $G$, output the connected components of $G$.
+
+[[file:./assets/connected-components-impl.svg]]
+This algorithm wil run in time $O\left(n + m\right)$.
+
+* Trees
 
 Definition: A graph $G$ is a *tree* if it is connected and acyclic.
 
@@ -99,7 +118,7 @@ Example:
 #+attr_org: :width 400px
 [[file:./assets/Representation/20260831151831_screenshot.png]]
 
-*** Proof
+** Proof
 
 Given:
 + $G$ is connected
@@ -111,10 +130,10 @@ $n \rightarrow n + 1$: we add $1$ edge to connect the new vertex
 Given a forest of multiple trees: $1 + n_1 + \ldots + n_k = 1 + n$, by induction hypothesis: $k + \left(n - 1\right) + \left(n_2 - 1\right) + \ldots + \left(n_k - 1\right) = n$
 
 #+begin_quote
-this proof is incomplete
+NOTE: this proof is incomplete
 #+end_quote
 
-*** Rooted trees
+** Rooted trees
 
 Definition: A *rooted tree* is a tree $T$ and a vertex $r$.
 
@@ -140,7 +159,7 @@ Leaf nodes are nodes with no children. We can make the observation that any tree
 #+attr_org: :width 400px
 [[file:./assets/Representation/20260831154538_screenshot.png]]
 
-** Common problems
+* Common problems
 
 + $s$-$t$ *connectivity problem*: Given two vertices $s$ and $t$ in $G$, is there a path between $s$ and $t$?
   Can be precomputed in $O\left(m \alpha(n)\right)$ and queried in $O\left(q \cdot \alpha(n)\right)$ where $q$ is the number of queries and $n$ is the number of nodes using DSU.
@@ -155,48 +174,10 @@ Applications:
 
 * Algorithms
 
-** Breadth-first search
+Two of the most common algorithms for traversing graphs are [[id:65A6BA56-2009-40F0-8BED-7580E1E87C8B][breadth-first search]] and [[id:ADBAB9E6-61B5-4E5B-ABCC-232A25B9FD47][depth-first search]]. Their difference is the visiting order. DFS explores an entire branch before moving on to the next using a stack (last-in first-out, often implicit via recursion), while BFS uses a queue (first-in, first-out) to explore in "layers".
 
-Intuition: explore outwards from $s$ in all directions simultaneously. The algorithm computes a sequence of layers:
-
-\begin{aligned}
-L_0 & = \left\{s\right\} \\
- L_1 & = \text{all neighbors of} \; s \\
- L_2 & = \text{all neighbors of} \; L_1 \; \text{that are nto already in} \; L_0 \; \text{or} \; L_1 \\
- L_{i + 1} & = \text{all vertices having a neighbor in} \; L_i \; \text{that are not already in} \; L_0 , \ldots , L_i
-\end{aligned}
-
-#+DOWNLOADED: screenshot @ 2026-08-31 15:50:23
+#+DOWNLOADED: screenshot @ 2026-09-02 14:49:01
 #+attr_org: :width 400px
-[[file:./assets/Algorithms/20260831155023_screenshot.png]]
+[[file:./assets/20260902144901_screenshot.png]]
 
-Observation: $L_i$ consists of vertices exactly at distance $i$ from $s$. There is a path from $s$ to $t$ if $t$ appears in some layer.
-
-#+begin_quote
-Claim: Let $uv$ be an edge of $G$. The layers of $u$ anv $v$ differ by at most one.
-+ Assume $u \in L_i$ and $v \in L_j$, where $j \geq i + 2$
-+ By definition of $L_j$, $v$ is not in $L_i$ or lower
-+ Hence, $v$ must be in $L_i + 1$ - contradiction!
-#+end_quote
-
-*** Implementation
-
-#+begin_src cpp
-  queue<int> q;
-  vector<bool> visited(n);
-  q.push(s);
-  visited[s] = true;
-  while (!q.empty()) {
-    int u = q.front();
-    q.pop();
-
-    for (int v : adj[u]) {
-      if (!visited[v]) {
-        visited[v] = true;
-        q.push(v);
-      }
-    }
-  }
-#+end_src
-
-If we want to keep track of the layers, we may also increment a variable $i$ and keep track of layers as individual lists. Equivalently, we can maintain a =vector<int> dist= instead of =vector<bool> visited=. The BFS algorithm runs in time $O\left(m + n\right)$.
+DFS may explore adjacent nodes in different layers, while in BFS, two connected nodes will always be explored in either the same or subsequent layer.

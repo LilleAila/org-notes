@@ -1,0 +1,51 @@
+:PROPERTIES:
+:ID:       65A6BA56-2009-40F0-8BED-7580E1E87C8B
+:END:
+#+title: Breadth-first search
+#+created: [2026-09-02 Wed 14:37]
+#+last_modified: [2026-09-02 Wed 14:37]
+#+filetags: :inf234:
+
+Breadth-first search (BFS) is an algorithm used to traverse a [[id:B5F5D7D1-C376-473B-B89F-0E05AE6F5492][graph]] layer-by-layer. Explore outwards from $s$ in all directions simultaneously. The algorithm computes a sequence of layers:
+
+\begin{aligned}
+L_0 & = \left\{s\right\} \\
+ L_1 & = \text{all neighbors of} \; s \\
+ L_2 & = \text{all neighbors of} \; L_1 \; \text{that are nto already in} \; L_0 \; \text{or} \; L_1 \\
+ L_{i + 1} & = \text{all vertices having a neighbor in} \; L_i \; \text{that are not already in} \; L_0 , \ldots , L_i
+\end{aligned}
+
+#+DOWNLOADED: screenshot @ 2026-08-31 15:50:23
+#+attr_org: :width 400px
+[[file:./assets/Algorithms/20260831155023_screenshot.png]]
+
+Observation: $L_i$ consists of vertices exactly at distance $i$ from $s$. There is a path from $s$ to $t$ if $t$ appears in some layer.
+
+#+begin_quote
+Claim: Let $u v$ be an edge of $G$. The layers of $u$ anv $v$ differ by at most one.
++ Assume $u \in L_i$ and $v \in L_j$, where $j \geq i + 2$
++ By definition of $L_j$, $v$ is not in $L_i$ or lower
++ Hence, $v$ must be in $L_i + 1$ - contradiction!
+#+end_quote
+
+*** Implementation
+
+#+begin_src cpp
+  queue<int> q;
+  vector<bool> visited(n);
+  q.push(s);
+  visited[s] = true;
+  while (!q.empty()) {
+    int u = q.front();
+    q.pop();
+
+    for (int v : adj[u]) {
+      if (!visited[v]) {
+        visited[v] = true;
+        q.push(v);
+      }
+    }
+  }
+#+end_src
+
+If we want to keep track of the layers, we may also increment a variable $i$ and keep track of layers as individual lists. Equivalently, we can maintain a =vector<int> dist= instead of =vector<bool> visited=. The BFS algorithm runs in time $O\left(m + n\right)$.
