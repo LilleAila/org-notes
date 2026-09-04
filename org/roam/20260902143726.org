@@ -16,7 +16,7 @@ L_0 & = \left\{s\right\} \\
 \end{aligned}
 
 #+DOWNLOADED: screenshot @ 2026-08-31 15:50:23
-#+attr_org: :width 400px
+#+attr_org: :width 300px
 [[file:./assets/Algorithms/20260831155023_screenshot.png]]
 
 Observation: $L_i$ consists of vertices exactly at distance $i$ from $s$. There is a path from $s$ to $t$ if $t$ appears in some layer.

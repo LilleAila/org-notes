@@ -106,8 +106,6 @@ Every DAG has a source - a vertex with no incoming edges. Algorithm:
 
 *** Implementation
 
-TODO
-
     #+begin_src
 q = empty queue
 for u in nodes where in_degree[u] = 0:
@@ -125,3 +123,5 @@ while not q.empty:
    #+begin_quote
 Alternatively, this could also be done with two DFS-passes - one over the reverse graph to find a source node, then another pass to find the topological order.
    #+end_quote
+
+Using this algorithm, topological order can be constructed in time $O\left(n + m\right)$.

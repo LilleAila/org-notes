@@ -105,26 +105,48 @@ For den andre identiteten velger man ett objekt $x$ blant de $n + 1$ objektene. 
 
 Addisjonsprinsippet gir da $\binom{n + 1}{r} = \binom{n}{r} + \binom{n}{r - 1}$. Denne identiteten kalles også *pascals identitet*. Den gjør det mulig å beregne binomialkoeffisientene mer effektivt, uten å bruke fakulteter.
 
-** Sammenheng med Pascals trekant
+** Pascals trekant
 
-TODO.
+Om man setter opp alle binomialkoeffisientene for en gitt $n$, får vi for eksempel:
 
-#+begin_src typst
-#let choose(n, k) = {
-  if k == 0 or k == n { 1 }
-  else { choose(n - 1, k - 1) + choose(n - 1, k) }
-}
+\[
+\binom{4}{0} \binom{4}{1} \binom{4}{2} \binom{4}{3} \binom{4}{4}
+\]
 
-#align(center)[
-  #stack(
-    spacing: 10pt,
-    ..range(7).map(n => {
-      let row = range(n + 1).map(k => $# $$)
-      row.join("     ")
-    })
-  )
-]
-#+end_src
+som er ekvivalent til
 
-#+RESULTS:
-[[file:/var/folders/84/x1tlmq412hlg_x13jz0dc4f00000gn/T/babel-NE8eA8/org-babel-typstZVF2dP.svg]]
+\[
+1 \quad 4 \quad 6 \quad 4 \quad 1
+\]
+
+Ved hjelp av pascals identitet som beskrevet over, kan vi da bruke disse verdiene til å regne ut verdiene for $n + 1$.
+
+\[
+\binom{5}{0} \binom{5}{1} \binom{5}{2} \binom{5}{3} \binom{5}{4} \binom{5}{5}
+\]
+
+Som blir:
+
+\[
+1 \quad 5 \quad 10 \quad 10 \quad 5 \quad 1
+\]
+
+Vi kan visualisere den fullstendige pascals trekant som følger:
+
+[[file:./assets/pascal-triangle.svg]]
+
+Her har vi alteå at hvert av tallene i en rad er gitt ved summen av tallet til venstre og til høyre i linjen over.
+
+*** Sammenheng med potenser
+
+Pascals trekant beskriver også koeffisienter til potenser på formen $\left(x + y\right)^n , n \in \mathbb{N}$. Vi har at koeffisienten foran $x^{iy^j}$ er $\binom{i + j}{i}$. Altså:
+
+\[
+\left(x + y\right)^n = \sum_{r = 0}^n \binom{n}{r} x^r y^{n - r}
+\]
+
+Korollar: Ved å sette $x = 1$ og $y = 1$, får vi
+
+\[
+2^n = \sum_{r = 0}^n \binom{n}{r}
+\]
