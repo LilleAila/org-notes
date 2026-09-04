@@ -145,8 +145,52 @@ Pascals trekant beskriver også koeffisienter til potenser på formen $\left(x +
 \left(x + y\right)^n = \sum_{r = 0}^n \binom{n}{r} x^r y^{n - r}
 \]
 
-Korollar: Ved å sette $x = 1$ og $y = 1$, får vi
+-----
+
+Korollar: Ved å sette $x = 1$ får vi:
+
+\[
+\left(1 + y\right)^n = \sum_{r = 0}^n \binom{n}{r} y^r
+\]
+
+Videre, hvis vi setter $y = 1$, får vi
 
 \[
 2^n = \sum_{r = 0}^n \binom{n}{r}
 \]
+
+**** Bevis ved induksjon
+
+Påstand:
+
+\[
+\left(x + y\right)^n = \sum_{r = 0}^n \binom{n}{r} x^r y^{n - r}
+\]
+
+Viser først at dette gjelder for $n = 0$:
+
+\begin{aligned}
+\left(x + y\right)^0 & = \sum_{r = 0}^0 \binom{0}{r} x^r y^{0 - r} \\
+ 1 & = \binom{0}{0} x^0 y^0 \\
+ 1 & = 1 \cdot 1 \cdot 1 \\
+ 1 & = 1
+\end{aligned}
+
+Altså er påstanden sann for $n = 0$. Antar nå at påstanden er sann for $n = k$. Vi vil da vise at påstanden også gjelder for $n = k + 1$:
+
+\begin{aligned}
+\left(x + y\right)^k & = \sum_{r = 0}^k \binom{k}{r} x^r y^{k - r} \\
+ \left(x + y\right)^{k + 1} & = \sum_{r = 0}^{k + 1} \binom{k + 1}{r} x^r y^{k + 1 - r} \\
+ \left(x + y\right)\left(x + y\right)^k & = \left(x + y\right) \sum_{r = 0}^k \binom{k}{r} x^r y^{k - r} \\
+ & = x \sum_{r = 0}^k \binom{k}{r} x^r y^{k - r} + y \sum_{r = 0}^k \binom{k}{r} x^r y^{k - r} \\
+ & = \sum_{r = 0}^k \binom{k}{r} x^{r + 1} y^{k - r} + \sum_{r = 0}^k \binom{k}{r} x^r y^{k - r + 1} \\
+ & = \sum_{r = 1}^{k + 1} \binom{k}{r - 1} x^r y^{k - \left(r - 1\right)} + \sum_{r = 0}^k \binom{k}{r} x^r y^{k - r + 1} \\
+ & = \sum_{r = 1}^{k + 1} \binom{k}{r - 1} x^r y^{k - r + 1} + \sum_{r = 0}^k \binom{k}{r} x^r y^{k - r + 1} \\
+ & = \binom{k}{k + 1 - 1} x^{k + 1} + \sum_{r = 1}^k \left(\left(\binom{k}{r} + \binom{k}{r - 1}\right) x^r y^{k + 1 - r}\right) + \binom{k}{0} x^0 y^{k - 0 + 1} \\
+ & = x^{k + 1} + \sum_{r = 1}^k \left(\left(\binom{k}{r} + \binom{k}{r - 1}\right) x^r y^{k + 1 - r}\right) + y^{k + 1} \\
+ & = x^{k + 1} + \sum_{r = 1}^k \left(\binom{k + 1}{r} x^r y^{k + 1 - r}\right) + y^{k + 1} \\
+ & = \sum_{r = 0}^{k + 1} \binom{k + 1}{r} x^r y^{k + 1 - r} \\
+ \left(x + y\right)^{k + 1} & = \sum_{r = 0}^{k + 1} \binom{k + 1}{r} x^r y^{k + 1 - r}
+\end{aligned}
+
+Jeg har altså vist at dersom påstanden gjelder for $n = k \in \mathbb{N} > n_0 = 0$, gjelder den også for $n = k + 1$. Siden påstanden også gjelder for grunntilstanden $n = 0$, har jeg nå vist ved induksjon at påstanden er sann for alle heltall $n \geq 0$.
