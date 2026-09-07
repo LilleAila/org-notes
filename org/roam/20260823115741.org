@@ -194,3 +194,7 @@ Altså er påstanden sann for $n = 0$. Antar nå at påstanden er sann for $n = 
 \end{aligned}
 
 Jeg har altså vist at dersom påstanden gjelder for $n = k \in \mathbb{N} > n_0 = 0$, gjelder den også for $n = k + 1$. Siden påstanden også gjelder for grunntilstanden $n = 0$, har jeg nå vist ved induksjon at påstanden er sann for alle heltall $n \geq 0$.
+
+* Kilder
+
++ MAT221 forelesningsnotat =2026-08-17-telling-1.html=

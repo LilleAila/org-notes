@@ -6,7 +6,7 @@
 #+last_modified: [2026-09-02 Wed 12:02]
 #+filetags: :mat111:
 
-Del av [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]
+Del av [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]]. Relatert til [[id:B24FBAEE-9924-418D-9144-FC196C71714C][Grenseverdier]].
 
 * Introduksjon
 
@@ -29,6 +29,26 @@ Et eksempel på en funksjon som er diskontinuerlig i hele sin definisjonsmengde 
  0 & \text{,} x \notin \mathbb{Q}
 \end{cases} , f : \mathbb{R} \rightarrow \mathbb{R}$. Alle åpne intervaller inneholder både rasjonale og irrasjonale tall. Det vil si at for ethvert $\delta$-omegn om $a$ vil det alltid finnes både $x \in \mathbb{Q}$ og $x \notin \mathbb{Q}$. Da har vi også at $\displaystyle \lim_{x \rightarrow a} f\left(x\right)$ ikke eksisterer for noen $a$, og dermed er funksjonen diskontinuerlig for alle $a \in \mathbb{R}$.
 
+#+begin_quote
+Denne funksjonen kalles Dirichlets funksjon.
+#+end_quote
+
+En modifisering av denne funksjonen gir:
+
+\[
+g\left(x\right) = \begin{cases}
+ \frac{1}{q} \text{,} \quad x = \frac{p}{q} \; \text{er en fullt forkortet heltallsbrøk} \\
+ 0 \text{,} \quad x \; \text{er irrasjonal}
+\end{cases}
+\]
+
+Denne kalles Thomaes funksjon (eller popcorn-funksjonen) og ser slik ut:
+
+#+DOWNLOADED: screenshot @ 2026-09-04 18:46:30
+#+attr_org: :width 300px
+[[file:./assets/Introduksjon/20260904184630_screenshot.png]]
+
+Den er kontinuerlig i alle irrasjonale tall, og diskontinuerlig i alle rasjonale tall.
 -----
 
 Eksempel på kontinuerlige funksjoner:
@@ -75,3 +95,70 @@ Hvis begge funksjonene er kontinuerlig, kan vi altså gjøre:
 \]
 
 #+end_quote
+
+** Skjæringssetningen (T 8 § 1 4)
+
+#+begin_quote
+Kalles også mellomverdisetningen, og forkortes som "IVT"
+#+end_quote
+
+Vi har en kontinuerlig funksjon $f : \left[a , b\right] \rightarrow \mathbb{R}$, og en verdi $s$ mellom $f\left(a\right)$ og $f\left(b\right)$. Det finnes $c \in \left[a , b\right]$ slik at $f\left(c\right) = s$. (merk: dette betyr at det finnes /minst én/ verdi av $c$). Med andre ord: grafen til en kontinerlig funksjon i et intervall er sammenhengende. I praksis kan man altså tegne grafen for hånd uten å løfte pennen.
+
+Et viktig spesialtilfelle er $s = 0$, altså har $f\left(a\right)$ og $f\left(b\right)$ har motsatt fortegn. Da finnes $c \in \left[a , b\right], f\left(c\right) = 0$. Det vil si at $f$ har et nullpunkt. Dette gjelder igen kun hvis $f$ er kontinuerlig. For eksempel vil funksjonen $f\left(x\right) = \begin{cases}
+ x \text{,} \quad x \neq 0 \\
+ 1 \text{,} \quad x = 0
+\end{cases} , f : \left[- 1 , 1\right] \rightarrow \mathbb{R}$. Her er funksjonen ikke kontinuerlig, dermed gjelder dette.
+
+*** Bevis
+
+MAT112 pensum :(
+
+*** Eksempel
+
+#+begin_quote
+Vis at likningen $\sin x = 2 x - 1$ har en løsning i intervallet $\left(0 , \frac{\pi}{2}\right)$.
+#+end_quote
+
+For å bruke skjæringssetningen her, flytter vi alle leddene til en side slik at vi nå ser etter nullpunkter:
+
+\[
+\sin x - 2 x + 1 = 0
+\]
+
+Altså har vi at løsningene til likningen er nullpnuktene til funksjonen $f\left(x\right) = \sin x - 2 x + 1$. Vet at denne funksjonen er kontinerlig da alle leddene (trig og polynom) er kontinuerlig. Dermed kan vi bruke skjæringssetningen.
+
+\begin{aligned}
+f\left(0\right) & = \sin 0 - 2 \cdot 0 + 1 = 1 \\
+ f\left(\frac{\pi}{2}\right) & = \sin \left(\frac{\pi}{2}\right) - 2 \cdot \frac{\pi}{2} + 1 = 1 - \pi + 1 = -\pi
+\end{aligned}
+
+Siden $f\left(x\right)$ er kontinuerlig, $f\left(0\right) > 0$ og $f\left(\frac{\pi}{2}\right) < 0$ har vi ved skjæringssetningen at $\exists c \in \left(0 , \frac{\pi}{2}\right), f\left(c\right) = 0 \Rightarrow \sin c - 2 c + 1 = 0 \Leftrightarrow \sin c = 2 c - 1$. Altså har likningen et løsning i intervallet $\left(0 , \frac{\pi}{2}\right)$.
+
+-----
+
+Vi kan videre redusere intervallet løsningen ligger i ved for eksempel å bruke binærsøk:
+
+\[
+f\left(\frac{\pi}{4}\right) = \sin \frac{\pi}{4} - 2 \frac{\pi}{4} + 1 = \frac{\sqrt{2}}{2} - \frac{\pi}{2} + 1 = \frac{\sqrt{2} - \pi + 2}{2} > 0
+\]
+
+Både $f\left(0\right) > 0$ og $f\left(\frac{\pi}{4}\right) > 0$. Dermed må en av løsningene ligge i $\left(\frac{\pi}{4} , \frac{\pi}{2}\right)$. Dette kalles intervall-halvverings-metoden. Dette er en av flere metoder, men det finnes bedre metoder for å løse slike likninger.
+
+*** Meteorologiteoremet
+
+#+begin_quote
+Til enhver tid finnes det antipodale (/på motsatt side av jorden/) punkter langs ekvator med samme temperatur.
+#+end_quote
+
+Antar at jorden er en kule, noe som betyr at ekvator er en sirkel. Vi velger et fiksert startpunkt på ekvator. Alle andre punkter kan beskrives ved hjelp av en vinkel $\theta$ i forhold til punktet. Altså er ethvert punkt på ekvator definert ved $\theta \in \left[0 , 2 \pi\right]$ (merk at $0$ og $2\pi$ er samme punkt).
+
+Lar $T\left(\theta\right) = \text{temperatur i} \theta , T : \left[0 , 2 \pi\right] \rightarrow \mathbb{R} , T\left(0\right) = T\left(2 \pi\right)$. Eksperimentelt har vi at temperatur er kontinuerlig. Vi vil vise at $\exists c \in \left[0 , \pi\right], T\left(c\right) = T\left(c + \pi\right)$. Setter da opp $T\left(c\right) - T\left(c + \pi\right) = 0$. Vil altså finne nullpunkter til $f\left(x\right) = T\left(x\right) - T\left(x + \pi\right)$.
+
+$f$ er kontinuerlig fordi $T\left(x + \pi\right)$ er en sammensetning av $T\left(x\right)$ og $x + \pi$, som begge er kontinuerlig. $f : \left[0 , \pi\right] \rightarrow \mathbb{R}$, vil vise at det finens $c \in \left[0 , \pi\right], f\left(c\right) = 0$. Finner da fortegn av ytterpunktene:
+
+\begin{aligned}
+f\left(0\right) & = T\left(0\right) - T\left(\pi\right) \\
+ f\left(\pi\right) & = T\left(\pi\right) - T\left(2 \pi\right) = T\left(\pi\right) - T\left(0\right) = - f\left(0\right)
+\end{aligned}
+
+Siden disse har ulikt fortegn (eller er begge lik $0$), kan vi da konkludere ved skjæringssetningen at det finnes $c \in \left[0 , \pi\right]$ slik at $f\left(c\right) = 0$. Det vil si at $T\left(c\right) = T\left(c + \pi\right)$.

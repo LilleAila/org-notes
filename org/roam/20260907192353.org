@@ -1,0 +1,169 @@
+:PROPERTIES:
+:ID:       092F4E89-572D-46B4-9B42-025AF46986C0
+:END:
+#+title: Greedy algorithms
+#+created: [2026-09-07 Mon 19:23]
+#+last_modified: [2026-09-07 Mon 19:23]
+#+filetags: :inf234:
+
+Part of [[id:7248FCAE-E47D-4C5D-BFCD-C54DECE24BA1][INF234]]
+
+* Introduction
+
+In general, greedy algorithms are about choosing the best possible option given the current state, then iterating from there, only considering the current state. A greedy algorithm builds a solution on "locally optimal" steps. It sometimes yields simple and efficient algorithms, however it may also be deceiving.
+
+Greedy algorithms are usually proven by:
+
++ Greedy stays ahead, which means that at each step, the greedy solution is not worse than the optimal solution.
++ Structure: Every possible solution must have a certain value, which the greedy algorithm achieves
++ Exchange argument: The optimal solution can be made into the greedy one by swaps.
+
+** Example: Coin changing
+
+#+begin_quote
+*Example problem*: Given an a target sum, find the smallest number of coins to pay it out.
+
+47kr = 20kr + 20kr + 10kr + 5kr + 1kr + 1kr
+
+*Algorithm*: Iteratively take the largest possible coin
+#+end_quote
+
+Claim: In the optimal solution, there's at most one 10kr coin, at most one 5kr coin, and at most four 1kr coins. This is because if we had more, it could always be exchanged for a coin of a greater value. Otherwise, two 10s are replaced with a 20, two 5s are replaced with a 10, and five 1s with a 5.
+
+*** Proof:
+
+**** This specific case
+
+Let $n$ be the amount, by induction assume the algorithm is optimal for smaller amounts.
+
+If $n \geq 20$, the algorithm takes a 20kr coin, and so must the optimal solution. By the claim, the amount is at most $10 + 5 + 4 \cdot 1 = 19$ otherwise. By induction, the algorithm pays out the remaining $n - 20$ kr optimally.
+
+Similarly, a 10kr coin is necessary for $20 > n \geq 10$, and a 5kr coin for $10 > n \geq 5$.
+
+**** General case
+
+*Problem*: Given an amount $n$ and coin values $c_k > \ldots > c_1 = 1$, find the smallest number of coins that sum up to $n$.
+
+*Algorithm*: Find the largest $j \geq 1$ with $c_j \leq n$, and iteratively solve $n - c_j$.
+
+#+begin_quote
+/Is this optimal for any set of coins?/ No, this can be proven by counterexample:
+
+Assume $n = 5$, $c_3 = 4$, $c_2 = 3$, $c_1 = 1$. The greedy algorithm yields $6 = 4 + 1 + 1$, while the optimal result is $6 = 3 + 3$.
+#+end_quote
+
+Thus, the greedy algorithm would not always work. Another example where it would work is using powers of $2$. It only works when each coin is some multiple of the previous coin.
+
+** Example: Interval scheduling
+
+#+begin_quote
+*Problem*: GIven $n$ jobs, where job $j$ starts at time $s_j$ and finished at time $f_j$, find the largest collection of non-overlapping jobs.
+#+end_quote
+
+Here is an example:
+
+#+DOWNLOADED: screenshot @ 2026-09-07 19:36:21
+#+attr_org: :width 400px
+[[file:./assets/20260907193621_screenshot.png]]
+
+In this case, jobs 1, 3, and 5 yield the optimal choice, consisting of three separate jobs.
+
+*** Intuition
+
+Intuitively, it looks like we should start with the job that finishes the earliest. Iteratively, the jobs are compared to the previous job. This can be done in $O\left(n \log n\right)$ This is because the list must first be sorted.
+
+*** Proof
+
+#+begin_quote
+*Theorem*: Earlist-finish-first always outputs the smallest possible solution
+#+end_quote
+
+Assume the contrary. Let $i_1 , \ldots , i_k$ be the greedy solution. Let $j_1 , \ldots , j_m$ be the optimal solution that agrees with $i_1 , \ldots , i_k$ on the longest prefix. At each step $r$,  $j_r$ with $i_r$ is still an optimal solution because $f_{i_r} \leq f_{j_r}$ by the greedy definition. Because $i_r$ finishes earlier (or equal) than $j_r$, replacing $j_r$ with $i_r$ in the optimal solution will still leave space for the remaining intervals. Thus, the result is still a valid, optimal solution of the same size.  This new solution matches the greedy solution for one more step, which contradicts the maximality assumption on $j_1 , \ldots , j_m$ due to the assumption that $j_1 , \ldots , j_m$ agrees with the greedy solution on the longest prefix.
+
+*** Other schedulings
+
++ *Earliest-start-first algorithm* (trivial). Here is a counterexample of this:
+
+#+DOWNLOADED: screenshot @ 2026-09-07 19:50:51
+#+attr_org: :width 400px
+[[file:./assets/20260907195051_screenshot.png]]
+
+Here, we can observe that thsi algorithm could be arbitrarily bad. With an input of size $n$, the greedy solution may be as low as $1$, while the optimal solution could be $n - 1$.
+
++ *Weighted interval scheduling*: Jobs have associated weights $w_1 , \ldots , w_n$. Find the largest by weight solution. In this case, it can not be solved using a greedy algorithm. Instead, we would use dynamic programming.
+
+** Example: Interval partitioning
+
+#+begin_quote
+*Problem*: Given $n$ jobs, where job $j$ starts at time $s_j$ and finished at time $f_j$. Assign jobs to the smallest number of machines without overlaps.
+#+end_quote
+
+This problem is an extension of the previous one, where there can be multiple workers. Here is an example, where the optimal solution is $2$ machines:
+
+#+DOWNLOADED: screenshot @ 2026-09-07 19:57:18
+#+attr_org: :width 400px
+[[file:./assets/20260907195718_screenshot.png]]
+
+*Intuition*: We can use an earliest-finish-first algorithm, except instead of skipping unviable intervals, we assign them to a new worker. Jobs are sorted by finish time, and for each iteration they are assigned to the first compatible worker.
+
+We could model this as a conflict graph and phrase this as a coloring problem. The solution is then the coloring of the conflict graph using the minimum number of colors.
+
+*** Solution
+
+"Double-greedy" algorithm: Fill the first machine with the earliest-finish-first collection. As proven previously, this is optimal for filling a single machine.
+
+The algorithm described will always output the smallest possible solution. Assume the optimal solution has size $k$. Thus, it suffices to prove that each iteration of earliest-finish-first decreases the solution depth by $1$. Assume $k$ does /not/ decrease in one iteration. This means that there must still exist a case where $k$ jobs overlap. If there are multiple overlapping jobs, it is only possible to schedule one of them in a machine. Here is an example case:
+
+#+DOWNLOADED: screenshot @ 2026-09-07 20:16:43
+#+attr_org: :width 400px
+[[file:./assets/20260907201643_screenshot.png]]
+
+If the solution still has a depth of $k$, this means that the interval $i_{r + 1}$ has not been picked. This is a contradiction to the greedy definition of the earliest-finish-first algorithm, because one of the overlapping jobs must be picked.
+
+Equivalent claim: If there are at most $k$ jobs at any time step, there exists a solution of size $k$.
+
+** Example: Minimizing lateness
+
+#+begin_quote
+*Problem*: Given $n$ jobs, where job $j$ takes time $t_j$ and is due at time $d_j$, process jobs without overlaps while minimizing $\text{lateness} = \max \left\{0 , s_j + t_j - d_j\right\}$,
+#+end_quote
+
+#+DOWNLOADED: screenshot @ 2026-09-07 20:26:33
+#+attr_org: :width 400px
+[[file:./assets/20260907202633_screenshot.png]]
+
+In this example, the total lateness with the proposed solution is $0$. If a deadline is violated by $n$ time units, the lateness is increased by $n$. For example, if each of these jobs were startet one time unit later, the total lateness would be $4$. In other words, we have to choose the order to do the assignments such that they are all done before their deadline (or minimiza the lateness if not possible).
+
+*** Algorithm
+
+*Intuition*: Similar to the previous examples, we choose the jobs with the earliest deadline first. Implementation is trivial.
+
+*Claim*: Earliest-deadline-first runs in time $O\left(n \log n\right)$
+
+*** Proof (pt 1)
+
+*Lemma*: Swapping two consecutive jobs does not increase lateness. Proof: Let $i , j$ be such that $f_i < d_j$, but $j$ is schedule before $i$. Consider another solution where job $i$ and job $j$ are swapped. The first solution gives lateness $s + t_j - d_j , s + t_i + t_j - d_i$. Meanwhile, the new solution will have lateness $s + t_i - d_i , s + t_i + t_j - d_j$. (note: this only applies to jobs that satisfy the aforementioned condition about the deadline ordering)
+
+#+DOWNLOADED: screenshot @ 2026-09-07 20:35:45
+#+attr_org: :width 400px
+[[file:./assets/20260907203545_screenshot.png]]
+
+*** Full proof
+
+#+begin_quote
+*Theorem*: Earliest-deadline-first is optimal
+#+end_quote
+
+Assume an optimal solution, and assume there are no gaps between jobs. While there may exist optimal solutions with gaps, there will in that case also exist a solution with equal lateness where all jobs are pushed up towards the start with no gaps.
+
+If they are ordered by $d_j$, the solution is already the same as the greedy solution. Otherwise, there exists an inversed pair: $d_i < d_j$, but $j$ is schedules before. Then, there is also an inversed consecutive pair. This is trivial:
+
+#+DOWNLOADED: screenshot @ 2026-09-07 20:44:17
+#+attr_org: :width 400px
+[[file:./assets/20260907204417_screenshot.png]]
+
+When there exists an inversed consecutive pair, by lemma, the solution may only improve, as swapping two consecutive inversed jobs does not increase lateness. Hence, the proposed solution must be equal or equivalent to the greedy solution.
+
+* Sources
+
++ INF234 - Lecture 07

@@ -1,0 +1,99 @@
+:PROPERTIES:
+:ID:       50396CED-7F80-4745-B660-EC2277B3D3CF
+:END:
+#+title: Deriverbarhet
+#+created: [2026-09-04 Fri 19:16]
+#+last_modified: [2026-09-04 Fri 19:16]
+#+filetags: :mat111:
+
+* Introduksjon
+
+Deriverbarhet handler om hvor mye en funksjon endrer seg over små intervaller. Vi har to punkter på $x$-aksen: $a$ og $a + h$ med henholdsvis funksjonsverdiene $f\left(a\right)$ og $f\left(a + h\right)$. Vi er interessert i å vite hvor mye funksjonen endrer seg i dette intervallet. Man kan da tegne opp en sekantlinje (en linje som skjærer to punkter i grafen) mellom $\left(a , f\left(a\right)\right)$ og $\left(a + h , f\left(a + h\right)\right)$. Vi har altså stigningen definert ved $\operatorname{scr}(L): \frac{f\left(a + h\right) - f\left(a\right)}{h}$. Denne kalles /newton-kvotienten/. Denne beskriver gjennomsnittlig endringsrate til $f$ i intervallet $\left[a , a + h\right]$.
+
+Ettersom $h\rightarrow 0$, vil stigningen til $l$ gå mot [[id:B24FBAEE-9924-418D-9144-FC196C71714C][grensen]] $\displaystyle \lim_{h \rightarrow 0} \frac{f\left(a + h\right) - f\left(a\right)}{h}$. Muligheten nå er:
+
+1. Grensen eksisterer
+2. Grensen er enten $\infty$ eller $-\infty$
+3. Ingen av delene. Grensen eksisterer ikke.
+
+** Tilfelle 1: Grensen eksisterer
+
+Hvis grensen eksisterer, sier vi at $f$ er /deriverbar/ i $a$. Vi definerer $\displaystyle \lim_{h \rightarrow 0} \frac{f\left(a + h\right) - f\left(a\right)}{h} = f'\left(a\right)$. Dette kalles den /deriverte/ til $f$ i $a$. Sekantlinjen $\operatorname{scr}(L)$ går gjennom $\left(a , f\left(a\right)\right)$, med stigning $f'\left(a\right)$. Denne kalles /tangentlinjen/ til $f$ i $a$. Likningen til tangentlinjen er gitt ved $f'\left(a\right) = \frac{y - f\left(a\right)}{x - a} \Leftrightarrow y = f'\left(a\right) \left(x - a\right) + f\left(a\right)$.
+
+*** Eksempel
+
+#+begin_quote
+$f\left(x\right) = x^2$
+#+end_quote
+
+Vi har da
+
+\begin{aligned}
+f'\left(a\right) & = \lim_{h \rightarrow 0} \frac{f\left(a + h\right) - f\left(a\right)}{h} \\
+ & = \lim_{h \rightarrow 0} \frac{\left(a + h\right)^2 - a^2}{h} \\
+ & = \lim_{h \rightarrow 0} \frac{a^2 + 2 a h + h^2 - a^2}{h} \\
+ & = \lim_{h \rightarrow 0} 2 a + h = 2 a
+\end{aligned}
+
+Ser da at grensen eksisterer, og $f'\left(a\right) = 2 a$. Funksjonen er altså deriverbar. Tangentlinjen er da gitt ved
+
+\[
+y = 2 a \left(x - a\right) + a^2 = 2 a x - a^2
+\]
+
+** Tilfelle 2: Grensen er enten $\infty$ eller $-\infty$
+
+I dette tilfellet sier vi at $f$ ikke er deriverbar i $a$. Sekantlinjen $\operatorname{scr}(L)$ går mot linjen gjennom $\left(a , f\left(a\right)\right)$ med stigning $\infty$ eller $-\infty$. Altså går $\operatorname{scr}(L)$ mot en vertikal linje. Tangentlinjen til $f$ i $a$ er altså vertikal, gitt ved likningen $x = a$.
+
+*** Eksempel
+
+#+begin_quote
+$f\left(x\right) = \sqrt[3]{x} = x^{\frac{1}{3}} , a = 0$
+#+end_quote
+
+\begin{aligned}
+f'\left(0\right) & = \lim_{h \rightarrow 0} \frac{f\left(0 + h\right) - f\left(0\right)}{h} \\
+ & = \lim_{h \rightarrow 0} \frac{h^{\frac{1}{3}} - 0}{h} \\
+ & = \lim_{h \rightarrow 0} \frac{1}{h^{\frac{2}{3}}} = \infty
+\end{aligned}
+
+(merk at det teknisk sett er feil å skrive $f'\left(0\right) =$ her, da $f$ ikke er deriverbar i $x = 0$ og dermed eksisterer ikke $f'\left(0\right)$).
+
+** Tilfelle 3: Funksjonen er ikke deriverbar i $a$ og $\operatorname{scr}(L)$ har ingen grenselinje
+
+Det vil si at $\operatorname{scr}(L)$ ikke har en tangentlinje i $a$.
+
+*** Eksempel
+
+\[
+f\left(x\right) = | x | = \begin{cases}
+ x \text{,} \quad x \geq 0 \\
+ - x \text{,} \quad x < 0
+\end{cases} , a = 0
+\]
+
+\begin{aligned}
+f'\left(0\right) & = \lim_{h \rightarrow 0} \frac{f\left(0 + h\right) - f\left(0\right)}{h} \\
+ & = \lim_{h \rightarrow 0} \frac{| h | - 0}{h} \\
+ & = \lim_{h \rightarrow 0} \begin{cases}
+ 1 \text{,} \quad & h > 0 \\
+ - 1 \text{,} \quad & h < 0
+\end{cases}
+\end{aligned}
+
+Ser at grensen ikke eksisterer, da de to ensidige grensene er ulike, og heller ikke lik $\pm \infty$
+
+*** Nytt eksempel
+
+\begin{aligned}
+f\left(x\right) & = x^{\frac{2}{3}} \\
+ f'\left(0\right) & = \lim_{h \rightarrow 0} \frac{1}{h^{\frac{1}{3}}} \\
+ \lim_{h \rightarrow 0^{-}} & = -\infty \\
+ \lim_{h \rightarrow 0^{+}} & = \infty
+\end{aligned}
+
+De to ensidige grensene er ulike, altså eksisterer ikke $\displaystyle \lim_{h \rightarrow 0} \frac{1}{h^{\frac{1}{3}}}$, og er heller ikke lik $\pm \infty$. $x = 0$ kalles da på engelsk en /cusp/ i grafen.
+
+** Definisjon
+
+Funksjonen definert ved $f'\left(x\right)$ med definisjonsmengde $D\left(f'\right) = \left\{x \in F\left(f\right) | x \; \text{er deriverbar i} \; x\right\}$ kalles den deriverte (funksjonen) til $f$. En annen notasjon (leibniz-notasjonen) er $f'\left(x\right) = \frac{\mathrm{d} f}{\mathrm{d} x}$. Merk at $D\left(f'\right) \subseteq D\left(f\right)$, altså er ikke nødvendigvis definisjonsmengdene like.
