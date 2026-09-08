@@ -131,3 +131,78 @@ Now, notice that the numerator is the sample covariance of $x$ and $y$, while th
 \end{aligned}
 
 Thus, $\widehat{w} = \frac{\sigma_{x y}}{\sigma_{x x}}$
+
+** Logistic regression
+
+Using linear regression can be problematic when predicting categorical responses, so we can use a variant known as /logistic regression/. This provides a way to use linear models in classification tasks.
+
+#+DOWNLOADED: screenshot @ 2026-09-08 20:30:53
+#+attr_org: :width 400px
+[[file:./assets/Supervised_learning/20260908203053_screenshot.png]]
+
+
+Consider a binary classification problem $y_i \in \left\{0 , 1\right\}$. The /prediction probabillity/ is defined as $p = P\left(y = 1 | x\right)$. Logistic linear regression interprets linear regression as the computation of a /log-odds ratio/ $\log \frac{p}{1 - p} \mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}$. This is equivalent to $P\left(y = 1 |\mathrm{\mathbf{x}}\right) = \sigma \left(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}\right)$, where $\sigma(\cdot)$ is the /logistic sigmoid/ $\sigma(z) = \frac{e^z}{1 + e^z} = \frac{1}{1 + e^{- z}}$. A sigmoid function looks like this:
+
+#+DOWNLOADED: screenshot @ 2026-09-08 20:42:43
+#+attr_org: :width 400px
+[[file:./assets/Supervised_learning/20260908204243_screenshot.png]]
+
+When used in classification, the decision boundary is defined by $P\left(y = 1 |\mathrm{\mathbf{x}}\right) = P\left(y = 0 |\mathrm{\mathbf{x}}\right) = 0.5$. This corresponds to a hyperplane $\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}} = 0$. Hence, the classification rule is
+
++ $\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}} > 0 \rightarrow y = 1$
++ $\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}} < 0 \rightarrow y = 0$
+
+We want to maximize the probability of the true class label $y$ given the features $\mathbf{X}$.
+
+*** Solving logistic regression
+
+The conditional likelihood of labels $\mathrm{\mathbf{y}}$ given $\mathrm{\mathbf{X}}$ can be expressed as:
+
+\begin{aligned}
+P\left(\mathrm{\mathbf{y}} |\mathrm{\mathbf{X}}\right) & = \prod_{i = 1}^n P\left(y_i | x_i\right) \\
+ & = \prod_{i = 1}^n P\left(y_i = 1 | x_i\right)^{y_i} P\left(y_i = 0 | x_i\right)^{1 - y_i} \\
+ & = \prod_{i = 1}^n P\left(y_i = 1 | x_i\right)^{y_i} \left(1 - P\left(y_i = 1 | x_i\right)\right)^{1 - y_i} \\
+ & = \prod_{i = 1}^n \sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i)^{y_i} \left(1 - \sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i)\right)^{1 - y_i}
+\end{aligned}
+
+Then maximizing the likelihood $\displaystyle \prod_{i = 1}^n \sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i)^{y_i} \left(1 - \sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i)\right)^{1 - y_i}$ is equivalent to maximizing the /log-likelihood/:
+
+\[
+\operatorname{scr}(l l) \left(\mathrm{\mathbf{w}}\right) = \sum_{i = 1}^n \left(y_i \log \sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i) + \left(1 - y_i\right) \log \left(1 - \sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i)\right)\right)
+\]
+
+This again, is equivalent to minimizing the /negative log-likelihood/
+
+\[
+L \left(\mathrm{\mathbf{w}}\right) = -\sum_{i = 1}^n \left(y_i \log \sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i) + \left(1 - y_i\right) \log \left(1 - \sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i)\right)\right)
+\]
+
+The log-loss function does not have an /analytic close-form solution/. However, it is convex and it is possible to use an iterative /gradient-based/ method.
+
+*** Gradient descent
+
+*Gradient descent* is an approximate method for finding a local minimum / maximum of a multivariate function.
+
+#+begin_quote
+Let $f\left(\mathrm{\mathbf{x}}\right)$ be a differentiable function. Then, in the neighborhood of point $\mathrm{\mathbf{a}}$, $f\left(\mathrm{\mathbf{x}}\right)$ decreases fastest if one goes to the direction of the negative [[id:933639AF-2E30-480F-8518-EA01ED4330C3][gradient]] of $f\left(\mathrm{\mathbf{x}}\right)$, that is, $- \nabla f\left(\mathrm{\mathbf{a}}\right)$
+#+end_quote
+
+#+DOWNLOADED: screenshot @ 2026-09-08 21:02:16
+#+attr_org: :width 200px
+[[file:./assets/Supervised_learning/20260908210216_screenshot.png]]
+
+Iteratively, we have $\mathrm{\mathbf{a}}_{t + 1} = \mathrm{\mathbf{a}}_t - \gamma_t \nabla f\left(\mathrm{\mathbf{a}}_t\right)$. Here, $\gamma$ is a hyperparameter for the /learning rate/ (step size). If the value of $\gamma$ is too small, convergence takes too long. Conversely, if the value of $\gamma$ is too large, the process may skip past the local minimum, as visualized:
+
+#+DOWNLOADED: screenshot @ 2026-09-08 21:02:41
+#+attr_org: :width 400px
+[[file:./assets/Supervised_learning/20260908210241_screenshot.png]]
+
+*** Using gradient descent with logistic regression
+
+We need to find the parameters $\mathrm{\mathbf{w}}$ that minimize the loss function.
+
+The derivative of the sigmoid function is $\sigma'\left(z\right) = \sigma(z) \left(1 - \sigma(z)\right)$, and the gradient of the log-loss is $\displaystyle \nabla L\left(\mathrm{\mathbf{w}}\right) = \sum_{i = 1}^n \mathrm{\mathbf{x}}_i \left(\sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i) - y_i\right)$. Iteratively, $\displaystyle \mathrm{\mathbf{w}}_{t + 1} = \mathrm{\mathbf{w}}_t - \gamma_t \sum_{i = 1}^n \mathrm{\mathbf{x}}_i \left(\sigma(\mathrm{\mathbf{w}}_t^T \mathrm{\mathbf{x}}_i) - y_I\right)$.
+
+*** Multiclass logistic regression
+
+Instead of using a /sigmoid/ $P\left(y_i = 1 |\mathrm{\mathbf{x}}_i\right) = \sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i)$, we rely on a /softmax/ $P\left(y_I = k |\mathrm{\mathbf{x}}_i\right) = \frac{\exp^{\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i}}{\sum_j \exp^{\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_j}}$.

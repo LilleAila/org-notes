@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       933639AF-2E30-480F-8518-EA01ED4330C3
+:END:
+#+title: Gradient
+#+created: [2026-09-08 Tue 20:55]
+#+last_modified: [2026-09-08 Tue 20:55]
+#+filetags:
+
+A gradient is essentially the equivalent of [[id:50396CED-7F80-4745-B660-EC2277B3D3CF][derivatives]] in higher-dimensional functions. While the derivative $f'\left(a\right)$ is a scalar describing the slope of a curve $f\left(x\right)$ at $a$, the gradient $\nabla f\left(a\right)$ is a vector pointing in the direction of /steepest ascent/. In other words, this is the direction that the curve has the greatest increase. Similarly, the negative gradient $- \nabla f\left(a\right)$ points towards the steepest downwards direction.
