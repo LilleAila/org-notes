@@ -24,17 +24,6 @@ The main component of the tree are *nodes*. Most of these are *inner nodes**, wh
 
 Here, each node is associated with a test. In this case, the branches are similar to a binary search. Note that the tests in the decision tree only test one condition for each node.
 
-** Expressiveness
-
-TODO separate note
-Expressivity is about what kinds of functions and boundaries can be represented wiht a family of models.
-
-+ KNN can represent very complicated decision boundaries (for small $k$)
-+ Linear models can only represent linear boundaries
-+ Decision trees can approcimate any function of the input features with arbitrary precision
-
-  With an arbitrarily deep tree, the space can be divided into an infinitely small grid where every point is classified with the desired label.
-
 ** Overfitting
 
 If we can create an arbitrarily deep tree by partitioning the tree, it is possible to perfectly classify any training dataset as long as there are no duplicates with different class labels. In these case, we will not be able to generalize. If we just create them arbitrarily, they will grow very large, and not be able to generalize well.

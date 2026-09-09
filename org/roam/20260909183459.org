@@ -1,0 +1,165 @@
+:PROPERTIES:
+:ID:       A6543D66-4727-423D-AC3B-AC2256B98498
+:END:
+#+title: Model evaluation
+#+created: [2026-09-09 Wed 18:34]
+#+last_modified: [2026-09-09 Wed 18:34]
+#+filetags: :inf264:
+
+Part of [[id:5DBB8E16-9374-41ED-A69C-A9B38EE00650][INF264]]
+
+* The no free lunch theorem
+
+The no free lunch theorem states:
+
+#+begin_quote
+When averaged over all possible datasets, all classifiers perform equally well.
+#+end_quote
+
+This means that, if we consider /all possible datasets/, for any classifiers, there will exist datasets on which it performs very well and datasets on which it performs very poorly. Hence, the average performance across all datasets indicates that there is no classifier that is better than all of the others. In other words, if there is no dataset, there is no reason fo favor one classifier over another. This means that there is no /general-purpose algorithm/ when averaged over all possible datasets.
+
+However, considering all possible datasets is not realistic, as not all possible datasets are equally likely to occur. We may instead consider a distibution of probability over realistic dataset, or be concerned only with the dataset at hand. If you consider only a specific dataset, or a subset of this, there will be classifiers that perform better than others.
+
+In summary, there is no absolute best classifier, so we always need to consider the problem at hand.
+
+* Model selection and evaluation
+
+Model /selection/ is about estimating the performance of several models in order to choose the best one. This is a part of the training. After having chosen the final model, model /evaluation/ involves evaluating its prediction error on new data. Model evaluation is only done once on unseen data once training is over.
+
+** Datasets and partitioning
+
+We divide datasets into
+
++ Training data: used for training, as the name implies
+  * Model training
+  * Purpose: Learn the parameters
+  * KNN: No training, just store teh data
+  * Linear regression: Learn $\mathrm{\mathbf{w}}$
+  * Logistic regression: Learn $\mathrm{\mathbf{w}}$
+  * Decision tree: Build the tree
++ Validation data: Used for selecting the model, parameters and hyperparameters
+  * Model selection
+  * Purpose: Choose the hyper-parameters
+  * KNN: Select the value of $k$
+  * Linear regression: No validation
+  * Logistic regression: Choose the learning rate
+  * Decision tree: Perform pruning
++ Test data: Used to estimate the performance of the selected model on unseen data. This data must *not* be touched until you have a fixed model and hyperparameters.
+  * Model evaluation
+  * Purpose: Measure the performance of a model
+  * KNN: Measure accuracy
+  * Linear regression: Measure MSE
+  * Logistic regression: Measure accuracy
+  * Decision tree: Measure accuracy
+
+** Model selection
+
+The goal in machine learning is generalizability. Data however consists of regularity and noise. At the training stage, the data must fit to regularity and learn the patterns and dynamics of the system, and avoid fitting to noise and learning the random variations and fluctuations specific to the datapoints. Hence, the model must be selected based on /prediction capability/. The idea is to estimate the prediction error on unseen data points (validation data). Some practical implementations of this can be:
+
++ Hold-out validation: Partition the original training data into training and validation sets
++ Sample re-use methods: Cross-validation, bootstrap
++ Analytical approximations: AIC, BIC
+
+*** $k$-fold cross-validation
+
+$k$-fold cross-validation (CV) is an efficient way to partition data into training and validation data. It avoids the data loss associated with hold-out validation because the data is re-used for both training and validation, and is this especially suited for working with smaller datasets. Generally, data is considered expensive and we want to use it to the maximum. The algorithm is as follows:
+
+1. Partition data into $k$ equally-sized subsets
+2. For each subset $D_i$:
+  + Train a model using all subsets except $D_i$
+  + Evaluate the trained model on validation data $D_i$
+3. Combine the performance measures from each validation data
+
+Typically, $k = 5$ or $k = 10$. A large $k$ is more computationally expensive. Note that by reducing the training set size, we lose information and may increase bias. If $k = n$ the procedure is called /leave one out cross validation/ (LOOCV). We may not want to use CV is training is too time-consuming, or if evaluation should mimic the resl use case of the model, for example predicting the future given data of the past. The values of hyperparameters can be chosen using CV. Typically, it is not possible to test all possible value combinations of hyperparameters, so we instead use methods such as /grid search/ and /randomized search/.
+
+** Model evaluation
+
+Using validation data to make decisions about model families and hyperparameters is essentially the same as training, in that we change the model according to the data. Thus, a measure of performance based on validation data is biased. The model has gained information from the validation data, so measuring performance on the validation data would be unrealistic. To get a completely unbiased estimate about performance on unseen data, we need a separate test set. To do this, we start by extracting a partition of the dataset and using this *only* for testing.
+
+If you have chosen a model but it has bad performance on test data, you cannot reuse the test data when deciding to use another model. This is because the model acquires information about the test data through the human rejection. This is called /leakage/. No decision about the model should ever be based on the result of testing. Hence, we need to partition the data again if we decide to change the model.
+
+** Performance measures
+
+*** Regression
+
+Some of the most common performance measures of regression are:
+
++ RMSE
++ MAE
+
+**** RMSE
+
++ Sum of squared errors - SSE: $\displaystyle \sum_{i = 1}^n \left(y_i - \widehat{f} \left(\mathrm{\mathbf{x}}_i\right)\right)^2$
++ Mean squared error - MSE: $\displaystyle \frac{1}{n} \sum_{i = 1}^n \left(y_i - \widehat{f} \left(\mathrm{\mathbf{x}}_i\right)\right)^2$
++ Root mean squared error - RMSE: $\displaystyle \sqrt{\frac{1}{n} \sum_{i = 1}^n \left(y_i - \widehat{f} \left(\mathrm{\mathbf{x}}_i\right)\right)^2}$
+
+MSE makes the error independent from the number of samples, and RMS makes the error the same unit as the output.
+
+**** MAE
+
+\[
+\frac{1}{n} \sum_{i = 1}^n \left|y_i - \widehat{f} \left(\mathrm{\mathbf{x}}_i\right)\right|
+\]
+
+MAE is less sensitive to outliers than the RMSE. If predictions are constant, MAE is minimized by the median, while RMSE is minimized by the mean.
+
+**** Examples
+
+\begin{aligned}
+\mathrm{\mathbf{y}} & = \begin{bmatrix}
+ 3 & 4 & 5
+\end{bmatrix} \\
+ f_1 \left(\mathrm{\mathbf{X}}\right) = \widehat{\mathrm{\mathbf{y}}_1} & = \begin{bmatrix}
+ 2 & 5 & 11
+\end{bmatrix} \\
+ f_2 \left(\mathrm{\mathbf{X}}\right) = \widehat{\mathrm{\mathbf{y}}_2} & = \begin{bmatrix}
+ 6 & 1 & 8
+\end{bmatrix} \\
+ \text{RMSE}\left(\widehat{\mathrm{\mathbf{y}}_1}\right) & = 3.56 \\
+ \text{RMSE}\left(\widehat{\mathrm{\mathbf{y}}_2}\right) & = 3 \\
+ \text{MAE}\left(\widehat{\mathrm{\mathbf{y}}_1}\right) & = 2.67 \\
+ \text{MAE}\left(\widehat{\mathrm{\mathbf{y}}_2}\right) & = 3
+\end{aligned}
+
+** Classification
+
+Meanwhile, some of the most common classification performance measures are:
+
++ Accuracy
++ Precision and recall
++ F1
+
+The /confusion matrix/ is a matrix which contains counts of true class label - predicted class label pairs.
+
+#+DOWNLOADED: screenshot @ 2026-09-09 19:13:32
+#+attr_org: :width 300px
+[[file:./assets/20260909191332_screenshot.png]]
+
+#+DOWNLOADED: screenshot @ 2026-09-09 19:14:54
+#+attr_org: :width 300px
+[[file:./assets/20260909191454_screenshot.png]]
+
+From the confusion matrix, we can derive some measures:
+
++ Accuracy: $\displaystyle \frac{\text{TP} + \text{TN}}{\text{TP} + \text{FP} + \text{TN} + \text{FN}}$
++ Precision: $\displaystyle \frac{\text{TP}}{\text{TP} + \text{FP}}$ ("how many selected items are relevant?")
++ Recall (sensitivity): $\displaystyle \frac{\text{TP}}{\text{TP} + \text{FN}}$ ("how many relevant items are selected?")
++ F1 score: $\displaystyle F_1 = 2 \cdot \frac{\text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}$
+
+#+DOWNLOADED: screenshot @ 2026-09-09 19:18:35
+#+attr_org: :width 200px
+[[file:./assets/20260909191835_screenshot.png]]
+
+** Summary
+
+In training, the performance measure si encoded in the /loss function/. This is the performance measure driving the learning in the algorithm. In validation and testing, we use a performance measure to select / evaluate models. This is the performance metric used to find out how good the model is. Note that these functions must not be the same.
+
+For linear regression, we might use MSE for both. In logistic regression, we may however want to use NLL (negative-log likelihood) in training: $- \sum_{i = 1}^n \left(y_i \log \sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i) + \left(1 - y_i\right) \log(1 - \sigma(\mathrm{\mathbf{w}}^T \mathrm{\mathbf{x}}_i))\right)$. In validation and testing, we could use accuracy $\frac{\text{TP} + \text{FP}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}}$. Accuracy is hard to optimize, hence we use a /proxy/, NLL.
+
+To choose the right performance measure, it is important to consider the real-world use of the model, and choose the performance measure that is most relevant to that use. The performance measure is chosen before choosing algorithms, and it is sometimes necessary to use proxies. Again, there is no universally correct measure, and it is necessary to choose the one best suited to the task.
+
+-----
+
+An accuracy value does not say a lot on its own. A classifier may for example always predict label $0$ and receive an accuracy of $96 %$ just because $96 %$ of points have that label. With a skewed label distribution it often makes sense to weigh errors based on labels or use some other performance measure. Performance measures are relative, so what is good and not depends on the situation. To help with this, it is useful to have baselines to compare to. This could be naive models (majority class classifier, random classifier) or other simple models (e.g. compare the algorithm to standard linear regression).
+
+While modeling may be easy just by feeding data into a function and getting a model, the results don't necessarily make sense, and we shouldn't blindly trust the numbers. Instead, we have to look at the data, for example by plotting. In addition, we should use baselines and start from the simplest possible model, moving towards more complex ones only if needed. Using domain knowledge, we can decide whether the results make sense or not.

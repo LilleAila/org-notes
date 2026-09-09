@@ -11,11 +11,15 @@ A gradient is essentially the equivalent of [[id:50396CED-7F80-4745-B660-EC2277B
 A gradient is composed of partial derivatives with respect to the independent variables that the function takes as an input. Thus, we have the following in three dimensions:
 
 \[
-\nabla f = \left[\frac{\partial f}{\partial x} , \frac{\partial f}{\partial y}\right]^T
+\nabla f = \begin{bmatrix}
+ \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y}
+\end{bmatrix}^T
 \]
 
 Expanding this to multiple dimensions, we get
 
 \[
-\nabla f\left(x_1 , x_2 , \ldots , x_n\right) = \left[\frac{\partial f}{\partial x_1} , \frac{\partial f}{\partial x_2} , \ldots , \frac{\partial f}{\partial x_n}\right]^T
+\nabla f\left(x_1 , x_2 , \ldots , x_n\right) = \begin{bmatrix}
+ \frac{\partial f}{\partial x_1} & \frac{\partial f}{\partial x_2} & \cdots & \frac{\partial f}{\partial x_n}
+\end{bmatrix}^T
 \]

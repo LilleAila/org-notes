@@ -34,10 +34,10 @@ A *machien learning algorithm* is an algorithm that
  + *Data*: object-label pairs
 
  We distinguish between two types:
- + SL1: *Classification*: predict categorical labels
- + SL2: *Regression*: predict real-valued labels (continuous numbers)
+ + *Classification*: predict categorical labels
+ + *Regression*: predict real-valued labels (continuous numbers)
 
-** (SL1) Classification
+** Classification
 
 Labels are discrete and are called classes. The model that predicts the label is called a classifier. The labels are unordered. This means that any error in the prediction will have the same error.
 
@@ -47,7 +47,7 @@ For example:
 + Given an email message, decide whether it is spam or not
 
 
-** (SL2) Regression
+** Regression
 
 Labels / output values are continuous. The models are called regressors. Unlike classifiers, the values are ordered and thus the result can have varying degrees of error depending on the difference between the predicted and actual value.
 
@@ -128,3 +128,11 @@ Practically, data has been divided into
 + *Training data*: data for learning a model
 + *Validation data*: Unseen data that is used to select a model
 + *Test data*: Unseen data that is used to evaluate performance of the selected model
+
+** Expressiveness
+
+Expressivity is about what kinds of functions and boundaries can be represented wiht a family of models.
+
++ KNN can represent very complicated decision boundaries (for small $k$)
++ Linear models can only represent linear boundaries
++ Decision trees can approcimate any function of the input features with arbitrary precision. With an arbitrarily deep tree, the space can be divided into an infinitely small grid where every point is classified with the desired label.
