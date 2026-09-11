@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       78BA50A0-B09D-4E2F-93C1-FD0D273D8562
+:END:
+#+title: Fysikk 2
+#+created: [2026-09-11 Fri 16:16]
+#+last_modified: [2026-09-11 Fri 16:16]
+#+filetags: :fysikk2:
+
+Fysikk 2 ved Amalie Skram VGS
+
+Lærebok: Kraft 2

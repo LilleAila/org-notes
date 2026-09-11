@@ -1,0 +1,167 @@
+:PROPERTIES:
+:ID:       0BC0311D-77AF-4BA9-9367-9FA2DC8B063E
+:END:
+#+title: Krefter og bevegelse
+#+created: [2026-09-11 Fri 10:48]
+#+last_modified: [2026-09-11 Fri 10:48]
+#+filetags: :fysikk2:
+
+Del av [[id:78BA50A0-B09D-4E2F-93C1-FD0D273D8562][Fysikk 2]]
+
+* Bevegelse i én dimensjon
+
+Vi har strekningen gitt ved $\Delta s = s_2 - s_1$. Videre er gjennomsnittsfarten definert som $\overline{v} = \frac{\Delta s}{\Delta t}$, som vil si at $v = \displaystyle \lim_{\Delta t \rightarrow 0} \frac{\Delta s}{\Delta t} = s'\left(t\right)$. På samme måte defineres akselerasjon ved $\overline{a} = \frac{\Delta v}{\Delta t}$, $a = v'\left(t\right)$.
+
+Ved konstant akselerasjon gjelder følgende bevegelseslikninger:
+
+\begin{aligned}
+s & = \frac{1}{2} a t^2 + v_0 t + s_0 \\
+ v & = a t + v_0 \\
+ s & = \frac{1}{2} \left(v + v_0\right) t \\
+ 2 a s & = v^2 - v_0^2
+\end{aligned}
+
+Ved integralregning kan vi også definere:
+
+\begin{aligned}
+v\left(t\right) & = \int a\left(t\right) \mathrm{d} t \\
+ s\left(t\right) & = \int v\left(t\right) \mathrm{d} t \\
+ \Delta v & = \int_{t_1}^{t_2} a\left(t\right) \mathrm{d} t \\
+ \Delta s & = \int_{t_1}^{t_2} v\left(t\right) \mathrm{d} t
+\end{aligned}
+
+#+begin_quote
+Det bestemte integralet er definert ved
+
+\[
+\lim_{\Delta x \rightarrow 0} \sum_a^b f\left(x\right) \Delta x = \int_a^b f\left(x\right) \mathrm{d} x
+\]
+
+#+end_quote
+
+* Krefter og bevegelse i to dimensjoner
+
+Bevegelse i to dimensjoner fungerer stort sett på samme måte som i én dimensjon, men vi bruker vektorer i stedet for skalarer. Vanligvis dekomponerer vi vektorene og regner seperat på komponentene. Vi skriver altså en kraft som $\overrightarrow{F}$. Newtons lover gjelder fortsatt:
+
+\begin{aligned}
+\sum \overrightarrow{F} = \overrightarrow{0} &\Leftrightarrow \overrightarrow{v} = \text{konstant} \\
+ \sum \overrightarrow{F} & = m \cdot \overrightarrow{a} \\
+ \overrightarrow{F} & = -\overrightarrow{F}^{*}
+\end{aligned}
+
+#+begin_quote
+Vi bruker vanligvis $F = |\overrightarrow{F}|$ når vi skal skrive magnituden til vektoren.
+#+end_quote
+
+Man velger vanligvis det koordinatsystemet som gjør det enklest mulig å beskrive bevegelsen matematisk. For bevegelse i én dimensjon er det derfor vanlig å velge $x$-aksen parallelt med bevegelsen. Om vi betrakter følgende eksempel:
+
+#+DOWNLOADED: screenshot @ 2026-09-11 11:18:31
+#+attr_org: :width 400px
+[[file:./assets/20260911111843_screenshot.png]]
+
+Her har vi rotert koordinatsystemet slik at $x$-aksen er parallell med planet ballen ruller nedover. Her har vi en kraft $\overrightarrow{G}$ som går nedover, mens normalkraften står normalt på planet. For å finne $\overrightarrow{N}$ må vi altså dekomponere $\overrightarrow{G}$:
+
+#+DOWNLOADED: screenshot @ 2026-09-11 11:22:06
+#+attr_org: :width 400px
+[[file:./assets/20260911112206_screenshot.png]]
+
+Dette kan vi gjøre ved trigonometri:
+
+\begin{aligned}
+\cos \theta & = \frac{G_y}{G} \\
+ G_y & = F \cos \theta \\
+ G &_y & = m g \cos \theta
+\end{aligned}
+
+På tilsvarende måte kan vi finne lengden til $\overrightarrow{G_x}$ ved $\sin$:
+
+\begin{aligned}
+\sin \theta & = \frac{G_x}{G} \\
+ G_x & = G \sin \theta \\
+ G_x & = m g \sin \theta
+\end{aligned}
+
+Normalkraften kan da defineres ved $y$-komponenten til $\overrightarrow{G}$. Etter dekomponeringen får vi:
+
+#+DOWNLOADED: screenshot @ 2026-09-11 11:35:25
+#+attr_org: :width 400px
+[[file:./assets/20260911113525_screenshot.png]]
+
+Her er $\overrightarrow{G}$ den eneste kraften som har et komponent i $x$-retning, mens $\overrightarrow{N}$ og $\overrightarrow{G_y}$ utligner hverandre. Altså vil ballen trille nedover planet.
+
+Merk at man ofte vil dele en sammensatt bevegelse inn i flere seperate deler som man regner på ulike måter.
+
+** Fall i to dimensjoner
+
+Et skrått kast kan fremstilles slik:
+
+#+DOWNLOADED: screenshot @ 2026-09-11 12:27:01
+#+attr_org: :width 400px
+[[file:./assets/20260911122701_screenshot.png]]
+
+Merk at her viser både $x$- og $y$-aksene posisjon i $m$. Altså er dette en parameterfremstilling og kurven inneholder ingen informasjson om tiden. Her beveger ballen seg i en parabelbane. Man ville fått samme bevegelse ved å kaste en ball skrått som hvis den triller av kanten til et skråplan.
+
+Om vi ser bort fra luftmotstand er det kun tyngdekraften som gjør et arbeid på ballen, altså er ballen i fritt fall. Vi velger da $y$-aksen normalt på bakken slik at gravitasjonen virker parallelt med $y$-aksen. Vi kan da beskrive posisjonen i $y$-retning ved første bevegelseslikning: $y\left(t\right) = - \frac{1}{2} g t^2 + v_{0_y} t + y_0$, mens posisjonen i $x$-retning beskrives ved $x\left(t\right) = v_{0_x} t + y_0$. Vi må altså dekomponere startfarten ved hjelp av $\theta$, som defineres som vinkelen mellom $x$-aksen og fartsvektoren. Altså kan vi beskrive denne bevegelsen ved
+
+\[
+\overrightarrow{s} \left(t\right) = \left[v_0 \cos \left(\theta\right) \cdot t + x_0 , \quad -\frac{1}{2} g t^2 + v_0 \sin \left(\theta\right) \cdot t + y_0\right]
+\]
+
+#+begin_quote
+Merk at når man deriverer eller integrerer vektorfunksjoner, ser man også på komponentene seperat:
+
+\begin{aligned}
+\overrightarrow{u} \left(t\right) & = \left[x\left(t\right), y\left(t\right)\right] \\
+ \overrightarrow{u}' \left(t\right) & = \left[x'\left(t\right), y'\left(t\right)\right] \\
+ \int \overrightarrow{u} \left(t\right) \mathrm{d} t & = \left[\int x\left(t\right) \mathrm{d} t , \int y\left(t\right) \mathrm{d} t\right]
+\end{aligned}
+
+#+end_quote
+
+* Arbeid og energi
+
+Den mekaniske energien til en gjenstand er definert som summen av den potensielle og kinetiske energien:
+
+\[
+E = E_K + E_P = \frac{1}{2} m v^2 + m g h
+\]
+
+Dersom kun gravitasjonskraften gjør et arbeid på sysemet, er $E_1 = E_2$ der $E_1$ og $E_2$ er henholdsvis energien på det første og det andre tidspunktet. Hvis andre krefter enn gravitasjonen gjør et arbeid på systemet, kan vi altså finne arbeidet ved $W = E_2 - E_1$.
+
+** Fjærkraft
+
+En fjær er elastisk, noe som vil si at den kan deformeres og vende tilbake til sin opprinnelige tilstand. Altså vil fjæren gå tilbake til sin opprinnelige lengde etter den har blitt komprimert eller strukket ut. Med andre ord tilføres det energi som lagres i elastiske objekter som en form for potensiell energi. /Hookes lov/ beskriver kraften fra en fjær. Den sier at kraften $F$ fra en fjær er proporsjonal med forlengelsen eller sammenpressingen $x$ og er i absoluttverdi gitt ved $F = k x$ der konstanten $k$ er fjærstivheten målt i $\operatorname{unit}(N m^{- 1})$. Kraften er rettet mot fjærens likevektspunkt, altså vil retningen endres avhengig av om fjæren er komprimert eller forlenget.
+
+#+begin_quote
+Merk: man kan da skrive $F = k \left|x\right|$
+#+end_quote
+
+Generelt har vi at arbeid er definert ved $W = \operatorname{va}(F) \cdot \operatorname{va}(s) = F \cdot S \cdot \cos \theta$. Siden fjærkraften varierer etter $x$, kan vi skrive kraften som en funksjon $\operatorname{va}(F)\left(x\right)$ og sette opp integralet:
+
+\[
+W_F = \int_{x_1}^{x_2} \operatorname{va}(F)\left(x\right) \cdot \operatorname{va}(\mathrm{d} x)
+\]
+
+#+begin_quote
+Dette kommer av:
+
+\[
+W_F = \lim_{s \rightarrow 0} \sum_{x_1}^{x_2} \operatorname{va}(F)\left(s\right) \cdot \operatorname{va}(s) = \int_{x_1}^{x_2} \operatorname{va}(F)\left(x\right) \cdot \operatorname{va}(\mathrm{d} x)
+\]
+
+#+end_quote
+
+Man kan da finne uttrykket for elastisk energi som lagres i en fjær. Ved Newtons 3. lov har vi at kraften fjæren strekkes med er lik kraften fjæren trekker tilbake med. Vi har da:
+
+\begin{aligned}
+W_F & = \int_0^{x_1} F \mathrm{d} x \\
+ & = \int_0^{x_1} k x \mathrm{d} x \\
+ & = \left[\frac{1}{2} k x^2\right]_0^{x_1} \\
+ & = \frac{1}{2} k x_1^2
+\end{aligned}
+
+Altså må vi tilføre energien $\frac{1}{2} k x_1^2$ til fjæren for å forlenge den til $x_1$. Denne energien blir lagret i fjæren, noe som vil si at den potensielle energien i en elastisk fjær er definert ved $E_p = \frac{1}{2} k x^2$ der $k$ er fjærstivheten og $x$ er lengden fjæren er komprimert eller forlenget.
+
+* Kilder
+
++ Kraft 2, kapittel 2
