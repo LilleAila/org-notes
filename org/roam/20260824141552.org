@@ -139,7 +139,7 @@ Example: $f\left(n\right) = 14 n^2 + 21 n + 13$. We have $14 \cdot n^2 \leq f\le
 #+begin_quote
 
 \[
-\forall \varepsilon > 0 \; \exists n_o , \left|c \cdot \frac{f\left(n\right)}{g\left(n\right)}\right| < \varepsilon = \frac{c}{2} \; \forall n \geq n_0 arrow.double.r \frac{c}{2} \leq \frac{f\left(n\right)}{g\left(n\right)} \leq \frac{3 c}{2}
+\forall \varepsilon > 0 \; \exists n_o , \left|c \cdot \frac{f\left(n\right)}{g\left(n\right)}\right| < \varepsilon = \frac{c}{2} \; \forall n \geq n_0 \Rightarrow \frac{c}{2} \leq \frac{f\left(n\right)}{g\left(n\right)} \leq \frac{3 c}{2}
 \]
 
 #+end_quote

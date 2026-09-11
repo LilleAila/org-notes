@@ -67,8 +67,8 @@ Det vil si at $\operatorname{scr}(L)$ ikke har en tangentlinje i $a$.
 
 \[
 f\left(x\right) = | x | = \begin{cases}
- x \text{,} \quad x \geq 0 \\
- - x \text{,} \quad x < 0
+ x, \quad x \geq 0 \\
+ - x, \quad x < 0
 \end{cases} , a = 0
 \]
 
