@@ -1,0 +1,234 @@
+:PROPERTIES:
+:ID:       AFC9701A-1F05-4F26-A658-22285165DC0A
+:END:
+#+title: Catalan-tall
+#+created: [2026-09-16 Wed 08:21]
+#+last_modified: [2026-09-16 Wed 08:21]
+#+filetags: :mat221:
+
+#+begin_quote
+Kort oppsummert er Catalan-tall definert ved
+
+\begin{aligned}
+C_n & = \frac{1}{n + 1} \binom{2 n}{n}
+\end{aligned}
+
+#+end_quote
+
+* Introduksjon
+
+Vi ser på stier i et kvadratisk rutenett med bredde $n$. En sti går fra $A = \left(0 , 0\right)$ til $B = \left(n , n\right)$, der hvert skritt går enten én rute mot høyre eller én rute opp. Vi skal telle stire som aldri går over diagonalen fra $A$ til $B$.
+
+#+DOWNLOADED: screenshot @ 2026-09-16 08:23:32
+#+attr_org: :width 200px
+[[file:./assets/20260916082332_screenshot.png]]
+
+La $p_n$ være antallet slike stier, og set $P_0 = 1$. Tegner opp alle stiene for $n \in \left\{1 , 2 , 3\right\}$. Får da
+
+\[
+p_0 = 1 \quad p_1 = 1 \quad p_2 = 2 \quad p_3 = 5
+\]
+
+Dersom vi ikke har kravet om å holdes oss på én side av diagonalen, vil vi få dobbelt så mange stier, altså $20$ når $n = 3$. Dette er fordi stien er $2 n$ steg, og man skal velge $n$ punkter å gå opp, resten er til høyre, altså $\binom{2 n}{n}$.
+
+-----
+
+For en tillat sti fra $A$ til $B$, ser vi på siste gang stien møter diagonalen før den når $B$. Antar at dette skjer i punktet $C = \left(m , m\right)$.
+
+#+DOWNLOADED: screenshot @ 2026-09-16 08:36:57
+#+attr_org: :width 300px
+[[file:./assets/20260916083657_screenshot.png]]
+
+Før $C$ har vi samme problem, med størrelse $m$. Etter $C$ må stien først gå mot høyre, og vi har et nytt problem av samme type, nå med størrelse $n - m - 1$. Et fast valg av $m$ gir altså $P_m P_{n - m - 1}$. Hvis vi da ønsker å fine $P_n$, det totale antallet stier, er dette summen av alle stiene som treffer diagonalen i $\left(m , m\right)$. Altså har vi
+
+\[
+P_n = \sum_{m = 0}^{n - 1} P_m P_{n - m - 1}
+\]
+
+Her har vi fått med alle tillate stier, fordi alle stier treffer diagonalen minst to ganger: i $A$ og i $B$. Denne rekursive summen håndterer også stier som treffer diagonalen et vilkårlig antall ganger. Siden $\left(m , m\right)$ er det /siste/ møtet med diagonalen (før $B$), vil $m$ alltid beskrive et unikt sett med diagonaler, siden alle andre stier vil ha sitt siste møte med diagonalen senere eller tidligere.
+
+#+begin_quote
+Bruk rekursjoneformelen til å beregne $p_4$. Stemmer svaret med tallfølgen $1 , 1 , 2 , 5 , 14 , \ldots$?
+#+end_quote
+
+\begin{aligned}
+P_4 & = \left(P_0 \cdot P_{4 - 0 - 1}\right) + \left(P_1 \cdot P_{4 - 1 - 1}\right) + \left(P_2 \cdot P_{4 - 2 - 1}\right) + \left(P_3 \cdot P_{4 - 3 - 1}\right) \\
+ & = \left(P_0 P_3\right) + \left(P_1 P_2\right) + \left(P_2 P_1\right) + \left(P_3 P_0\right) \\
+ & = \left(P_0 \left(P_0 P_2 + P_1 P_1 + P_2 P_0\right)\right) + \left(P_1 \left(P_0 P_1 + P_1 P_0\right)\right) + \left(\left(P_0 P_1 + P_1 P_0\right) P_1\right) + \left(\left(P_0 P_2 + P_1 P_1 + P_2 P_0\right)\right) \\
+ & = P_2 + 1 + P_2 + 1 + 1 + 1 + 1 + P_2 + 1 + P_2 \\
+ & = 2 + 1 + 2 + 1 + 1 + 1 + 1 + 2 + 1 + 2 \\
+ & = 14
+\end{aligned}
+
+** Likning
+
+Setter først opp den genererende funksjonen
+
+\[
+C\left(x\right) = p_0 + p_1 x + p_2 x^2 + \cdots
+\]
+
+Vet fra [[id:F8B2A440-CDF6-4DD9-9706-DDB42E559C9D][cauchy-produktet]] at produktet av to genererende funksjoner og dermed også kvadratet har følgene koeffisient foran $x^n$:
+
+\begin{aligned}
+C\left(x\right)^2 & = \sum_{n = 0}^{\infty} \left(\sum_{m = 0}^n p_m p_{n - m}\right) x^n \\
+ P_n & = \sum_{m = 0}^{n - 1} P_m P_{n - m - 1} \\
+ k & = n - 1 \\
+ arrow.double.r n & = k + 1 \\
+ P_{k + 1} & = \sum_{m = 0}^k P_m P_{k - m} \\
+ C\left(x\right)^2 & = \sum_{n = 0}^{\infty} p_{n + 1} x^n
+\end{aligned}
+
+Multipliserer videre med $x$ slik at vi kan bli kvit $n + 1$::
+
+\begin{aligned}
+x C\left(x\right)^2 & = x \sum_{n = 0}^{\infty} p_{n + 1} x^n \\
+ & = \sum_{n = 0}^{\infty} p_{n + 1} x^{n + 1} \\
+ k & = n + 1 \\
+ x C\left(x\right)^2 & = \sum_{k = 1}^{\infty} p_k x^k \\
+ & = C\left(x\right) - p_0 \\
+ x C\left(x\right)^2 & = C\left(x\right) - 1
+\end{aligned}
+
+Dette er en andregradslikning, som vi kan løse med hensyn på $C\left(x\right)$.
+
+\begin{aligned}
+x C\left(x\right)^2 - C\left(x\right) + 1 & = 0 \\
+ C\left(x\right) & = \frac{1 \pm \sqrt{1 - 4 x}}{2 x}
+\end{aligned}
+
+For å velge løsningen, kan jeg bruke at $p_0 = 1$ og se på når $x = 0$:
+
+\begin{aligned}
+C\left(x\right) & = p_0 + p_1 x + p_2 x^2 + p_3 x^3 \\
+ C\left(0\right) & = p_0
+\end{aligned}
+
+Uttrykket med $+$ gir $\frac{2}{0}$, som ikke eksisterer. $\lim_{x \rightarrow 0^{+}} = \infty$ og $\lim_{x \rightarrow 0^{-}} = -\infty$. Altså kan denne løsningen ikke være riktig. Videre er
+
+\begin{aligned}
+\lim_{x \rightarrow 0} \frac{1 - \sqrt{1 - 4 x}}{2 x} & = \lim_{x \rightarrow 0} \frac{\left(1 - \sqrt{1 - 4 x}\right) \left(1 + \sqrt{1 - 4 x}\right)}{2 x \left(1 + \sqrt{1 - 4 x}\right)} \\
+ & = \lim_{x \rightarrow 0} \frac{4 x}{2 x \left(1 + \sqrt{2 - 4 x}\right)} \\
+ & = \lim_{x \rightarrow 0} \frac{2}{1 + \sqrt{1 - 4 x}} \\
+ & = \frac{2}{1 + \sqrt{1 - 0}} = \frac{2}{2} = 1 = p_0
+\end{aligned}
+
+Velger den negative løsningen og får da $C\left(0\right) = p_0$, som vil si at dette er den riktige løsningen.
+
+\[
+C\left(x\right) = \frac{1 - \sqrt{1 - 4 x}}{2 x}
+\]
+
+** Finne koeffisientene
+
+Vi har den generelle binomiske formelen for $\left(x + y\right)^n$:
+
+\[
+\left(x + y\right)^n = \sum_{r = 0}^n \binom{n}{r} x^r y^{n - r}
+\]
+
+I dette tilfellet har vi da:
+
+\begin{aligned}
+\left(1 + y\right)^k & = \sum_{n = 0}^{\infty} \binom{k}{n} y^n \\
+ \left(1 - 4 x\right)^{\frac{1}{2}} & = \sum_{n = 0}^{\infty} \binom{\frac{1}{2}}{n} \left(- 4 x\right)^n
+\end{aligned}
+
+Som vi kan sette inn i uttrykket for $C\left(x\right)$:
+
+\begin{aligned}
+C\left(x\right) & = \frac{1}{2 x} \left(1 - \sqrt{1 - 4 x}\right) \\
+ & = \frac{1}{2 x} \left(1 - \sum_{n = 0}^{\infty} \binom{\frac{1}{2}}{n} \left(- 4 x\right)^n\right)
+\end{aligned}
+
+Bruker at $\binom{\frac{1}{2}}{0} \left(- 4 x\right)^0 = 1 \cdot 1 = 1$, og trekker dette ut fra summen:
+
+\begin{aligned}
+C\left(x\right) & = - \frac{1}{2 x} \left(\sum_{n = 1}^{\infty} \binom{\frac{1}{2}}{n}\left(- 4 x\right)^n\right) \\
+ & = \sum_{n = 1}^{\infty} \binom{\frac{1}{2}}{n} \frac{- \left(\left(- 4 x\right)^n\right)}{2 x} \\
+ & = \sum_{n = 1}^{\infty} \binom{\frac{1}{2}}{n} \frac{\left(- 1\right)^n 4^n x^n}{2 x} \\
+ & = \sum_{n = 1}^{\infty} \left(\binom{\frac{1}{2}}{n} - \frac{1}{2} \left(- 1\right)^n 4^n\right) x^{n - 1}
+\end{aligned}
+
+Setter nå $k = n - 1 \Rightarrow n = k + 1$
+
+\begin{aligned}
+C\left(x\right) & = \sum_{k = 0}^{\infty} \left(- \frac{1}{2} \binom{\frac{1}{2}}{k + 1} \left(- 1\right)^{k + 1} 4^{k + 1}\right) x^k \\
+ p_k & = -\frac{1}{2} \binom{\frac{1}{2}}{k + 1} \left(- 1\right)^{k + 1} 4^{k + 1}
+\end{aligned}
+
+Ønsker nå først å forenkle binomialkoeffisienten. Da dette ikke er heltall, kan man ikke bruke den normale definisjonen av binomialkoeffisient. Bruker da den [[https://en.wikipedia.org/wiki/Binomial_coefficient#Binomial_coefficients_as_polynoials][generelle formelen]]:
+
+#+begin_quote
+Denne formelen kommer når vi utvider den vanlige formelen:
+
+\begin{aligned}
+\binom{n}{k} & = \frac{n !}{k ! \left(n - k\right)!} \\
+ & = \frac{n \left(n - 1\right) \left(n - 2\right) \left(n - 3\right) \cdots \left(n - k + 1\right) \left(n - k\right)!}{k ! \left(n - k\right)!} \\
+ & = \frac{n \left(n - 1\right) \left(n - 2\right) \left(n - 3\right) \cdots \left(n - k + 1\right)}{k !} \\
+ & = \frac{1}{k !} \prod_{j = 0}^{k - 1} \left(n - j\right)
+\end{aligned}
+
+Grunnen til at vi ikke kan bruke den tradisjonelle definisjonen er at fakultet kun er definert for heltall. Denne versjonen forutsetter at $n \in \mathbb{C} , k \in \mathbb{N}$.
+#+end_quote
+
+\begin{aligned}
+\binom{t}{k} & = \frac{t \left(t - 1\right) \left(t - 2\right) \cdots \left(t - k + 1\right)}{k \left(k - 1\right) \left(k - 2\right) \cdots 2 \cdot 1} \\
+ \binom{\frac{1}{2}}{k + 1} & = \frac{\frac{1}{2} \left(\frac{1}{2} - 1\right) \left(\frac{1}{2} - 2\right) \cdots \left(\frac{1}{2} - k\right)}{\left(k + 1\right)!} \\
+ & = \frac{\left(\frac{1}{2}\right) \left(- \frac{1}{2}\right) \left(- \frac{3}{2}\right) \left(- \frac{5}{2}\right) \cdots \left(- \frac{2 k - 1}{2}\right)}{\left(k + 1\right)!} \\
+ & = \frac{\left(- 1\right)^k \cdot 1 \cdot 2 \cdot 5 \cdots \left(2 k - 1\right)}{2^{k + 1} \left(k + 1\right)!} \\
+ p_k & = - \frac{1}{2} \frac{\left(- 1\right)^k \cdot 1 \cdot 3 \cdot 5 \cdots \left(2 k - 1\right)}{2^{k + 1} \left(k + 1\right)!} \left(- 1\right)^{k + 1} 4^{k + 1} \\
+ & = \frac{1}{2} \frac{1 \cdot 3 \cdot 5 \cdots \left(2 k - 1\right)}{2^{k + 1} \left(k + 1\right)!} 4^{k + 1} \\
+ & = \frac{1 \cdot 3 \cdot 5 \cdots \left(2 k - 1\right)}{2^{k + 2} \left(k + 1\right)!} 2^{2 k + 2} \\
+ & = \frac{1 \cdot 3 \cdot 5 \cdots \left(2 k - 1\right) \cdot 2^k}{\left(k + 1\right)!} $
+\end{aligned}
+
+Videre kan vi bruke det at $1 \cdot 3 \cdot 5 \cdot \cdots \left(2 k - 1\right) \cdot 2^k = 2 \cdot 4 \cdot 6$. Dette gjør at vi kan lage et fullstendig fakultet ved å gange med $k !$ i både teller og nevner:
+
+\begin{aligned}
+p_k & = \frac{\left(1 \cdot 3 \cdot 5 \cdots \left(2 k - 1\right)\right) \cdot 2 \cdot 4 \cdot 6 \cdots \left(2 k\right)}{\left(k + 1\right)!\left(k !\right)} \\
+ & = \frac{2 k !}{\left(k + 1\right)! k !} \\
+ & = \frac{\left(2 k\right)!}{\left(k + 1\right)k ! k !} \\
+ & = \frac{1}{k + 1} \frac{\left(2 k\right)!}{k ! k !} \\
+ p_k & = \frac{1}{k + 1} \binom{2 k}{k}
+\end{aligned}
+
+Altså har vi vist at 
+
+\begin{aligned}
+C_n & = \frac{1}{n + 1} \binom{2 n}{n}
+\end{aligned}
+
+* Triangulering av mangekanter
+
+Catalan-tallene opptrer i mange ulike telleproblemer, deriblant triangulering av en konvekst mangekant. Antallet måder en konveks $n$-kant kan deles i trekanter ved hjelp av ikke-kryssende diagonaler er $C_{n - 2}$. For en konveks femkant får vi da $C_3 = 5$, noe som vil si at det er $5$ måter å triangulere femkanten.
+
+#+DOWNLOADED: screenshot @ 2026-09-16 13:04:47
+#+attr_org: :width 400px
+[[file:./assets/20260916130447_screenshot.png]]
+
+Vi velger et fast hjørne som deler mangekanten i do teler, en med $i$ sider og en med $j$ sider. Antall måter å triangulere hele mangekanten på, er lik produktet av antallet måter å triangulere hver av de to nye delene. Dette gir formelen
+
+\[
+C_n = \sum_{i = 0}^{n - 1} C_i C_{n - 1 - i}
+\]
+
+Dette er nøyaktig det samme som rekursjonsformelen som beskriver Catalan-tallene.
+
+* Andre anvendelser
+
++ $C_n$ er antall måter $n$ par av venstre- og høyreparenteser (=(= og =)=) kan skrives etter hverandre slik at hver høyreparentes lukker en venstreparentes.
+
+#+DOWNLOADED: screenshot @ 2026-09-16 13:06:02
+#+attr_org: :width 300px
+[[file:./assets/20260916130602_screenshot.png]]
+
++ $C_n$ er antallet binære trær med $n + 1$ blader.
+
+#+DOWNLOADED: screenshot @ 2026-09-16 13:06:31
+#+attr_org: :width 400px
+[[file:./assets/20260916130631_screenshot.png]]
+
+* Kilder
+
++ MAT221, undervisningsark =2026-08-26-rekursjon-4-catalan=

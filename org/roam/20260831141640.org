@@ -33,6 +33,12 @@ This is a graph with
 
 Graphs may be used for transportation networks, assignments, social networks, molecules, etc.
 
+** Weighted graphs
+
+#+begin_quote
+*Definition*: A *weighted graph* is a [[id:B5F5D7D1-C376-473B-B89F-0E05AE6F5492][graph]] $\left(V , E\right)$ together with the weight assignment on the edges $w : E \rightarrow \mathbb{R}$.
+#+end_quote
+
 * Representation
 
 ** Edge list

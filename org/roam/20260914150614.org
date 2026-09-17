@@ -1,0 +1,166 @@
+:PROPERTIES:
+:ID:       B76FD22E-C9F8-4AA1-A478-7BC8712F139C
+:END:
+#+title: Eksplisitte formler
+#+created: [2026-09-14 Mon 15:06]
+#+last_modified: [2026-09-14 Mon 15:06]
+#+filetags: :mat221:
+
+Del av [[id:440D7A31-7148-416D-BD75-4CD05ADDB8E0][Telling]]
+
+* Introduksjon
+
+Betrakt Fibonacci-følgen, definert ved $F_n = F_{n - 1} + F_{n - 2}$. Dette er en rekursjonsformel som gir det neste FIbonacci-tallet basert på de to forrige. Dette er en rekursjonsformel på formen $a_n = A a_{n - 1} + B a\left(n - 2\right), n \geq 3$ der $A$ og $B$ er konstanter og $a_1$, $a_2$ er gitt. Dette kalles en /lineær rekursjonsformel av andre orden med konstante koeffisienter/.
+
+** Eksempel
+
+Anta at en løsning har formen $a_n = r^n$. Sammen med rekursjonsformelen får vi $r^n = A r^{n - 1} + B r^{n - 2}$. Dersom $r \neq 0$ kan vi dele på $r^{n - 2}$.
+
+\begin{aligned}
+r^n & = A r^{n - 1} + B r^{n - 2} \\
+ \frac{r^n}{r^{n - 2}} & = A \frac{r^{n - 1}}{r^{n - 2}} + B \frac{r^{n - 2}}{r^{n - 2}} \\
+ r^2 & = A r + B \\
+ r^2 - A r - B & = 0
+\end{aligned}
+
+Det siste uttrykket kalles den *karakteristiske likningen* til rekursjonsformelen. Hvis $r$ er en rot i den karakteristiske likningen, vil altså følgen $a_n = r^n$ oppfylle rekursjonsformelen. Om den karakteristiske likningen har to røtter $\alpha$ og $\beta$, har vi da to løsninger $\alpha^n$ og $\beta^n$. Dessuten er enhver lineær kombinasjon $C \alpha^n + D \beta^n$, $C , D \in \mathbb{R}$ også en løsning.
+
+For fibonacci-følgen $F_n = F_{n - 1} + F_{n - 2}$ er den karakteristiske likningen $r^2 - r - 1 = 0$. Den positive roten $\frac{1 + \sqrt{5}}{2}$ kalles også /det gylne snitt/ $\varphi$. Vi kan da skrive:
+
+\begin{aligned}
+r^2 - r - 1 & = 0 \\
+ r & = \frac{1 \pm \sqrt{5}}{2} \\
+ \alpha = r_1 & = \frac{1 + \sqrt{5}}{2} \\
+ \beta = r_2 & = \frac{1 - \sqrt{5}}{2} \\
+ F_n & = C \alpha^n + D \beta^n \\
+ & = C \left(\frac{1 + \sqrt{5}}{2}\right)^n + D \left(\frac{1 - \sqrt{5}}{2}\right)^n
+\end{aligned}
+
+Kan da sette inn de kjente verdiene $F_1 = 1$ og $F_2 = 2$ for å bestemme $C$ og $D$.
+
+\[
+\begin{bmatrix}
+ 1 & = C \frac{1 + \sqrt{5}}{2} + D \frac{1 - \sqrt{5}}{2} \\
+ 2 & = C \left(\frac{1 + \sqrt{5}}{2}\right)^2 + D \left(\frac{1 - \sqrt{5}}{2}\right)^2
+\end{bmatrix}
+\]
+
+Løser første likning for $C$.
+
+\begin{aligned}
+2 & = C \left(1 + \sqrt{5}\right) + D\left(1 - \sqrt{5}\right) \\
+ C \left(1 + \sqrt{5}\right) & = 2 - D\left(1 - \sqrt{5}\right) \\
+ C & = \frac{2 - D\left(1 - \sqrt{5}\right)}{1 + \sqrt{5}} $
+\end{aligned}
+
+Setter dette inn i likning $2$:
+
+\begin{aligned}
+8 & = C \left(1 + \sqrt{5}\right)^2 + D \left(1 - \sqrt{5}\right)^2 \\
+ 8 & = \frac{2 - D\left(1 - \sqrt{5}\right)}{1 + \sqrt{5}} \left(1 + \sqrt{5}\right)^2 + D \left(1 - \sqrt{5}\right)^2 \\
+ 8 & = 2 + 2 \sqrt{5} - D \left(1 - \sqrt{5}\right)\left(1 + \sqrt{5}\right) + D \left(1 - \sqrt{5}\right)^2 \\
+ 8 & = 2 + 2 \sqrt{5} - D \left(1 - 5\right) + D \left(1 - 2 \sqrt{5} + 5\right) \\
+ 8 - \left(2 + 2 \sqrt{5}\right) & = D \left(10 - 2 \sqrt{5}\right) \\
+ \frac{6 - 2 \sqrt{5}}{10 - 2 \sqrt{5}} & = D \\
+ D & = \frac{5 - \sqrt{5}}{10}
+\end{aligned}
+
+Setter dette tilbake inn i likning $1$ for å finne $C$:
+
+#+begin_quote
+Burde ha forenklet $D$ videre for å gjøre dette enklere, men det blir riktig svar likevel, selv om jeg brukte $D$ fra nest siste steg.
+#+end_quote
+
+\begin{aligned}
+C & = \frac{2 - D\left(1 - \sqrt{5}\right)}{1 + \sqrt{5}} \\
+ & = \frac{2 - \left(\frac{6 - 2 \sqrt{5}}{10 - 2 \sqrt{5}}\right) \left(1 - \sqrt{5}\right)}{1 + \sqrt{5}} \\
+ & = \frac{2 - \frac{6 - 2 \sqrt{5}\left(1 - \sqrt{5}\right)}{10 - 2 \sqrt{5}}}{1 + \sqrt{5}} \\
+ & = \frac{\frac{2 \left(10 - 2 \sqrt{5}\right)}{10 - 2 \sqrt{5}} - \frac{6 - 2 \sqrt{5}\left(1 - \sqrt{5}\right)}{10 - 2 \sqrt{5}}}{1 + \sqrt{5}} \\
+ & = \frac{2 \left(10 - 2 \sqrt{5}\right) - \left(6 - 2 \sqrt{5}\left(1 - \sqrt{5}\right)\right)}{\left(1 + \sqrt{5}\right)\left(10 + 2 \sqrt{5}\right)} \\
+ & = \frac{4 + 4 \sqrt{5}}{8 \sqrt{5}} \\
+ & = \frac{1 + \sqrt{5}}{2 \sqrt{5}} \\
+ & = \frac{\sqrt{5} + 5}{10}
+\end{aligned}
+
+Dette gir altså
+
+\begin{aligned}
+C & = \frac{\sqrt{5} + 5}{10} \\
+ D & = \frac{5 - \sqrt{5}}{10} \\
+ F_n & = \left(\frac{\sqrt{5} + 5}{10}\right) \left(\frac{1 + \sqrt{5}}{2}\right)^n + \left(\frac{5 - \sqrt{5}}{10}\right) \left(\frac{1 - \sqrt{5}}{2}\right)^n
+\end{aligned}
+
+** Dobbeltrot
+
+Betrakt rekursjonsformelen
+
+\[
+a_n = 4 a_{n - 1} - 4 a_{n - 2} , \quad a_1 = 1 , \quad a_2 = 3
+\]
+
+\begin{aligned}
+r^2 - A r - B & = 0 \\
+ r^2 - 4 r + 4 & = 0 \\
+ \left(r - 2\right)^2 & = 0
+\end{aligned}
+
+Den karakteristiske likningen gir $\left(r - 2\right)^2$, noe som vil si at den kun har ett nullpunkt som tangerer $x$-aksen. Altså har likningen en dobbeltrot (altså har multiplisitet 2, siden $2$ opptrer to ganger i løsningen av likningen).
+
+\begin{aligned}
+\left(r - 2\right)^2 & = 0 \\
+ r - 2 & = 0 \\
+ r & = 2 \\
+ \alpha & = r_1 = 2 \\
+ a_n & = C \alpha^n + D n \alpha^n \\
+ a_n & = \left(C + D n\right) \alpha^n
+\end{aligned}
+
+#+begin_quote
+Merk at her setter vi inn $D n$. I motsetning til eksempelet over, får vi nå to like løsninger $r_1 = r_2 = 2$. Siden en andre ordens rekursjonsformel krever to lineært uavhengige basisløsninger, multipliserer vi da $D$ med $n$.
+#+end_quote
+
+Setter inn initialbetingelsene
+
+\[
+\begin{bmatrix}
+ 1 & = \left(C + D\right) \cdot 2 \\
+ 3 & = \left(C + 2 d\right) \cdot 4
+\end{bmatrix}
+\]
+
+Løser første uttrykk for $C$:
+
+\begin{aligned}
+1 & = \left(C + D\right) \cdot 2 \\
+ \frac{1}{2} & = C + D \\
+ C & = \frac{1}{2} - D
+\end{aligned}
+
+Setter dette inn i det andre uttrykket:
+
+\begin{aligned}
+3 & = \left(C + 2 D\right) \cdot 4 \\
+ 3 & = \left(\left(\frac{1}{2} - D\right) + 2 D\right) \cdot 4 \\
+ 3 & = \left(\frac{1}{2} + D\right) \cdot 4 \\
+ 3 & = 2 + 4 D \\
+ 4 D & = 1 \\
+ D & = \frac{1}{4}
+\end{aligned}
+
+Setter da inn igjen i den første for å finne $C$:
+
+\begin{aligned}
+C & = \frac{1}{2} - D & = \frac{1}{2} - \frac{1}{4} & = \frac{2}{4} - \frac{1}{4} & = \frac{1}{4}
+\end{aligned}
+
+Får altså
+
+\begin{aligned}
+C & = \frac{1}{4} \\
+ D & = \frac{1}{4} \\
+ a_n & = \left(\frac{1}{4} + \frac{1}{4} n\right) 2^n
+\end{aligned}
+
+* Kilder
+
++ MAT221, undervisningsark =2026-08-24-rekursjon-2-eksplisitte-formler=

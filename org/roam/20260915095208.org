@@ -1,0 +1,243 @@
+:PROPERTIES:
+:ID:       F8B2A440-CDF6-4DD9-9706-DDB42E559C9D
+:END:
+#+title: Genererende funksjoner
+#+created: [2026-09-15 Tue 09:52]
+#+last_modified: [2026-09-15 Tue 09:52]
+#+filetags: :mat221:
+
+Del av [[id:4649E8BC-2102-46F7-8D9E-693AEA5A82F9][MAT221]]
+
+* Introduksjon
+
+La $a_0 , a_1 , a_2 , \ldots$ være en følge. Den /genererende funksjonen/ til følgen er den formelle potensrekken
+
+\[
+A\left(x\right) = a_0 + a_1 x + a_2 x^2 + \cdots = \sum_{n = 0}^{\infty} a_n x^n
+\]
+
+Altså tilsvarer koeffisienten foran $x^n$ tallet $a_n$
+
+** Eksempler
+
+#+begin_quote
+Hvilke følger er lagret i disse potensrekkene? Skriv de fem første koeffisientene i hver følge. Legg spesielt merke til forskjellen mellom å starte med konstantleddet og å starte med et $x$-ledd.
+#+end_quote
+
+1. $1 + x + x^2 + x^3 + \cdots$ tilsvarer følgen $1 , 1 , 1 , 1 , 1$, altså $a_n = 1$
+2. $1 + 2 x + 4 x^2 + 8 x^3 + \cdots$ tilsvarer følgen $1 , 2 , 4 , 8 , 16$, altså $a_n = 2^n$
+3. $1 - x + x^2 - x^3 + \cdots$ tilsvarer følgen $1 , - 1 , 1 , - 1 , 1$, altså $a_n = \left(- 1\right)^n$
+4. $x + 2 x^2 + 3 x^3 + 4 x^4 + \cdots$ tilsvarer følgen $x , 2 x , 3 x , 4 x , 5 x$, altså $a_n = n x$
+
+* Geometriske rekker
+
+Den viktigste grunnidentiteten til geometriske rekker er
+
+\[
+1 + x + x^2 + x^3 + \cdots = \frac{1}{1 - x}
+\]
+
+Dette ser vi ved
+
+\begin{aligned}
+1 & = \left(1 - x\right)\left(1 + x + x^2 + x^3 + \cdots\right) \\
+ & = 1 \left(1 + x + x^2 + x^3 + \cdots\right) - x \left(1 + x + x^2 + x^3 + \cdots\right) \\
+ & = \left(1 + x + x^2 + x^3 + \cdots\right) - \left(x + x^2 + x^3 + x^4 + \cdots\right) \\
+ & = 1 + \left(x + x^2 + x^3 + x^4 + \cdots\right) - \left(x + x^2 + x^3 + x^4 + \cdots\right) \\
+ & = 1
+\end{aligned}
+
+#+begin_quote
+Hva får du dersom du erstatter $x$ med $2 x$? Hvilken følge er dermed lagret i $\frac{1}{1 - 2 x}$?
+#+end_quote
+
+\begin{aligned}
+1 + \left(2 x\right) + \left(2 x\right)^2 + \left(2 x\right)^3 + \cdots & = \frac{1}{1 - 2 x} \\
+ 1 + 2 x + 4 x^2 + 8 x^3 + 16^4 + \cdots & = \frac{1}{1 - 2 x}
+\end{aligned}
+
+Uttrykket $\frac{1}{1 - 2 x}$ er en genererende funksjon for en tallfølge. Koeffisientfølgen som er lagret i uttrykket er $1 , 2 , 4 , 8 , 16 , \ldots$, altså $a_n = 2^n$.
+
+* Produkt av genererende funksjoner
+
+La
+
+\begin{aligned}
+A\left(x\right) & = \sum_{n = 0}^{\infty} a_n x^n \\
+ B\left(x\right) & = \sum_{n = 0}^{\infty} b_n x^n
+\end{aligned}
+
+Hvis
+
+\[
+A\left(x\right) B\left(x\right) = \sum_{n = 0}^{\infty} c_n x^n
+\]
+
+kommer $x^n$ fra alle produkter der eksponentene summerer til $n$. Derfor er
+
+\[
+c_n = a_0 b_n + a_1 b_{n - 1} + \cdots + a_n b_0 = \sum_{j = 0}^n a_j b_{n - j}
+\]
+
+Dette er kjent som *Cauchy-produktet*
+
+** Eksempel
+
+La $A\left(x\right) = B\left(x\right) = 1 + x + x^2 + x^3 + \cdots$
+
+#+begin_quote
+1. Finn koeffisientene til $x^0 , x^1 , x^2 , x^3$ og $x^4$ i $A\left(x\right) B\left(x\right)$ ved å telle hvor mange produkter som bidrar.
+2. Gjett koeffisienten til $x^n$
+#+end_quote
+
+Vi har $a_n = b_n = 1$. Altså får vi
+
+\[
+c_n = \sum_{j = 0}^n a_j b_{n - j} = \sum_{j = 0}^n 1 = n
+\]
+
+#+begin_quote
+3. Bruk $A\left(x\right) = B\left(x\right) = \frac{1}{1 - x}$ til å fylle inn høyresiden i
+
+\[
+\frac{1}{1 - x^2} = \sum_{n = 0}^{\infty} \square x^n
+\]
+
+#+end_quote
+
+Starter med formelen for den geometriske rekken, og substituerer $x$ med $x^2$.
+
+\begin{aligned}
+\frac{1}{1 - x} & = 1 + x + x^2 + x^3 + x^4 + \cdots = \sum_{n = 0}^{\infty} x^n \\
+ \frac{1}{1 - x^2} & = 1 + x^2 + x^4 + x^6 + x^8 + \cdots = \sum_{n = 0}^{\infty} x^{2 n}
+\end{aligned}
+
+Vi får altså koeffisienten $\square = 0$ for oddetals-eksponenter $n$, og $\square = 1$ for partalls-eksponenter.
+
+#+begin_quote
+4. Kontroller formelen ved å multiplisere $\left(1 - x\right)^2$ med de første fem leddene på høyresiden.
+#+end_quote
+
+\begin{aligned}
+\left(1 - x\right)^2 & = 1 - 2 x + x^2 \\
+ \frac{1}{1 - x^2} & = 1 + 2 x + 3 x^2 + 4 x^3 + 5 x^4 \\
+ 1 & = \left(1 - 2 x + x^2\right) \left(1 + 2 x + 3 x^2 + 4 x^3 + 5 x^4\right) \\
+ & = \left(1 + 2 x + 3 x^2 + 4 x^3 + 5 x^4\right) - 2 x \left(1 + 2 x + 3 x^2 + 4 x^3 + 5 x^4\right) + x^2 \left(1 + 2 x + 3 x^2 + 4 x^3 + 5 x^4\right) \\
+ & = \left(1 + 2 x + 3 x^2 + 4 x^3 + 5 x^4\right) - \left(2 x + 4 x^2 + 6 x^3 + 8 x^4 + 10 x^5\right) + \left(x^2 + 2 x^3 + 3 x^4 + 4 x^5 + 5 x^6\right) \\
+ & = \left(1\right) + \left(2 x - 2 x\right) + \left(3 x^2 - 4 x^2 + x^2\right) + \left(4 x^3 - 6 x^3 + 2 x^3\right) + \left(5 x^4 - 8 x^4 + 3 x^4\right) - 6 x^5 + 5 x^6 \\
+ & = 1 - 6 x^5 + 5 x^6
+\end{aligned}
+
+Vi betraktet kun de første 5 leddene til den uendelige følgen. Kan derfor se bort fra leddene med potenser høyere enn $4$, noe som betyr at vi får $1 = 1$. Altså er formelen sann. Q.E.D.
+
+* Fibonacci-følgen, algebraisk
+
+Bruker samme definisjon av fibonacci-følgen som tidligere:
+
+\[
+F_1 = 1 , \quad f_2 = 2 , \quad f_n = F_{n - 1} + F_{n - 2} \quad \left(n \geq 3\right)
+\]
+
+Setter da opp
+
+\[
+F\left(x\right) = F_1 x + F_2 x^2 + F_3 x^3 + \cdots
+\]
+
+#+begin_quote
+Merk at vi her starter med $x$ og ikke et konstantledd. Det er fordi vi har gitt $F_1 = 1$, og ikke $F_0$, altså $x^1$.
+#+end_quote
+
+#+begin_quote
+1. Bruk $F_n = F_{n - 1} + F_{n - 2}$ til å dele høyresiden i to summer.
+#+end_quote
+
+\begin{aligned}
+F\left(x\right) - F_1 x - F_2 x^2 & = F_3 x^3 + F_4 x^4 + F_5 x^5 + \cdots \\
+ F\left(x\right) & = F_1 x + F_2 x^2 + \sum_{n = 3}^{\infty} F_n x^n \\
+ F\left(x\right) & = F_1 x + F_2 x^2 + \sum_{n = 3}^{\infty} \left(F_{n - 1} + F_{n - 2}\right)x^n \\
+ F\left(x\right) & = F_1 x + F_2 x^2 + \sum_{n = 3}^{\infty} F_{n - 1} x^n + \sum_{n = 3}^{\infty} F_{n - 2} x^n
+\end{aligned}
+
+#+begin_quote
+2. Vis at den første summen er $x F\left(x\right) - x^2$ og at den andre er $x^2 F\left(x\right)$.
+#+end_quote
+
+\begin{aligned}
+\sum_{n = 3}^{\infty} F_{n - 1} x^n & = \sum_{k = 2}^{\infty} F_k x^{k + 1} \\
+ & = x \sum_{k = 2}^{\infty} F_k x^k \\
+ & = x \left(F\left(x\right) - F_1\left(x\right)\right)
+\end{aligned}
+
+Setter her $k = n - 1$. Ser at summen er lik $F\left(x\right)$ utenom det første leddet $F_1 x$, og vi har at $F_1 = 1$:
+
+\begin{aligned}
+& = x F\left(x\right) - x^2
+\end{aligned}
+
+-----
+
+\begin{aligned}
+\sum_{n = 3} F_{n - 2} x^n & = \sum_{k = 1}^{\infty} F_k x^k + 2 \\
+ & = \sum_{k = 1}^{\infty} F_k x^k x^2 \\
+ & = x^2 \sum_{k = 1}^{\infty} F_k x^k \\
+ & = x^2 F\left(x\right)
+\end{aligned}
+
+Samme logikk som over, bare at det første leddet blir inkludert. Får altså $x^2 F\left(x\right)$.
+
+#+begin_quote
+Dermed får du
+
+\[
+F\left(x\right) - x - 2 x^2 = x F\left(x\right) - x^2 + x^2 F\left(x\right)
+\]
+
+Samle alle ledd med $F\left(x\right)$ på én side og vis at
+
+\[
+F\left(x\right) = \frac{x + x^2}{1 - x - x^2}
+\]
+
+#+end_quote
+
+\begin{aligned}
+F\left(x\right) - x - 2 x^2 & = x F\left(x\right) - x^2 + x^2 F\left(x\right) \\
+ F\left(x\right) - x F\left(x\right) - x^2 F\left(x\right) & = x + 2 x^2 - x^2 \\
+ F\left(x\right) - x F\left(x\right) - x^2 F\left(x\right) & = x + x^2 \\
+ F\left(x\right) \left(1 - x - x^2\right) & = x + x^2 \\
+ F\left(x\right) & = \frac{x + x^2}{1 - x - x^2}
+\end{aligned}
+
+#+begin_quote
+Kontroll: Utvid bare så langt som nødvendig til å kontrollere at koeffisientene foran $x$, $x^2$, $x^3$ er $1 , 2 , 3$.
+#+end_quote
+
+Kunne utført polynomdivisjon, men siden jeg har fått en rekke å bekrefte mot, er det enklere å gjøre det motsatt vei og multiplisere nevneren med denne.
+
+\begin{aligned}
+\left(1 - x - x^2\right)\left(x + 2 x^2 + 3 x^3\right) & = \left(x + 2 x^2 + 3 x^3\right) - x\left(x + 2 x^2 + 3 x^3\right) - x^2\left(x + 2 x^2 + 3 x^3\right) \\
+ & = \left(x + 2 x^2 + 3 x^3\right) - \left(x^2 + 2 x^4 + 3 x^4\right) - \left(x^3 + 2 x^4 + 3 x^5\right) \\
+ & = x + 2 x^2 + 3 x^3 - x^2 - 2 x^3 - 3 x^4 - x^3 - 2 x^4 - 3 x^5 \\
+ & = x + x^2 + 0 - 5 x^4 - 3 x^5
+\end{aligned}
+
+Ser bort fra leddene med høyere grad. Får da $x + x^2$, som er lik telleren. Altså har jeg vist at formelen gjelder for $F_1$, $F_2$ og $F_3$. Q.E.D.
+
+#+begin_quote
+Sammenlikn til slutt med formelen dere fant ved den karakteristiske likningen. Er de faktisk den samme?
+#+end_quote
+
+Fra notatene i [[id:B76FD22E-C9F8-4AA1-A478-7BC8712F139C][eksplisitte formler]] har vi at den karakteristiske likningen for fibonacci-følgen er $r^2 - r - 1 = 0$. Om vi derimot setter nevneren i brøken over til $0$, får vi $1 - x - x^2 = 0$. Ser her at dette bare er en substitusjon der $x$ er byttet ut med $\frac{1}{r}$:
+
+\begin{aligned}
+1 - x - x^2 & = 0 \\
+ 1 - \frac{1}{r} - \frac{1}{r^2} & = 0 \\
+ r^2 - r - 1 & = 0
+\end{aligned}
+
+Dette vil si at røttene til nevneren er lik de omvendte / resiproke røttene til den karakteristiske likningen.
+
+* Kilder
+
++ MAT221 undervisningsark =2026-08-26-rekursjon-3-genererende-funksjoner=

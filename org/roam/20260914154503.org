@@ -1,0 +1,47 @@
+:PROPERTIES:
+:ID:       630D5758-FE08-4B5D-9DE4-96BC05BF62B2
+:END:
+#+title: Priority queues
+#+created: [2026-09-14 Mon 15:45]
+#+last_modified: [2026-09-14 Mon 15:45]
+#+filetags: :inf234:
+
+* Introduction
+
+A priority queue is a data structure that order their elements based on a priority. Insert and retrieve in a well implemented priority queue can be done in $O\left(\log n\right)$. It usually has the methods:
+
++ insert($Q , x , y$): Add $x$ to $Q$ with priority $y$
++ delete-min($Q$): Return $x$ from $Q$ with the smallest priority value, and deletes it from $Q$
++ decrease-key($Q , x , y$): Set priority of $x$ in $Q$ to a smaller value $y$
+
+#+begin_quote
+Most programming languages come with their own implementation. They usually have slightly different method names.
+#+end_quote
+
+
+* Implementations
+
++ Simple array
+  - insert: $O\left(1\right)$
+  - delete-min: $O\left(n\right)$
+  - decrease-key: $O\left(1\right)$
++ Binary heap
+  - insert: $O\left(\log n\right)$
+  - delete-min $O\left(\log n\right)$
+  - decrease-key: $O\left(\log n\right)$
++ Fibonacci heap
+  - insert: $O\left(1\right)$
+  - delete-min: $O\left(\log n\right)$ amortized
+  - decrease-key: $O\left(1\right)$ amortized
++ Brodal heap
+  - insert: $O\left(1\right)$
+  - delete-min: $O\left(\log n\right)$
+  - decrease-key: $O\left(1\right)$
+
+While fibonacci heaps and brodal heaps are faster, they are lot more complex to implement, so a binary heap is the most common.
+
+** Binary heaps
+
+Let $\left\{1 , \ldots , n\right\}$ be the elements to be stored. Let $\text{key}\left[x\right]$ be the priority value of each element. The main idea is to store elements in a heap-ordered binary tree: $key\left[v\right] \geq key\left[p\right]$ when $p$ is the parent of $v$. A binary heap can be nicely arranged in an array: for an element $x$ = $\text{heap}\left[i\right]$, its parent is in $\text{heap}\left[\left\lfloor \frac{i}{2}\right\rfloor\right]$. This is usually efficiently done using binary shifting operators.
+
+TODO: insert the heapify-up and heapify-down functions from the presentation

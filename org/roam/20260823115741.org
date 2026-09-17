@@ -105,6 +105,20 @@ For den andre identiteten velger man ett objekt $x$ blant de $n + 1$ objektene. 
 
 Addisjonsprinsippet gir da $\binom{n + 1}{r} = \binom{n}{r} + \binom{n}{r - 1}$. Denne identiteten kalles også *pascals identitet*. Den gjør det mulig å beregne binomialkoeffisientene mer effektivt, uten å bruke fakulteter.
 
+** Uordnede utvalg med repetisjoner
+
+Multiplikasjonsprinsippet gir at det finnes $2^n$ binære sekvenser av lengde $n$. En delmengde $A$ av mengden $\left\{1 , 2 , 3\right\}$ gir en binær sekvens $x_1 x_2 x_3$ av lengde $3$, der $x_n = 1$ hvis $x_n \in A$ og $x_n = 0$ hvis $1 int.not A$. Det finnes derfor $2^3 = 8$ delmengder av mengden $\left\{1 , 2 , 3\right\}$ med tre elementer. ALtså finnes det generelt $2^n$ delmengder av en mengde med $n$ elementer. Det er da $n^r$ måter $r$ objekter kan velges i rekkefølge fra $n$ objekter dersom repetisjon er tillat.
+
+*** Teorem 1.10
+
+Antallet av uordnede utvalg  av $r$ objekter med repetisjon tillat, fra en samling av $n$ ulike objekter, er:
+
+\[
+\binom{n + r - 1}{r}
+\]
+
+Dette er fordi man kan velge $r$ objekter. Hvis man da ser på et valgt objekt som et ekstra valg, noe som betyr at vi vil stå igjen med $n - 1$ objekter som ikke ble valgt. Vi har altså $\binom{n + r - 1}{n - 1}$, som kan skrives om til det over.
+
 ** Pascals trekant
 
 Om man setter opp alle binomialkoeffisientene for en gitt $n$, får vi for eksempel:

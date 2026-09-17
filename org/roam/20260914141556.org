@@ -1,0 +1,100 @@
+:PROPERTIES:
+:ID:       AF25D53B-F297-4CC3-8069-F89685E14DC4
+:END:
+#+title: Shortest paths
+#+created: [2026-09-14 Mon 14:15]
+#+last_modified: [2026-09-14 Mon 14:15]
+#+filetags: :inf234:
+
+* Introduction
+
+Algorithms for finding the shortest path between nodes in [[id:B5F5D7D1-C376-473B-B89F-0E05AE6F5492][graphs]], namely weighted graphs. Two common problems are:
+
+#+begin_quote
+The $s$-$t$ shortest path problem: Given a weighted digraph $\left(G , w\right)$ and two vertices $s$ and $t$ in $G$, what is the length of a shortest path between $s$ and $t$?
+#+end_quote
+
+#+begin_quote
+Single-source shortest path problem (SSSP): Given a weighted digraph $\left(G , w\right)$ and a vertex $s \in V$, find a shortest directed path from $s$ to every node.
+#+end_quote
+
+** Applications
+
++ Routing
+  - Vehicles in road networks. An edge can be a street, and the weight is the distance.
+  - Packets in communication networks
++ Planning
+  - Milestones and development costs
++ Computer graphics
+  - Seam carving
++ Other algorithms
+  - Minimum-cost flow
+
+** SSSP algorithm
+
+Proposed naive algorithm: Subdivide the edges proportionally to the weights, and run [[id:65A6BA56-2009-40F0-8BED-7580E1E87C8B][BFS]]. This will work if the weights are integers, and will run in linear time, however this can still quickly become too slow with large weights. It would run in $O\left(n' + m'\right)$ where $n'$ and $m'$ are the nodes and edges in the auxilary graph. We have that $n' \leq n + m W$ where $W$ is the max edge weight, and $m' \leq m W$. Hence, the overall running time is $O\left(n + m W\right)$. In other words, it goes from $\Theta(m + n)$ to $\Theta(\left(m + n\right) \cdot W)$. It also assumes the weights are integers. If the weights are rational, they can be scaled up to common denominators. For irrational weights however, this method does not work at all.
+
+*** Dijkstra's algorithm
+
+This is a [[id:092F4E89-572D-46B4-9B42-025AF46986C0][greedy algorithm]] that finds the shortest path in weighted graphs. It works by maintaining the best-known path to each vertex $d\left[v\right]$ and a set of explored nodes $S$.
+
++ Initialize $d\left[s\right] = 0$, $d\left[v\right] = \infty$ for every $u \in V \setminus \left\{s\right\}$, $S = \emptyset$
++ Repeatedly choose unexplored node $v \notin S$ with the smallest known distance
++ For each neighbor $u$ of $v$, update the distance, and add $v$ to $S$. $d\left[u\right] = \min \left\{d\left[u\right], d\left[v\right] + w\left(v u\right)\right\}$
+
+**** Proof of correctness
+
+*Invariant*: When $v$ is selected, $d\left[v\right]$ is the shortest-path distance from $s$ to $v$. Proof by induction:
+
+*Base*: $| S | = 0$: $s$ is chosen first, $d\left[s\right] = 0$ is the distance.
+*Induction*: Assume $v$ is selected, and $d\left[u\right]$ is correct for each $u \in S$.
+
++ Let the last update to $v$ be $d\left[v\right] = d\left[u\right] + w\left(u v\right)$.
++ By induction, $d\left[u\right]$ is the shortest path from $s$ to $u$ from the assumption.
++ Assume there is a shorter path from $s$ to $v$; let $y$ be the first vertex $\notin S$ and $x$ is the last vertex $\in S$, with an edge to $y$.
++ $d\left[y\right] = d\left[x\right] + w\left(x y\right) \geq d\left[v\right]$ by the choice of $v$.
++ Since $x \in S$, the $s \rightarrow x \rightarrow y$ is at least $d\left[y\right]$.
+
+#+begin_quote
+This only works for non-negative edge weights.
+#+end_quote
+
+*Theorem*: We can compute single-source shortest paths on graphs with non-negative weights in time $O\left(\left(n + m\right) \cdot \log n\right)$.
+
+#+begin_quote
+This means that if the weights are $< \log n$, the subdivision method will be more efficient. This is however rarely the case.
+#+end_quote
+
++ Select $v$ with the smallest $d\left[v\right]$ from a [[id:630D5758-FE08-4B5D-9DE4-96BC05BF62B2][priority queue]]
+
+  #+begin_src cpp
+    priority_queue<pair<int, int>, greater<pair<int, int>>, vector<pair<int, int>>> pq;
+    vector<int> dist(n, INT_MAX);
+    dist[s] = 0;
+    pq.push({0, s});
+
+    while (!pq.empty()) {
+      auto [d, u] = pq.front();
+      pq.pop();
+
+      if (d > dist[u]) continue;
+
+      for (const auto &[v, w] : adj[u]) {
+        int new_cost = d + w;
+        if (new_cost < dist[v]) {
+          dist[v] = new_cost;
+          pq.push({new_cost, v});
+        }
+      }
+    }
+  #+end_src
+
+#+begin_quote
+Dijkstra is often implemented using tuples of [$y$, $x$] that are ordered nondecreasingly in the priority queue. Instead of using =decrease-key= in the inner loop, we instead just push the value. This means that we may have duplicates in the priority queue, and these are simply skipped once they are encountered.
+#+end_quote
+
+Dijkstra can be implemented using different types of [[id:630D5758-FE08-4B5D-9DE4-96BC05BF62B2][priority queues]], but is usually implemented with a binary heap. The running time is:
+
++ Simple array: $O\left(n^2\right)$. Good for very dense graphs, but usually inefficient.
++ Binary heap: $O\left(m \log n\right)$
++ Fibonacci heap: $O\left(m + n \cdot \log n\right)$
