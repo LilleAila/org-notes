@@ -1,0 +1,330 @@
+:PROPERTIES:
+:ID:       F756C134-2EFF-43AE-9EBD-BD1B19AC139C
+:END:
+#+title: Support Vector Machines
+#+created: [2026-09-18 Fri 08:31]
+#+last_modified: [2026-09-18 Fri 08:31]
+#+filetags: :inf264:
+
+Part of [[id:5DBB8E16-9374-41ED-A69C-A9B38EE00650][INF264]]
+
+* Introduction
+
+Before neural networks became widespread, this was one of the most used typst of machine learning models. It is however still very useful today. In a situation with smaller datasets, or where we want to explain the results we get in more defail, SVM will be more useful.
+
+** Hard-Margin SVMs
+
+#+begin_quote
+Given linearly separable classes, where should we draw the decision boundary? (note the difference betweten linear data and linearly separable classes / data)
+#+end_quote
+
+Simplified example:
+
+#+DOWNLOADED: screenshot @ 2026-09-18 08:34:01
+#+attr_org: :width 400px
+[[file:./assets/Introduction/20260918083401_screenshot.png]]
+
+The intuition is to find the linear decision boundary that correctly classifies all points and is furthest away (/margin/ or /gap/) from the nearest points of each class (/support vectors/).
+
+#+DOWNLOADED: screenshot @ 2026-09-18 08:36:37
+#+attr_org: :width 400px
+[[file:./assets/Introduction/20260918083637_screenshot.png]]
+
+We consider a binary classification case such that $y_i \in \left\{- 1 , 1\right\}$. The goal is to find a /hyperplane/ (i.e. a linear decision boundary) that divides a space into two parts. A hyperplane in $R^n$ is an $n - 1$ dimensional subspace.
+
+#+DOWNLOADED: screenshot @ 2026-09-18 08:42:53
+#+attr_org: :width 400px
+[[file:./assets/Introduction/20260918084253_screenshot.png]]
+
+-----
+
+The equation of a hyperplane is $\operatorname{ub}(w)^T \operatorname{ub}(x) + b = 0$ where $\operatorname{ub}(w) \in \mathbb{R}^d$, $\operatorname{ub}(x) \in \mathbb{R}^d$ and $b \in \mathbb{R}$. Then, our classification rule will be
+
+\begin{aligned}
+\operatorname{ub}(w)^T \operatorname{ub}(x)_i + b < 0 & \rightarrow y_i = - 1 \\
+ \operatorname{ub}(w)^T \operatorname{ub}(x)_i + b > 0 & \rightarrow y_i = 1
+\end{aligned}
+
+In order to find the hyperplane maximizing the margin, we will compute the distance between two parallel hyperplanes - one touching the first group, the other touching the other group. The slopes/weights $\operatorname{ub}(w)$ determine the orientation of the hyperplane. $\operatorname{ub}(w)$ is perpendicular to the plane, and its scale is not relevant, just like the perpendicular vector for general planes. The displacement $b$ quantifies the rigid translation of the plane. In other words, it determines the offsed from the origin of the space.
+
+Let the two hyperplanes be defined as
+
+\begin{aligned}
+\operatorname{ub}(w)^T \operatorname{ub}(x) + b_1 & = 0 \\
+ \operatorname{ub}(w)^T \operatorname{ub}(x) + b_2 & = 0
+\end{aligned}
+
+Because the planes are parallel, they will have the same orientation by $\operatorname{ub}(w)$. Hence, the distance between them is
+
+\[
+D = \frac{\left|b_1 - b_2\right|}{\left|\left|\operatorname{ub}(w)\right|\right|}
+\]
+
+where $\left|b_1 - b_2\right|$ is the actual difference in displacement, and it is divided by the weights of the slopes as a sort of normalization. This is because, as mentioned, the magnitude of $\operatorname{ub}(w)$ is irrelevant, and we only care about its direction.
+
+-----
+
+We will define our parallel hyperplanes as
+
+\begin{aligned}
+\operatorname{ub}(w)^T \operatorname{ub}(x) + b & = - 1 \\
+ \operatorname{ub}(w)^T \operatorname{ub}(x) + b & = 1
+\end{aligned}
+
+Then, we will rewrite them as
+
+\begin{aligned}
+\operatorname{ub}(w)^T \operatorname{ub}(x) + b + 1 & = - 1 \\
+ \operatorname{ub}(w)^T \operatorname{ub}(x) + b - 1 & = 1
+\end{aligned}
+
+The distance between them is
+
+\[
+D = \frac{\left|b_1 - b_2\right|}{\left|\left|\operatorname{ub}(w)\right|\right|} = \frac{2}{\left|\left|\operatorname{ub}(w)\right|\right|}
+\]
+
+Here, maximizing the margin $D$ is equivalent to minimizing $\operatorname{ub}(w)$: $\max D \equiv \min \left|\left|\operatorname{ub}(w)\right|\right|$, which in turn is equivalent to minimizing $\min \left|\left|\operatorname{ub}(w)\right|\right| \equiv \min \frac{1}{2} \left|\left|\operatorname{ub}(w)\right|\right|^2$.
+
+Maximiziing the margin should happen under the constraint that all training points are classified correctly.
+
+\begin{aligned}
+& \operatorname{ub}(w)^T \operatorname{ub}(x)_i + b & & \leq - 1 & & \rightarrow y_i = - 1 \\
+ & \operatorname{ub}(w)^T \operatorname{ub}(x)_i + b & & \geq 1 & & \rightarrow y_i = 1
+\end{aligned}
+
+Equivalently, $y_i \left(\operatorname{ub}(w)^T \operatorname{ub}(x)_i + b\right) \geq 1$.
+
+-----
+
+The final optimization problem to solve is
+
+\[
+\min_{\operatorname{ub}(w), b} \frac{1}{2} \left|\left|\operatorname{ub}(w)\right|\right|^2
+\]
+
+subject to $y_i \cdot \left(\operatorname{ub}(w)^T \operatorname{ub}(x)_i + b\right) \geq 1 \forall i = 1 , \ldots , n$
+
+This is called the /primal formulation of SVM/. It is a /convex quadratic programming problem/. (which is something i have absolutely no idea what means)
+
+*** Dual SVM optimization problem
+
+It is usually more convenient to formulate SVMs using a /dual formulation/. The dual formulation os SVM is:
+
+\[
+\max_{\alpha} \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i = 1}^n \sum_{j = 1}^n \alpha_i \alpha_j \operatorname{ub}(x)_i^T \operatorname{ub}(x)_j \
+ \text{subject to} \sum_i \alpha_i y_i = 0 \
+ \text{and} \alpha_i \geq 0 \forall i = i , \ldots , n
+\]
+
+This problem is strictly connected to the primal, and is simpler to solve. Minimizing the primal formulation is equivalent to maximizing the dual. Weights can then be reconstructed as
+
+\[
+\operatorname{ub}(w) = \sum_{i = 1}^n \alpha_i y_i \operatorname{ub}(x)_i
+\]
+
+Note that $\alpha_i > 0$ only for support vectors.
+
+#+begin_quote
+In summary, SVM is learned by setting up the equation in the primal form, reformulating it in the dual formulation, then solving it.
+#+end_quote
+
+*** Classification
+
+After solving the optimization problem, we get the weights as
+
+\[
+\operatorname{ub}(w) = \sum_{i = 1}^n \alpha_i y_i \operatorname{ub}(x)_i
+\]
+
+We can reconstruct the intercept from the data points for which the constraint is tight, that is, $y_i \cdot \left(\operatorname{ub}(w)^T \operatorname{ub}(x)_i + b\right) = 1$.
+
+\[
+b = y_i - \operatorname{ub}(w)^T \operatorname{ub}(x)_i
+\]
+
+Then, we can classify new instances $\operatorname{ub}(x)$ as
+
+\[
+f\left(\operatorname{ub}(x)\right) = \text{sign}\left(\operatorname{ub}(w)^T \operatorname{ub}(x) + b\right)
+\]
+
+** Soft-Margin SVMs
+
+Hard-margin SVMs work well for linearly separable data, but data is not usually that simple, and may contain noise or overlapping values. One solution is permitting a limited violation of the /perfect/ classification:
+
+#+DOWNLOADED: screenshot @ 2026-09-18 09:19:40
+#+attr_org: :width 250px
+[[file:./assets/Introduction/20260918091940_screenshot.png]]
+
+Each data point is assigned a /slack variable/ $\xi \geq 0$, the distance from the separating hyperplane if a data point is misclassified, and $0$ otherwise.
+
+\[
+y_i \left(\operatorname{ub}(w)^T \operatorname{ub}(x)_i + b\right) \geq 1 - \xi_i
+\]
+
+The primal formulation for a soft-margin SVM is
+
+\begin{aligned}
+& \min_{\operatorname{ub}(w), b , \xi_i} \frac{1}{2} \left|\left|\operatorname{ub}(w)\right|\right|^2 + C \sum_{i = 1}^n \xi_i \\
+ & \text{subject to} y_i \cdot \left(\operatorname{ub}(w)^T \operatorname{ub}(x)_i + b\right) \geq 1 - \xi_i \forall i = 1 , \ldots , n
+\end{aligned}
+
+where $C$ is a hyper-parameter that determines how strongly misclassifications are penalized. We minimize
+
++ the weights $\operatorname{ub}(w)$, hence finding the largest margin
++ the slack variable $\xi_i$, hence reducing the violations of the classification hyperplane
+
+  -----
+
+  The dual formulation for a soft-margin SVM is:
+
+\begin{aligned}
+& \max_{\alpha} \sum_{i = 1}^n - \frac{1}{2} \sum_{i = 1}^n \sum_{j = 1}^n \alpha_i \alpha_j y_i y_j \operatorname{ub}(x)_i \operatorname{ub}(x)_j \\
+ & \text{subject to} \sum_i \alpha_i y_i = 0 \\
+ & \text{and} 0 \leq \alpha_i \leq C \forall i = 1 , \ldots , n
+\end{aligned}
+
+#+begin_quote
+Note: both for hard-margin and for soft-margin SVM, the dual formulation is very technical, so it is skipped in [[id:5DBB8E16-9374-41ED-A69C-A9B38EE00650][INF264]]a. A detailed derivation is described [[http://cs229.stanford.edu/notes2021fall/cs229-notes3.pdf][here]].
+#+end_quote
+
+Large values of $C$ penalize misclassifications heavily, so it converges towards the hard-margin case as much as possible.
+
+#+DOWNLOADED: screenshot @ 2026-09-18 09:30:00
+#+attr_org: :width 400px
+[[file:./assets/Introduction/20260918093000_screenshot.png]]
+
+** Kernel SVMs
+
+Kernel SVMs are the most used formulations of SVM. While soft-margin SVMs work well for (nearly) linearly separable data, kernel SVMs can handle non-linearly separable data. Consider the following example:
+
+#+DOWNLOADED: screenshot @ 2026-09-18 09:32:43
+#+attr_org: :width 200px
+[[file:./assets/Introduction/20260918093243_screenshot.png]]
+
+Just like with non-linearities in [[id:71FA1C7C-C5A9-4272-8B01-9300CD5EF306][linear models]], we will use /basis functions/ to project data into higher-dimensional spaces:
+
+#+DOWNLOADED: screenshot @ 2026-09-18 09:33:44
+#+attr_org: :width 400px
+[[file:./assets/Introduction/20260918093344_screenshot.png]]
+
+In this higher-dimensional feature space, we can now find a hyperplane that separates the data points.
+
+#+begin_quote
+*Cover's theorem*: transforming data that is not linearly separable in the input space into a higher-dimensional space makes it more likely to become linearly separable.
+#+end_quote
+
+Applying a non-linear transform to the data: $\phi : \mathbb{R}^d \rightarrow R^{d'}$
+
+#+begin_quote
+The only downside to this is that as $d$ becomes larger, it requires more and more computation.
+#+end_quote
+
+Then the dual problem we need to solve is:
+
+\begin{aligned}
+& \max_{\alpha} \sum_{i = 1}^n - \frac{1}{2} \sum_{i = 1}^n \sum_{j = 1}^n \alpha_i \alpha_j y_i y_j \phi(\operatorname{ub}(x)_i)^T \phi(\operatorname{ub}(x)_j) \\
+ & \text{subject to} \sum_i \alpha_i y_i = 0 \\
+ & \text{and} \alpha_i \geq 0 \forall i = 1 , \ldots , n
+\end{aligned}
+
+Once learned, we will predict with:
+
+\[
+f\left(\operatorname{ub}(x)\right) = \text{sign} \left(\operatorname{ub}(w)^T \phi(\operatorname{ub}(x)) + b\right)
+\]
+
+where $\operatorname{ub}(w)$ has been computed as
+
+\[
+\operatorname{ub}(w) = \sum_{i = 1}^n \alpha_i y_i \phi(\operatorname{ub}(x)_i)
+\]
+
+Replacing $w$ in the prediction:
+
+\[
+f\left(\operatorname{ub}(x)\right) = \text{sign} \left(\sum_{i = 1}^n \alpha_i y_i \phi(\operatorname{ub}(x)_i)^T \phi(\operatorname{ub}(x)_j) + b\right)
+\]
+
+*** The kernel trick
+
+We can see that both in learning and in prediction, it depentd on the inner product of $\phi(\operatorname{ub}(x)_i)$ and $\phi(\operatorname{ub}(x)_j)$. In other words, we don't care about $\phi(\operatorname{ub}(x))$ directly, but only about the /inner product/. The *kernel trick* states that if you only care about the inner product, it might be possible to compute the inner product directly, without projecting to higher-dimensional space. A *kernel function* is a computationally efficient function
+
+\[
+K\left(\operatorname{ub}(x), \operatorname{ub}(z)\right) = \phi(\operatorname{ub}(x))^T \phi(\operatorname{ub}(z))
+\]
+
+which skips the projection into high-dimensional feature space $\mathbb{R}^{d'}$.
+
+#+DOWNLOADED: screenshot @ 2026-09-18 09:43:17
+#+attr_org: :width 300px
+[[file:./assets/Introduction/20260918094317_screenshot.png]]
+
+The method with projecting to a higher-dimensional space has a bottleneck in that it may be computationally expensive to evaluate a high dimensional space. THe kernel shortcut goes to the solution directly without explicitly computing the high dimensional representation ($\mathbb{R}^{d'} \times \mathbb{R}^{d'}$). This makes it possible to compute an inner product in a high-dimensional feature space even when $d' = \infty$.
+
+*** Summary
+
+With a basis function $\mathbb{R}^d \rightarrow \mathbb{R}^{d'}$, we can always project the data into a new feature space, but computational complexity depends on $d'$.
+
+With a kernel function $\mathbb{R}^d \times \mathbb{R}^d \rightarrow \mathbb{R}$ however, we do not need to specify the underlying feature space. This means that computational complexity is independent from $d'$ of the underlying feature space. It does however only work when the algorithm depends on inner products, so its applications are not as broad as basis functions. Hence, we will choose kernels $K$ and not basis functions $\phi$ for SVMs.
+
+*** Example
+
+Let the data be of the form $\operatorname{ub}(x) = \left(x_1 , x_2\right)^T$.
+
+Assume we want to use the basis function $\phi(\operatorname{ub}(x)) = \left(x_1^2 , \sqrt{2} x_1 x_2 , x_2^2\right)^T$. 
+
+We will compute the inner product in the feature space:
+
+\begin{aligned}
+\phi(\operatorname{ub}(x))^T \phi(z) & = \left(x_1^2 , \sqrt{2} x_1 x_2 , x_2^2\right)\left(z_1^2 , \sqrt{2} z_1 z_2 , z_2^2\right)^T \\
+ & = x_1^2 z_1^2 + 2 x_1 x_2 z_1 z_2 + x_2^2 z_2^2 \\
+ & = \left(x_1 z_1 + x_2 z_2\right)^2 \\
+ & = \left(\operatorname{ub}(x)^T \operatorname{ub}(z)\right)^2
+\end{aligned}
+
+Then, computing the inner product in feature space is equivalent to computing teh kernel in the original space:
+
+\[
+K\left(\operatorname{ub}(x), \operatorname{ub}(z)\right) = \left(\operatorname{ub}(x)^T \operatorname{ub}(z)\right)^2
+\]
+
+*** Does a kernel always exist?
+
+We can not alwyas find a computationally efficient kernel $K$ for every basis function $\phi$. Furthermore, not every function $K : \mathbb{R}^d \times \mathbb{R}^d \rightarrow \mathbb{R}$ is a /valid/ kernel (corresponging to an inner product in a high-dimensional space). The *mercer condition* specifies when $K$ is a valid kernel.
+
+*** Common kernel functions
+
+Usually, one uses a standard set of kernel functions:
+
++ Linear kernel: $K\left(\operatorname{ub}(x), \operatorname{ub}(z)\right) = \operatorname{ub}(x)^T \operatorname{ub}(z)$
++ Polynomial kernel: $K\left(\operatorname{ub}(x), \operatorname{ub}(z)\right) = \left(1 + \operatorname{ub}(x)^T \operatorname{ub}(z)\right)^k$
++ Gaussian kernel: $K\left(\operatorname{ub}(x), \operatorname{ub}(z)\right) = e^{- \gamma \left|\left|\operatorname{ub}(x) - \operatorname{ub}(z)\right|\right|^2}$
++ Exponential kernel: $K\left(\operatorname{ub}(x), \operatorname{ub}(z)\right) = e^{- \gamma \left|\left|\operatorname{ub}(x) - \operatorname{ub}(z)\right|\right|}$
++ Kernels are often also constructed for other types of objects such as strings or graphs.
+
+Given valid kernels $K_1$ and $K_2$, $a > 0$, and $f$ any function, the following are valid kernels:
+
++ $K\left(\operatorname{ub}(x), \operatorname{ub}(z)\right) = \phi(\operatorname{ub}(x))^T \phi(\operatorname{ub}(z))$
++ $K\left(\operatorname{ub}(x), \operatorname{ub}(z)\right) = K_1 \left(\operatorname{ub}(x), \operatorname{ub}(z)\right) + K_2 \left(\operatorname{ub}(x), \operatorname{ub}(z)\right)$
++ $K\left(\operatorname{ub}(x), \operatorname{ub}(z)\right) = a K_1 \left(\operatorname{ub}(x), \operatorname{ub}(z)\right)$
++ $K\left(\operatorname{ub}(x), \operatorname{ub}(z)\right) = K_1 \left(\operatorname{ub}(x), \operatorname{ub}(z)\right) K_2 \left(\operatorname{ub}(x), \operatorname{ub}(z)\right)$
++ $K\left(\operatorname{ub}(x), \operatorname{ub}(z)\right) = f\left(\operatorname{ub}(x)\right) K_1 \left(\operatorname{ub}(x), \operatorname{ub}(z)\right) f\left(\operatorname{ub}(z)\right)$
+
+If we want to use a very specific kernel, we will usually construct it based on the basic ones, rather than deriving it from scratch.
+
+*** Pros and cons
+
+Pros:
++ High accuracy and flexibility
++ Robust to outliers
+
+Cons:
++ Computationally heavy for large data sets - computing the kernels takes $O\left(n^2\right)$.
++ Does not give probability estimates
++ Sensitive to changes in support vectors
+
+* Sources
+
++ INF264, lecture =ML7= (2026-09-18)

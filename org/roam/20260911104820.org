@@ -53,6 +53,10 @@ Bevegelse i to dimensjoner fungerer stort sett på samme måte som i én dimensj
 Vi bruker vanligvis $F = |\overrightarrow{F}|$ når vi skal skrive magnituden til vektoren.
 #+end_quote
 
+#+begin_quote
+Merk at i newtons første lov står det ikke $\left|\operatorname{va}(v)\right|$ er konstant, men $\operatorname{va}(v)$ er konstant. Det vil si at for eksempel i en sirkelbevegelse der $v$ er konstant, er likevel $\operatorname{va}(v)$ i endring, siden akselerasjonen endrer vinkel hele tiden.
+#+end_quote
+
 Man velger vanligvis det koordinatsystemet som gjør det enklest mulig å beskrive bevegelsen matematisk. For bevegelse i én dimensjon er det derfor vanlig å velge $x$-aksen parallelt med bevegelsen. Om vi betrakter følgende eksempel:
 
 #+DOWNLOADED: screenshot @ 2026-09-11 11:18:31
