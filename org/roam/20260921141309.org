@@ -1,0 +1,216 @@
+:PROPERTIES:
+:ID:       F23D4DC6-C3AC-4EA4-9394-9D05FBDAB0E7
+:END:
+#+title: Divide & Conquer
+#+created: [2026-09-21 Mon 14:13]
+#+last_modified: [2026-09-21 Mon 14:13]
+#+filetags: :inf234:
+
+Part of [[id:7248FCAE-E47D-4C5D-BFCD-C54DECE24BA1][INF234]]
+
+* Introduction
+
+This is a technique used to optimize solutions. It divides the search space into two or more equal parts, then solves each part recursively. The results are combined in order to find the full solution.
+
+** Merge sort
+
+*Sorting:* Given an array $A$ of $n$ integers, rearrange them in ascending order.
+
+Merge sort is an algorithm that leverades the divide & conquer method to efficiently solve this problem.
+
+1. Split the array in the middle
+2. Sort each part recursively
+3. Merge the sorted halves in linear time
+
+[[file:./assets/merge-sort-src.svg]]
+
+*** Merging
+
+Given sorted arrays $B$ and $C$ of total length $n$, combine them into a sorted sequence.
+
+*Algorithm*: /Two pointers/. Put a pointer at the start of each array. Compare the two elements and add the smallest. Advance the respective pointer and repeat.
+
+*Lemma*: There exists a linear-time algorithm for the merging problem.
+
+#+begin_src typst
+  #pseudocode-list[
+    - merge($B$, $C$):
+      - $n_B$ = length($B$), $n_c$ = length($C$)
+      - $A$ = empty list
+      - $i = 0$, $j = 0$
+      - while $i < n_B$ or $j < n_C$:
+        - if $B\left[i\right] \leq C\left[i\right]$:
+          - append $B\left[i\right]$ to $A$, $+ + i$
+        - else:
+          - append $C\left[j\right]$ to $A$, $+ + j$
+      - return $A$
+  ]
+#+end_src
+
+#+RESULTS:
+[[file:/var/folders/84/x1tlmq412hlg_x13jz0dc4f00000gn/T/babel-durvch/org-babel-typst4fPrdi.svg]]
+
+*** Running time
+
+*Theorem*: Merge sort runs in time $O\left(n \log n\right)$.
+
++ The recursion tree has depth $\left\lceil \log_2 n\right\rceil$.
+  * depth $0$: $1$ subproblem, length $n$
+  * depth $d$: $2^d$ subproblems, each of length $\frac{n}{2^d}$
+  * depth $\left\lceil \log_2 n\right\rceil$: $n$ subproblems, each of length $1$
++ One sorting iteration takes time $c \cdot \text{length}\left(A\right)$ for splitting then marging the lists
++ The total running time at depth $d$ is $2^d \cdot c \cdot \left\lceil \frac{n}{2^d}\right\rceil \leq 2 \cdot c \cdot n$
++ Then, the total running time will be $\left\lceil \log_2 n\right\rceil \cdot 2 \cdot c \cdot n = O\left(n \log n\right)$
+
+
+** Recursive running times
+
+*** Proof by substitution
+
+Let $T\left(n\right)$ be the running time on inputs of length $n$.
+
++ If we split into two equal parts, and spend at most $c \cdot n$ for each call, we have $T\left(n\right) \leq 2 \cdot T\left(\frac{n}{2}\right) + c \cdot n$.
++ *Lemma*: Let $T\left(n\right) \leq 2 \cdot T\left(\frac{n}{2}\right) + c \cdot n$ and $T\left(2\right) \leq c$. Then, $\forall n \geq 2 , \; T\left(n\right) \leq c \cdot n \log_2 n$
++ *Proof by induction*:
+  * Base $n = 2 : T\left(2\right) \leq c \leq c \cdot 2 \log_2 2 = 2 c$
+  * Assume for each $m > n$ it holds that $T\left(m\right) \leq c \cdot m \log_2 m$:
+
+\begin{aligned}
+T\left(n\right) &\leq 2 \cdot T\left(\frac{n}{2}\right) + c \cdot n \\
+ & \leq 2 \cdot c \cdot \left(\frac{n}{2}\right) \log_2 \left(\frac{n}{2}\right) + c \cdot n & \text{by induction} \\
+ & \leq c \cdot n \cdot \left(\log_2 n - 1\right) + c \cdot n = n \log_2 n
+\end{aligned}
+
+*Corollary*: Let $T\left(n\right) = 2 \cdot T\left(\frac{n}{2}\right) + O\left(n\right)$. Then, $T\left(n\right) = O\left(n \log n\right)$
+
+*** Proof by unravelling
+
+*Lemma*: Let $T\left(n\right) \leq 2 \cdot T\left(\frac{n}{2}\right) + c \cdot n$ and $T\left(2\right) \leq c$. Then, $T\left(n\right) \leq c \cdot n \log_2 n$ for $n \geq 2$.
+
++ The recursion tree has $\log_2 n levels$, each with $2^d$ subproblems of length $\frac{n}{2^d}$.
++ Each call has overhead $c dot "length"
++ The total running time at depth $d$ is $2^d \cdot c \cdot \frac{n}{2^d} \leq c \cdot n$
++ Hence, the total running time is $c \cdot n \log_2 n$.
+
+*Corollary*: Let $T\left(n\right) = 2 \cdot T\left(\frac{n}{2}\right) + O\left(n\right)$. Then, $T\left(n\right) = O\left(n \log n\right)$.
+
+
+#+DOWNLOADED: screenshot @ 2026-09-21 15:34:57
+#+attr_org: :width 250px
+[[file:./assets/Introduction/20260921153457_screenshot.png]]
+
+
+*** Example: quadratic merge
+
+*Lemma*: Let $T\left(n\right) = 2 \cdot T\left(\frac{n}{2}\right) + O\left(n^2\right)$. Then $T\left(n\right) = O\left(n^2\right)$.
+
+#+begin_quote
+This differs from the previous examples because the merging step takes quadratic time instead of being linear.
+#+end_quote
+
++ The recursion tree has $\log_2 n + 1$ levels. Each depth $d$ has $2^d$ subproblems, of length $\frac{n}{2^d}$.
++ The total running time at depth $d$ is $2^d \cdot c \cdot \left(\frac{n}{2^d}\right)^2 = c \cdot \frac{n^2}{2^d}$
+   This means that the running time of each layer decreases as $d$ increases.
++ Thus, the total running time is
+
+\[
+c \cdot n^2 \cdot \sum_{d = 0}^{\log_2 n} \frac{1}{2^d} \leq 2 \cdot c \cdot n^2 = O\left(n^2\right)
+\]
+
+*** Example: a single branch
+
+*Lemma*: Let $T\left(n\right) = T\left(\frac{n}{2}\right) + O\left(n\right)$. Then $T\left(n\right) = O\left(n\right)$.
+
++ The recursion tree has $\log_2 n + 1$ levels. Each level with depth $d$ has 1 subproblem, with length $\frac{n}{2^d}$.
++ The total running time at depth $d$ is $c \cdot \frac{n}{2^d}$.
++ The total running time is
+
+\[
+c \cdot n \cdot \sum_{d = 0}^{\log_2 n} \frac{1}{2^d} \leq 2 \cdot c \cdot n = O\left(n\right)
+\]
+
+An example of this is finding the median in $O\left(n\right)$ using a quickselect method inspired by quicksort.
+
+*** Example: three branches
+
+*Lemma*: Let $T\left(n\right) = 3 \cdot T\left(\frac{n}{2}\right) + O\left(n^2\right)$. Then, $T\left(n\right) = O\left(n^{\log_2 3}\right)$.
+
+#+begin_quote
+Here, we for each iteration make $3$ branches of size $\frac{n}{2}$.
+#+end_quote
+
+
++ The recursion tree has $\log_2 n + 1$ levels.
+  * Depth $0$: 1 subproblem, length $n$
+  * Depth $d$: $3^d$ subproblems of length $\frac{n}{2^d}$.
+  * Depth $\log_2 n$: $3^{\log_2 n}$ subproblems of length $1$.
++ The total running time at depth $d$ is $3^d \cdot c \cdot \frac{n}{2^d} = c \cdot n \cdot \left(\frac{3}{2}\right)^d$
++ The overall total running time is
+
+\begin{aligned}
+c \cdot n \cdot \sum_{d = 0}^{\log_2 n} \left(\frac{3}{2}\right)^d & = O\left(n \cdot \left(\frac{3}{2}\right)^{\log_2 n}\right) \\
+ & = O\left(n \cdot n^{\log_2 \frac{3}{2}}\right) \\
+ & = O\left(n \cdot n^{\log_2 3 - 1}\right) \\
+ & = O\left(n^{\log_2 3}\right)
+\end{aligned}
+
+#+begin_quote
+This is because in $\frac{a}{b}$, when $a > b$, we know that the sum will be growing, and if we know the value of the last item in the series, the sum has to be less than or equal to twice this item.
+#+end_quote
+
+
+*** General case
+
+Let $T\left(n\right) = a \cdot T\left(\frac{n}{b}\right) + O\left(n^d\right)$ and $T\left(2\right) \leq c$ with $a > 0 , b > 1 , d \geq 0$.
+
++ The recursion tree has $\log_b n + 1$ layers:
+  * Depth $0$: $1$ subproblem of length $n$
+  * Depth $j$: $a^j$ subproblems of length $\frac{n}{b^j}$
+  * Depth $\log_b n$: $a^{\log_b b}$ subproblems of length $1$.
++ The total running time at depth $j$ is $a^j \cdot c \cdot \left(\frac{n}{b^j}\right)^d = c \cdot n^d \cdot \left(\frac{a}{b^d}\right)^j$
++ The overall running time is
+
+\[
+c \cdot n^d \cdot \sum_{j = 0}^{\log_b n} \left(\frac{a}{b^d}\right)^j
+\]
+
+*** Master theorem
+
++ Case 1: $a < b^d$
+
+\[
+c \cdot n^d \cdot \sum_{j = 0}^{\log_b n} \left(\frac{a}{b^d}\right)^j = O\left(n^d \cdot \frac{a}{b^d}\right) = O\left(n^d\right)
+\]
+
++ Case 2: $a = b^d$
+
+\[
+c \cdot n^d \cdot \sum_{j = 0}^{\log_b n} \left(\frac{a}{b^d}\right)^j = O\left(\log_b n \cdot n^d\right)
+\]
+
++ Case 3: $a > b^d$
+
+\[
+c \cdot n^d \cdot \sum_{j = 0}^{\log_b n} \left(\frac{a}{b^d}\right)^j = O\left(n^d \cdot \left(\frac{a}{b^d}\right)^{\log_b n}\right) = O\left(n^d \cdot n^{\log_b a - d}\right) = O\left(n^{\log_b a}\right)
+\]
+
+#+begin_quote
+*Theorem*:  Let $T\left(n\right) = a \cdot T\left(\frac{n}{b}\right) + O\left(n^d\right)$ and $T\left(2\right) \leq c$ with $a > 0 , b > 1 , d \geq 0$. Then,
+
+\[
+T\left(n\right) = \begin{cases}
+ O\left(n^d\right) \quad & \text{if} d > \log_b a \\
+ O\left(n^d\right) \log n \quad & \text{if} d = \log_b a \\
+ O\left(n^{\log_b a}\right) \quad & \text{if} d < \log_b a
+\end{cases}
+\]
+
+#+end_quote
+
+**** Examples
+
++ Merge sort: $a = 2 , b = 2 , d = 1 \Rightarrow O\left(n \log n\right)$
++ Median: $a = 1 , b = 2 , d = 1 \Rightarrow O\left(n\right)$
++ Binary search: $a = 1 , b = 2 , d = 0 \Rightarrow O\left(\log n\right)$
++ Integer multiplication (Karatsuba): $a = 3 , b = 2 , d = 1 \Rightarrow O\left(n^{\log_2 3}\right)$
++ Matrix multiplication (Strassen): $a = 7 , b = 2 , d = 2 \Rightarrow O\left(n^{\log_2 7}\right)$

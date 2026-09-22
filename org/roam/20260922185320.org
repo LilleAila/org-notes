@@ -1,0 +1,90 @@
+:PROPERTIES:
+:ID:       96B50260-9B1E-4151-884D-84C557F060FA
+:END:
+#+title: Kjerneregelen
+#+created: [2026-09-22 Tue 18:53]
+#+last_modified: [2026-09-22 Tue 18:53]
+#+filetags: :mat111:
+
+* Introduksjon
+
+Kjerneregelen er en regel for [[id:50396CED-7F80-4745-B660-EC2277B3D3CF][derivasjon]]. Den kan skrives som følger med lagrange-notasjon:
+
+\[
+f\left(g\left(x\right)\right)' \left(x\right) = f'\left(g\left(x\right)\right) \cdot g'\left(x\right)
+\]
+
+Med leinbiz-notasjon, har vi:
+
+\begin{aligned}
+u & = g\left(x\right) \\
+ y & = f\left(g\left(x\right)\right) = f\left(u\right) \\
+ \frac{\mathrm{d} y}{\mathrm{d} x} & = \frac{\mathrm{d} y}{\mathrm{d} u} \frac{\mathrm{d} u}{\mathrm{d} x}
+\end{aligned}
+
+** Eksempel 1
+
+#+begin_quote
+
+\[
+\frac{\mathrm{d}}{\mathrm{d} x} \sqrt{\sin x}
+\]
+
+#+end_quote
+
+\begin{aligned}
+u & = \sin x \\
+ \frac{\mathrm{d} u}{\mathrm{d} x} & = \cos x \\
+ \frac{\mathrm{d} y}{\mathrm{d} x} & = \frac{\mathrm{d} y}{\mathrm{d} u} \frac{\mathrm{d} u}{\mathrm{d} x} \\
+ & = \frac{\mathrm{d}}{\mathrm{d} u} \sqrt{x} \cdot \frac{\mathrm{d} u}{\mathrm{d} x} \\
+ & = \frac{1}{2 \sqrt{u}} \cdot \frac{\mathrm{d} u}{\mathrm{d} x} \\
+ & = \frac{1}{2 \sqrt{\sin u}} \cdot \cos x \\
+ & = \frac{\cos x}{2 \sqrt{\sin u}}
+\end{aligned}
+
+** Eksempel 2
+
+#+begin_quote
+
+\[
+\frac{\mathrm{d}}{\mathrm{d} x} \frac{1}{\left(a + b x\right)^n}
+\]
+
+#+end_quote
+
+\begin{aligned}
+u & = a + b x \\
+ \frac{du}{dx} & = b \\
+ \frac{dy}{dx} & = \frac{\mathrm{d}}{dx} u^{- m} \\
+ & = \frac{\mathrm{d}}{du} u^{- m} \frac{du}{dx} \\
+ & = - m u^{- m - 1} b \\
+ & = - \frac{m b}{\left(a + b x\right)^{m + 1}}
+\end{aligned}
+
+** Eksempel 3
+
+#+begin_quote
+Vi blåser opp en sirkulær ballong. I det radien er $5 \operatorname{unit}(c m)$, øker den med $0.2 \operatorname{unit}(\frac{c m}{s})$. Hvor raskt øker volumet da?
+#+end_quote
+
+\begin{aligned}
+R & = R\left(t\right) = \text{radius ballong} \\
+ V & = \frac{4}{3} \pi R^3 \\
+ & = V\left(R\right) = V\left(R\left(t\right)\right)
+\end{aligned}
+
+Vet $R\left(0\right)$ og $R'\left(0\right)$. Kan da finne $V'\left(t\right)$
+
+\begin{aligned}
+\frac{dV}{dt} & = \frac{dV}{dR} \frac{dR}{dt} \\
+ & = \frac{4}{3} \pi \cdot 3 R^3 \cdot \frac{dR}{dt} \\
+ & = 4 \pi \cdot R^2 \cdot \frac{dR}{dt}
+\end{aligned}
+
+Setter inn startverdiene $R = 5$ og $\frac{dR}{dt} = 0.2$. Får da
+
+\begin{aligned}
+\frac{dV}{dt} & = 4 \pi R^2 \frac{dR}{dt} \\
+ & = 4 \pi \cdot 5^2 \cdot 0.2 \\
+ & = 20 \pi \; \operatorname{unit}(\text{cm}^2 \text{s}^{-} 1)
+\end{aligned}

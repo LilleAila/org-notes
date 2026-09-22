@@ -1,0 +1,33 @@
+:PROPERTIES:
+:ID:       5B497D98-5F08-48D3-8933-7C0D798F6E77
+:END:
+#+title: Notasjoner for den deriverte
+#+created: [2026-09-22 Tue 20:51]
+#+last_modified: [2026-09-22 Tue 20:51]
+#+filetags: :mat111:
+
+* Lagrange-notasjon
+
+Dette er notasjonen som blir brukt mest i matte på videregående skole. Man skriver den deriverte som følger:
+
+\[
+f'\left(x\right)
+\]
+
+* Leibniz-notasjon
+
+Denne brukes mye oftere enn Lagrange-notasjonen i fysikk og i matematikk på høyere nivå. Fra [[id:7E583AF3-E610-472A-AF5B-80EDA45A794A][MAT111]] foretrekkes denne. En annen fordel er at denne eksplisitt skriver hvilken variabel man deriverer med hensyn til. Den skrives som følger:
+
+\[
+\frac{dy}{dx}
+\]
+
+Denne gjør det ofte enklere å jobbe med, og [[id:96B50260-9B1E-4151-884D-84C557F060FA][kjerneregelen]] gjøres blant annet mye enklere:
+
+\begin{aligned}
+y & = f\left(g\left(x\right)\right) \\
+ u & = g\left(x\right) \\
+ \frac{dy}{dx} & = \frac{dy}{du} \frac{du}{dx}
+\end{aligned}
+
+Selv om dette ser ut som en brøk er det viktig å huske at dette likevel ikke er en brøk, selv om det kan se slik ut. I mange tilfeller kan man ta "snarveier" ved å tolke den som en brøk, men dette blir feil fremgangsmåte og gir ikke alltid riktige svar.

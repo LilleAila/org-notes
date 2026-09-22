@@ -1,0 +1,132 @@
+:PROPERTIES:
+:ID:       B968024E-0066-41BF-9B80-00AC03EB12A6
+:END:
+#+title: Derivasjon av trigonometriske funksjoner
+#+created: [2026-09-21 Mon 13:26]
+#+last_modified: [2026-09-21 Mon 13:26]
+#+filetags: :mat111:
+
+* Introduksjon
+
+[[id:50396CED-7F80-4745-B660-EC2277B3D3CF][Derivasjon]] av trigonometriske funksjoner
+
+** Bevis
+
+Vi vil vise at (teorem 9)
+
+\begin{aligned}
+1 & : \frac{\mathrm{d}}{\mathrm{d} x} \sin x = \cos x
+\end{aligned}
+
+#+begin_quote
+Dette medfører at $\sin x$ er kontinuerlig (siden den er deriverbar). Merk at $x$ er i radianer.
+#+end_quote
+
+Da trenger vi
+
+\begin{aligned}
+2 & : \lim_{x \rightarrow 0} \frac{\sin x}{x} = 1 \\
+ 3 & : \lim_{x \rightarrow 0} \frac{\cos x - 1}{x} = 0
+\end{aligned}
+
+*** Bevis på $1$
+
+Bevis på dette gitt $2$ og $3$.
+
+\begin{aligned}
+\frac{\mathrm{d}}{\mathrm{d} x} \sin x & = \lim_{h \rightarrow 0} \frac{\sin \left(x + h\right) - \sin x}{h} \\
+ & = \lim_{h \rightarrow 0} \frac{\sin x \cos h + \sin h \cos x - \sin x}{h} \\
+ & = \lim_{h \rightarrow 0} \left(\sin x \frac{\cos h - 1}{h} + \cos x \frac{\sin h}{h}\right) \\
+ & = \sin x \cdot 0 + \cos x \cdot 1 \\
+ & = \cos x
+\end{aligned}
+
+*** Bevis på $2$ og $3$.
+
+La $x \in \left(- \frac{\pi}{2} , 0\right) \cup \left(0 , \frac{\pi}{2}\right)$, det vil si $0 < \left|x\right| < \frac{\pi}{2}$ (altså en punktert omegn).
+
+Vi vil utlede følgende ulikheter:
+
+\[
+1 - \left|x\right| \leq \cos x \leq \frac{\sin x}{x} \leq \sqrt{\left(\frac{\sin x}{x}\right)^2 + \left(\frac{1 - \cos x}{x}\right)^2} \leq 1
+\]
+
+Vi har at uttrykket til venstre, $x \rightarrow 0 \Rightarrow 1 - x \rightarrow 1$, mens det til høyre er konstant $1$. Dermed går alle leddene mot $1$, ved skviseteoremet. Siden $\frac{\sin x}{x} \rightarrow 1$, må da $\frac{1 - \cos x}{x} \rightarrow 0$ i kvadratroten. Altså gir dette de to grensene $2$ og $3$ som vi brukte over.
+
+-----
+
+Starter ved å tegne en enhetssirkel. Vi har at $x$ ligger i høyre halvdel. Buelengden i enhetssirkelen er da lik $\left|x\right|$, ved definisjonen av radianer og enhetssirkelen. Setter vi opp en rettvinklet trekant, får vi da at den hosliggende kateten har lengde $\cos x$, mens den motstående har lengde $\left|\sin x\right|$.
+
+Lager videre en ny trekant der den hosliggende kateten har lengde $1$ ved å legge til den resterende $1 - \cos x$ fra x-aksen i enhetssirkelen. Høyden til den nye trekanten er da $\left|\tan x\right| = \left|\frac{\sin x}{\cos x}\right|$. Videre har vi da en til trekant med lengde $1 - \cos x$ og høyde $\left|\sin x\right|$.
+
+#+DOWNLOADED: screenshot @ 2026-09-21 13:43:52
+#+attr_org: :width 300px
+[[file:./assets/20260921134352_screenshot.png]]
+
+#+DOWNLOADED: screenshot @ 2026-09-21 13:44:38
+#+attr_org: :width 150px
+[[file:./assets/20260921134438_screenshot.png]]
+
+I den siste tekanten har vi $d^2 = \sin^2 x + \left(1 - \cos x\right)^2 \leq x^2$, der $\left|x\right|$ er buelengden, som alltid er større enn eller lik hypotenusen, altså den korteste avstanden mellom de to punktene. Deler på $x^2$ og får da
+
+\begin{aligned}
+A & : \left(\frac{\sin x}{x}\right)^2 + \left(\frac{1 - \cos x}{x}\right)^2 \leq 1 \\
+ & \Rightarrow \left|\frac{1 - \cos x}{x}\right| \leq 1 \\
+ & \Rightarrow \left|1 - \cos x\right| \leq x $
+\end{aligned}
+
+Løser videre opp absoluttverditegnet siden uttrykket alltid blir positivt:
+
+\begin{aligned}
+0 < \left|x\right| < \frac{\pi}{2} & \Rightarrow \cos x \geq 0 \\
+ & \cos x \leq 1 \\
+ \left|1 - \cos x\right| & \leq \left|x\right| $
+\end{aligned}
+
+Og dermed:
+
+\begin{aligned}
+B : 1 - \left|x\right| & \leq \cos x
+\end{aligned}
+
+Finner til slutt $C$:
+
+Arealet til sirkelsektoren $\leq$ arealet til den store trekanten (med høyde $\tan x$)
+
+\begin{aligned}
+\text{areal sirkelsektor} & = \pi r^2 \frac{\left|x\right|}{2 \pi} \\
+ & = \pi \frac{\left|x\right|}{2 \pi} \\
+ \text{areal trekant} & = \frac{1}{2} \cdot g \cdot h \\
+ & = \frac{1}{2} \left|\tan x\right| \\
+ & = \frac{1}{2} \frac{\left|\sin x\right|}{\left|\cos x\right|}
+\end{aligned}
+
+Setter opp ulikheten
+
+\begin{aligned}
+\pi \frac{\left|x\right|}{2 \pi} & \leq \frac{1}{2} \frac{\left|\sin x\right|}{\left|\cos x\right|} \\
+ \left|x\right| & \leq \frac{\left|\sin x\right|}{\left|\cos x\right|} \\
+ \left|\cos x\right| & \leq \left|\frac{\sin x}{x}\right|
+\end{aligned}
+
+Videre vet vi at $\cos x > 1$ gitt definisjonsmengden samt at både $\sin x$ og $x$ har samme fortegn. Kan dermed skrive
+
+\[
+C : \cos x \leq \frac{\sin x}{x}
+\]
+
+Setter vi sammen $A$, $B$ og $C$, får vi den ulikheten vi hadde i starten, altså har vi vist at $\frac{\mathrm{d}}{\mathrm{d} x} \sin x = \cos x$.
+
+** Eksempel
+
+#+begin_quote
+Finn $c$ slik at $f\left(x\right) = \begin{cases}
+ \frac{\sin x}{x} & \text{,} x \neq 0 \\
+ c & \text{,} x = 0
+\end{cases}$, er kontinuerlig
+#+end_quote
+
+$x \neq 0$: $f$ er en kvotient av kontinuerlige funksjoner. Dermed er $f$ kontinuerlig for $x \neq 0$.
+$x = 0$: $\operatorname{dlim}(x \rightarrow 0) f\left(x\right) = f\left(0\right)$ $\Leftrightarrow$ f er kontinuerlig i $0$
+
+Vi får da $\operatorname{dlim}(x \rightarrow 0) \frac{\sin x}{x} = 1$ som vist ved $2$ ovenfor. Dermed har vi at $f\left(x\right)$ er kontinuerlig i $0$ $\Leftrightarrow$ $c = 1$.

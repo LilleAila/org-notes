@@ -1,0 +1,109 @@
+:PROPERTIES:
+:ID:       EE78FA8D-69E5-4E5E-A36A-65E3E34D75EF
+:END:
+#+title: Høyere ordens deriverte
+#+created: [2026-09-22 Tue 19:18]
+#+last_modified: [2026-09-22 Tue 19:18]
+#+filetags: :mat111:
+
+(seksjon 2.6 i boken)
+
+* Introduksjon
+
+Høyere ordens [[id:50396CED-7F80-4745-B660-EC2277B3D3CF][deriverte]]. Vi har:
+
+\begin{aligned}
+f & : D\left(f\right) \rightarrow \mathbb{R} \\
+ f' & : D\left(f'\right) \rightarrow \mathbb{R} , D\left(f'\right)= \left\{D\left(f\right) | f \; \text{er deriverbar i} \; x\right\} \\
+ & = \frac{df}{dx}
+\end{aligned}
+
+Videre kan vi skrive
+
+\[
+f''\left(x\right) = \left(f'\right)' = \frac{\mathrm{d}}{dx} \frac{df}{dx} = \frac{\mathrm{d}^2 f}{\mathrm{d} x^2}
+\]
+
+For den dobbeltderiverte, og for den $n$-te deriverte kan vi da skrive
+
+\[
+f \overbrace{'' \text^{\cdots} '}{n \; \text{ganger}} = f^{\left(n\right)} = \frac{\mathrm{d}^n f}{\mathrm{d} x^n}
+\]
+
+Vi har også definert $f^{\left(0\right)} = f$.
+
+** Eksempel 1: strekning
+
+Har gitt tid $t$ og $s\left(t\right)$ som tilbakelagt veilengde ved tid $t$. Da har vi:
+
++ $s'\left(t\right) = v\left(t\right) = \text{fart}$
++ $s''\left(t\right) = a\left(t\right) = \text{akselerasjon}$
+
+** Eksempel 2
+
+#+begin_quote
+
+\[
+f\left(x\right) = \frac{1}{a + b x}
+\]
+
+Finn $f^{\left(n\right)} \left(x\right)$ for alle heltall $n \geq 1$.
+#+end_quote
+
+Finner først
+
+\begin{aligned}
+f^{\left(0\right)} \left(x\right) & = f\left(x\right) = \left(a + b x\right)^{- 1} \\
+ f' \left(x\right) & = \left(- 1\right) \left(a + b x\right)^{- 2} b \\
+ f'' \left(x\right) & = \left(- 1\right) \left(- 2\right) \left(a + b x\right)^{- 3} \cdot b^2 \\
+ f''' \left(x\right) & = \left(- 1\right) \left(- 2\right) \left(- 3\right) \left(a + b x\right)^{- 4} \cdot b^3 \\
+ f^{\left(4\right)} \left(x\right) & = \left(- 1\right) \left(- 2\right) \left(- 3\right) \left(- 4\right) \left(a + b x\right)^{- 5} \cdot b^4
+\end{aligned}
+
+Basert på dette tar vi en kvalifisert gjetning for $f^{\left(n\right)}$.
+
+\begin{aligned}
+f^{\left(n\right)} & = \left(- 1\right) \left(- 2\right) \cdots \left(- n\right) \left(a + b x\right)^{-\left(n + 1\right)} b^n , n \geq 1 \\
+ f^{\left(n\right)} & = \left(- 1\right)^n n ! b^n \left(a + b x\right)^{-\left(n + 1\right)}
+\end{aligned}
+
+(kaller denne påstanden $\left(*\right)$ videre)
+
+#+begin_quote
+
+\[
+n ! = \begin{cases}
+ 1 \cdot 2 \cdots n & \text{,} n \geq 1 \\
+ 1 & \text{,} n = 0
+\end{cases}
+\]
+
+Altså $n ! = 1 \cdot 2 \cdots n$ hvis $n\geq 1$, og $0 ! = 1$.
+#+end_quote
+
+Vi vil nå bruke induksjon til å vise at dette uttrykket er gyldig.
+
+Sjekker først for $n = 0$. Dette gir $f^{\left(0\right)} \left(x\right) = \left(a + b x\right)^{- 1}$.
+
+Antar så at $\left(*\right)$ er sann for $n = k$ der $k$ er et vilkårlig heltall $\geq 0$. Vi antar altså.
+
+\[
+\left(* *\right) \quad f^{\left(k\right)} \left(x\right) = \left(- 1\right)^k k ! b^k \left(a + b x\right)^{-\left(k + 1\right)}
+\]
+
+Vi vil da vise at $\left(*\right)$ også er sann for $f^{\left(k + 1\right)}$:
+
+\begin{aligned}
+f^{\left(k + 1\right)} \left(x\right) & = \left(f^{\left(k\right)} \left(k\right)\right)' \\
+ & = \left(- 1\right)^k k ! b^k \left(-\left(k + 1\right)\right) \left(a + b x\right)^{-\left(k + 2\right)} \left(b\right) \\
+ & = \left(- 1\right)^k k ! b^k \left(- 1\right) \left(k + 1\right) \left(b\right) \left(a + b x\right)^{-\left(k + 2\right)} \\
+ & = \left(- 1\right)^{k + 1} \left(k + 1\right)! \left(b^{k + 1}\right) \left(a + b x\right)^{-\left(k + 2\right)}
+\end{aligned}
+
+Sammenligner med resultatet hvis vi setter inn $k + 1$ i $\left(*\right)$:
+
+\begin{aligned}
+f^{\left(k + 1\right)} & = \left(- 1\right)^{k + 1} \left(k + 1\right)! b^{k + 1} \left(a + b x\right)^{-\left(k + 2\right)}
+\end{aligned}
+
+Ser at disse uttrykkene er like. Dermed har vi vist $\left(*\right)$ ved induksjon. Altså gjelder $\left(\ast\right)$ for alle $n \geq 0 , n \in \mathbb{N}$.

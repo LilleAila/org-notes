@@ -1,5 +1,6 @@
 :PROPERTIES:
 :ID:       50396CED-7F80-4745-B660-EC2277B3D3CF
+:ROAM_ALIASES: Derivasjon
 :END:
 #+title: Deriverbarhet
 #+created: [2026-09-04 Fri 19:16]
